@@ -8,3 +8,6 @@ def signin(request):
 
 def signup(request):
 	return render(request, 'signup/signup.html')
+
+def accepted(request):
+	return render(request, 'tradeslist/accepted/accepted.html')

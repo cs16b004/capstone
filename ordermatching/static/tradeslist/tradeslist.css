@@ -1,0 +1,32 @@
+/*.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+    overflow-x: hidden;
+}*/
+
+#sidebar-wrapper{
+	/*height: 100%;*/
+	min-height: 100vh;
+	width: 15%;
+	position: fixed;
+	left: 0;
+	background-color: #f1f1f1;
+	overflow-x: hidden;
+	padding-top: 20px;
+}
+
+#sidebar-wrapper li {
+	text-decoration: none;
+	font-size: 15px;
+	color: #818181;
+	display: block;
+	height: 10%;
+	display: inline-block;
+	margin: 1px;
+}
+
+#content-wrapper {
+	min-width: 100vw;
+	margin-left: 15%;
+}
