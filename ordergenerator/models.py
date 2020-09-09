@@ -10,15 +10,16 @@ class Order(models.Model):
     TYPE_CHOICES = [("LM", "Limit"),("MR","Market"),]
     CAT_CHOICES  = [("Buy","Buy"), ("Sell","Sell")]
     order_id           = models.UUIDField(editable=False, default=uuid.uuid4)
-    order_category     = models.CharField(blank=False, max_length=10, choices = CAT_CHOICES)
+    order_category     = models.CharField(null=False,blank=False, max_length=10, choices = CAT_CHOICES)
     order_time         = models.DateTimeField(editable=False, default=datetime.datetime.now)
-    order_quantity     = models.IntegerField(blank=False)
-    order_type         = models.CharField(blank=False, choices = TYPE_CHOICES, max_length=10)
-    order_price        = models.FloatField(blank=False)
-    No_extra           = models.BooleanField(blank=False)
+    order_quantity     = models.IntegerField(null=False, blank=False ,default =100)
+    order_type         = models.CharField(null=False,blank=False, choices = TYPE_CHOICES, max_length=10,default = "MR")
+    order_price        = models.FloatField(null=False,blank=False,default = 100)
+    No_extra           = models.BooleanField(null=False,blank=False,default = True)
     All_or_none        = models.BooleanField(null=True,blank=True)
     Minimum_fill       = models.IntegerField(null=True,blank=True)
     Disclosed_Quantity = models.IntegerField(null=True, blank=True)
+    user_id            = models.CharField(null=False, blank=False, max_length=100, default = 'YAUID')
     order_status       = models.CharField(editable=False, max_length=10, )
     
 class Generator:
@@ -55,7 +56,8 @@ class Generator:
                                "No_extra"           : self.noextra,\
                                "All_or_none"        : all_or_none,\
                                "Disclosed_Quantity" : dis_quant,\
-                               "Minimum_fill"       : Minimum_fill})
+                               "Minimum_fill"       : Minimum_fill,\
+                               "user_id"            : 'Generator'})
         #for order in order_list:
         #    print(order.order_id,order.order_time, order.order_price, order.order_quantity)
         return order_list 
