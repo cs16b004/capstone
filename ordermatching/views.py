@@ -47,7 +47,7 @@ def signupView(request):
             user1 = UserSignup.objects.create(username = user_name,firstname=first_name,lastname=last_name,password=pwd)
             user1.save()
             print("User Created")
-            return render(request,''home/home.html'')
+            return render(request,'home/home.html')
     else :
         return render(request,'signup/signup.html')
 
