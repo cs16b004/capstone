@@ -1,8 +1,48 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
 <body>
 <h1> Welcome to the trade list {{ username }}</h1>
-</body>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody id='display'>
+    </tbody>
+  </table>
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
+  <script>
+      $(document).ready(function(){
+        setInterval(function(){
+            $.ajax({
+                type : 'GET',
+                url : "{% url 'getUsers'  %}",
+                success : function(response){
+                    $("#display").empty();
+                    for (var key = response.users.length-1; key >= 0; key--)
+                    {
+                        console.log(response.users[key].username)
+                        var temp = "<tr><th scope='row'>"+response.users[key].username+"</th></tr>";
+                        $("#display").append(temp);
+                    }
+                },
+                error:function(response){
+                    alert("No Data Found");
+                }               
+            });
+
+        },1000);
+      });
+  </script>
+
+</body>
 </html>
