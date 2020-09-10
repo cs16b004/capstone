@@ -1,7 +1,86 @@
-<form  method="post">
+<!-- <form  method="post">
     {% csrf_token %}
     <table>
     {{ form }}
     </table>
     <input type="submit" value="Submit">
-</form>
+</form> -->
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home Page</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="{% static '/order/order.css' %}">
+	
+</head>
+<body>
+	<div class="container">
+		<nav class="navbar navbar-light">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">OMP</a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="{%url 'home-page'%}">Home</a></li>
+					<li><a href="#">Dashboard</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right navbar-links">
+					<li><a href="{%url 'signup-page'%}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+					<li><a href="{%url 'signin-page'%}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+
+	<button type="button" href="#myModal" class="btn btn-primary order-button" data-backdrop="false" data-toggle="modal">Order</button>
+	<div class="modal fade" id="myModal" >
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	      	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	        <h5 class="modal-title">Place your order</h5>
+	      </div>
+	      <div class="modal-body">
+	        <form method="post" id="place_order">
+		        {% csrf_token %}
+		        <table border="1" class="table table-striped">
+		        	{% for field in form %}
+			        	{% if field.label != 'All or none' %}
+				        	<tr>
+				        		<th style="text-align: center;">{{field.label}}</th>
+				        		<td>{{field}}</td>
+				        	</tr>
+			        	{% else %}
+				        	<tr>
+				        		<th colspan="2" style="text-align: center; color: green">Extra Conditions</th>
+				        	</tr>
+				        	<tr>
+				        		<th style="text-align: center;">{{field.label_tag}}</th>
+				        		<td>{{field}}</td>
+				        	</tr>
+			        	{% endif %}
+		        	{% endfor %}
+		        </table>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-info">Help</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="submit" class="btn btn-primary" form="place_order">Place Order</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<script src="{% static '/order/order.js' %}" type="text/javascript"></script>
+</body>
+</html>
