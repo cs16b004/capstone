@@ -10,26 +10,30 @@ def order(request):
     #        
         print("-----------------------------------------------------------------")
         print("-----------------------------------------------------------------")
-        print(request.POST)
+        print(request.POST.keys())
         print("-----------------------------------------------------------------")
         print("-----------------------------------------------------------------")
+        keys = request.POST.keys()
         userid              = 'YAID' #change this to one received from session
-        price               = round(float(request.POST["order_price"]),2)
+        
         quantity            = int(request.POST["order_quantity"])      
         o_type              = request.POST["order_type"]         
         o_cat               = request.POST["order_category"]
         #noextra            = (True, False)[request.POST["extra"] == "Yes"]
-        
+        price               = -1
         all_or_none         = False                 #Default if not specified
         Minimum_fill        = 0                     #Default if not specified
         dis_quant           = quantity              #Default if not specified
-        if request.POST["all_or_none"]:
+       
+        if "order_price" in keys and request.POST["order_price"] != '' :
+            price           = round(float(request.POST["order_price"]),2)
+        if "all_or_none" in keys:
             all_or_none     = (False, True)[request.POST["all_or_none"] == "on"]
         
-        if request.POST['Minimum_fill']:
+        if "Minimum_fill" in keys and request.POST['Minimum_fill'] != '' :
             Minimum_fill    = int(request.POST['Minimum_fill'])
         
-        if request.POST["Disclosed_Quantity"]:
+        if "Disclosed_Quantity" in keys and request.POST["Disclosed_Quantity"] != '' :
             dis_quant       = int(request.POST["Disclosed_Quantity"])
         order = Order.objects.create(order_price       = price,\
                                     order_category     = o_cat,\
