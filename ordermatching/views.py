@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from ordermatching.models import UserSignup
 from django.template import loader
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 def home(request):
 	return render(request, 'home/home.html')
