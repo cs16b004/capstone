@@ -6,6 +6,6 @@ urlpatterns = [
     path("signin/", views.signinView, name="signin-page"),
     path('trade/',views.tradeView,name='trade'),
     path("signup/", views.signupView, name="signup-page"),
-    path('accepted/', views.accepted, name = 'accepted-list')
+    path('accepted/', views.accepted, name = 'accepted-list'),
     path("ajax/getUsers",views.getUsers,name='getUsers'),
 ]
