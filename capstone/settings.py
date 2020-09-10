@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'ordermatching',
+    #'ordermatching',
     'ordermatching.apps.OrdermatchingConfig',
     'django.contrib.admin',
     'django.contrib.auth',

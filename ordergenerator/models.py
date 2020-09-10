@@ -15,7 +15,7 @@ class Order(models.Model):
     order_quantity     = models.IntegerField(null=False, blank=False ,default =100)
     order_type         = models.CharField(null=False,blank=False, choices = TYPE_CHOICES, max_length=10,default = "MR")
     order_price        = models.FloatField(null=False,blank=False,default = 100)
-    No_extra           = models.BooleanField(null=False,blank=False,default = True)
+    #No_extra           = models.BooleanField(null=False,blank=False,default = True)
     All_or_none        = models.BooleanField(null=True,blank=True)
     Minimum_fill       = models.IntegerField(null=True,blank=True)
     Disclosed_Quantity = models.IntegerField(null=True, blank=True)

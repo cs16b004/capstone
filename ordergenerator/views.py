@@ -8,50 +8,47 @@ def order(request):
     #   Here get
     #   Retrieve User id from session for now I am using using the id as 'YAUID(Yet another user id)'
     #        
+        print("-----------------------------------------------------------------")
+        print("-----------------------------------------------------------------")
+        print(request.POST)
+        print("-----------------------------------------------------------------")
+        print("-----------------------------------------------------------------")
         userid              = 'YAID' #change this to one received from session
         price               = round(float(request.POST["order_price"]),2)
         quantity            = int(request.POST["order_quantity"])      
         o_type              = request.POST["order_type"]         
         o_cat               = request.POST["order_category"]
-        noextra             = (True, False)[request.POST["extra"] == "Yes"]
-        #print('===============',noextra, price+10,quantity)
-        if noextra == False:
-            all_or_none     = (False, True)[request.POST["All_or_none"] == "Yes"]
-
-            print("-----------------------------------------------------------------")
-            print("-----------------------------------------------------------------")
-            print(request.POST)
-            print("-----------------------------------------------------------------")
-            print("-----------------------------------------------------------------")
-            #Minimum_fill    = request.POST.get('Minimum_fill',0)
-            #dis_quant       = request.POST.get('Disclosed_Quantity',quantity)
-            print(request.POST['Minimum_fill'])
-            Minimum_fill = 0
-            if request.POST['Minimum_fill']:
-                Minimum_fill = int(request.POST['Minimum_fill'])
-                
-            dis_quant        = quantity 
-            if request.POST["Disclosed_Quantity"]:
-                dis_quant    = int(request.POST["Disclosed_Quantity"])
-            order = Order.objects.create(order_price       = price,\
-                                        order_category     = o_cat,\
-                                        order_type         = o_type,\
-                                        order_quantity     = quantity,\
-                                        No_extra           = noextra,\
-                                        All_or_none        = all_or_none,\
-                                        Minimum_fill       = Minimum_fill,\
-                                        Disclosed_Quantity = dis_quant,\
-                                        user_id            = userid,)                            
-            order.save()
-            print(order)
-        else:
-            order = Order.objects.create(order_price       = price,\
-                                        order_category     = o_cat,\
-                                        order_type         = o_type,\
-                                        order_quantity     = quantity,\
-                                        No_extra           = noextra,\
-                                        user_id            = userid)
-            k = order.save()
+        #noextra            = (True, False)[request.POST["extra"] == "Yes"]
+        
+        all_or_none         = False                 #Default if not specified
+        Minimum_fill        = 0                     #Default if not specified
+        dis_quant           = quantity              #Default if not specified
+        if request.POST["all_or_none"]:
+            all_or_none     = (False, True)[request.POST["all_or_none"] == "on"]
+        
+        if request.POST['Minimum_fill']:
+            Minimum_fill    = int(request.POST['Minimum_fill'])
+        
+        if request.POST["Disclosed_Quantity"]:
+            dis_quant       = int(request.POST["Disclosed_Quantity"])
+        order = Order.objects.create(order_price       = price,\
+                                    order_category     = o_cat,\
+                                    order_type         = o_type,\
+                                    order_quantity     = quantity,\
+                                    All_or_none        = all_or_none,\
+                                    Minimum_fill       = Minimum_fill,\
+                                    Disclosed_Quantity = dis_quant,\
+                                    user_id            = userid,)
+                                    
+        order.save()
+        print("-----------------------------------------------------------------")
+        print("-----------------------------------------------------------------")
+        print(order.All_or_none)
+        print(order.Minimum_fill)
+        print(order.Disclosed_Quantity)
+        print("-----------------------------------------------------------------")
+        print("-----------------------------------------------------------------")
+        #k = order.save()
             #print(k)
         return render(request,'order/success.html')
     else:
