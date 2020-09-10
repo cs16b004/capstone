@@ -6,6 +6,10 @@ from django.http import HttpResponse
 def home(request):
 	return render(request, 'home/home.html')
 
+def getUsers(request):
+    queryset = UserSignup.objects.all()
+    return JsonResponse({'users' : list(queryset.values())})
+
 def tradeView(request):
     username = ""
     if request.session.has_key('username'):
@@ -43,7 +47,7 @@ def signupView(request):
             user1 = UserSignup.objects.create(username = user_name,firstname=first_name,lastname=last_name,password=pwd)
             user1.save()
             print("User Created")
-            return render(request,'trade.html')
+            return render(request,''home/home.html'')
     else :
         return render(request,'signup/signup.html')
 
