@@ -1,32 +1,191 @@
-/*.wrapper {
-    display: flex;
-    width: 100%;
-    align-items: stretch;
-    overflow-x: hidden;
-}*/
-
-#sidebar-wrapper{
-	/*height: 100%;*/
-	min-height: 100vh;
-	width: 15%;
-	position: fixed;
-	left: 0;
-	background-color: #f1f1f1;
-	overflow-x: hidden;
-	padding-top: 20px;
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+.nav-wrapper{
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
 }
+.container{
+	display: grid;
+	grid-template-columns: 1fr;
+}
+.body{
+	margin: 0px;
+}
+.left-side{
+	display: flex;
+}
+.nav-wrapper>.left-side>div{
+	margin-right: 20px;
+	font-size: =0.9em;
+	text-transform: uppercase;
 
-#sidebar-wrapper li {
+}
+.nav-link-wrapper{
+	height: 22px;
+	border-bottom: 1px solid transparent;
+	transition:border-bottom 0.5s;
+}
+.nav-link-wrapper a{
+	color: #8a8a8a;
 	text-decoration: none;
-	font-size: 15px;
-	color: #818181;
-	display: block;
-	height: 10%;
-	display: inline-block;
-	margin: 1px;
+	transition: color 0.5s;
+
+}
+.nav-link-wrapper:hover{
+	border-bottom: 1px solid black;
 }
 
-#content-wrapper {
-	min-width: 100vw;
-	margin-left: 15%;
+.nav-link-wrapper a:hover{
+	color:black ;
+}
+
+
+
+
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+body{
+   background-color: #f3f5f9;
+}
+
+.wrapper{
+  display: flex;
+  position: relative;
+}
+
+.wrapper .sidebar{
+  width: 200px;
+  height: 100%;
+  background: #4b4276;
+  padding: 30px 0px;
+  position: fixed;
+}
+
+.wrapper .sidebar h2{
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.wrapper .sidebar ul li{
+  padding: 15px;
+  border-bottom: 1px solid #bdb8d7;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-top: 1px solid rgba(255,255,255,0.05);
+}    
+
+.wrapper .sidebar ul li a{
+  color: #bdb8d7;
+  display: block;
+}
+
+.wrapper .sidebar ul li a .fas{
+  width: 25px;
+}
+
+.wrapper .sidebar ul li:hover{
+  background-color: #594f8d;
+}
+    
+.wrapper .sidebar ul li:hover a{
+  color: #fff;
+}
+.wrapper .sidebar .social_media{
+
+  position: absolute;
+  bottom:5;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.wrapper .sidebar .social_media a{
+  display: block;
+  width: 40px;
+  background: #594f8d;
+  height: 40px;
+  line-height: 45px;
+  text-align: center;
+  margin: 0 5px;
+  color: #bdb8d7;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+ 
+
+
+.wrapper .main_content{
+  width: 100%;
+  margin-left: 200px;
+}
+
+.wrapper .main_content .header{
+  padding: 20px;
+  background: #fff;
+  color: #717171;
+  border-bottom: 1px solid #e0e4e8;
+}
+
+.wrapper .main_content .info{
+  margin: 20px;
+  color: #717171;
+  line-height: 25px;
+}
+
+.wrapper .main_content .info div{
+  margin-bottom: 20px;
+}
+
+
+
+
+
+.content-table {
+  
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  column-width: 20px;
+}
+
+.content-table thead tr {
+  background-color: #594f8d;
+  color: #ffffff;
+  text-align: center;
+  font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.content-table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
 }
