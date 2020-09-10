@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     #'ordermatching',
+    'ordergenerator.apps.OrdergeneratorConfig',
     'ordermatching.apps.OrdermatchingConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ordergenerator',
 ]
 
 MIDDLEWARE = [
@@ -124,6 +124,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'ordermatching/static')
+    os.path.join(BASE_DIR,'ordermatching/static'),
+    os.path.join(BASE_DIR,'ordergenerator/static'),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR,'ordermatching/assets')
