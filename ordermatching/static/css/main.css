@@ -345,7 +345,20 @@ iframe {
   justify-content: center;
 }
 
-.login100-form-btn {
+
+
+.container-signup100-form-btn {
+  width: 70%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.login100-form-btn, .signup100-form-btn {
   font-family: Ubuntu-Bold;
   font-size: 18px;
   color: #fff;
