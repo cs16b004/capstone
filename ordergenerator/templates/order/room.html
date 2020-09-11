@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Order Room</title>
+</head>
+<body>
+    <table>
+        <tr><th>BUY</th><th>SELL</th>></tr>
+        <tr id  = "r0"><td id  = "b0"></td><td id = "s0"></td>></tr>
+        <tr id  = "r1"><td id  = "b1"></td><td id = "s1"></td>></tr>
+        <tr id  = "r2"><td id  = "b2"></td><td id = "s2"></td>></tr>
+        <tr id  = "r3"><td id  = "b3"></td><td id = "s3"></td>></tr>
+        <tr id  = "r4"><td id  = "b4"></td><td id = "s4"></td>></tr>
+        <tr id  = "r5"><td id  = "b5"></td><td id = "s5"></td>></tr>
+        <tr id  = "r6"><td id  = "b6"></td><td id = "s6"></td>></tr>
+        <tr id  = "r7"><td id  = "b7"></td><td id = "s7"></td>></tr>
+        <tr id  = "r8"><td id  = "b8"></td><td id = "s8"></td>></tr>
+        <tr id  = "r9"><td id  = "b9"></td><td id = "s9"></td>></tr>
+        <tr id  = "r10"><td id = "b10"></td><td id = "s10"></td>></tr>
+        <tr id  = "r11"><td id = "b11"></td><td id = "s11"></td>></t>
+
+    </table>
+    <span>Order_Price: </span><span id="price"></span><br>
+    <span>Order_Category: </span><span id="category"></span><br>
+    <span>Order_Quantity: </span><span id="quantity"></span><br>
+    
+    <input id="order-message-input" type="text" size="100"><br>
+    <input id="order-message-submit" type="button" value="Send">
+    
+    <script>
+        console.log(window.location.host)
+        const chatSocket = new WebSocket(
+            'ws://'
+            + '127.0.0.1:8000'
+            + '/ws/order/'
+            + 'order'
+            + '/'
+        );
+        var i = 0;
+        var j = 0;
+        console.log('runrunr');
+        //var variableSpan = document.getElementById('variable');
+        var lap          = document.getElementById('price');
+        var laq          = document.getElementById('quantity');
+        var lac          = document.getElementById('category');
+        chatSocket.onmessage = function(e) {
+            j=  j%12;
+            i = i%12;
+            tabCellB       = document.getElementById('b' + (i).toString());
+            tabCellS       = document.getElementById('s' + (j).toString());
+            
+            
+            //alert("Message is received...");
+            const mdata = JSON.parse(e.data);
+            //cello = '<td>';
+            //cellc = '</td>';
+            var k = mdata.category;
+            console.log(k);
+            if( k == 'Buy'){
+                tabCellB.innerHTML     =  mdata.price +',' + mdata.quantity ;
+                i = i+1;
+            } else{
+                tabCellS.innerHTML     =  mdata.price +',' + mdata.quantity ;
+                j = j+1;
+            }
+           //variableSpan.innerHTML = mdata.message
+            lap.innerHTML          = mdata.price
+            laq.innerHTML          = mdata.quantity
+            lac.innerHTML          = mdata.category
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Order socket closed unexpectedly');
+        };
+        document.querySelector('#order-message-submit').onclick = function(e) {
+            const messageInputDom = document.querySelector('#order-message-input');
+            const message = messageInputDom.value;
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+            messageInputDom.value = '';
+        };
+
+    </script>
+</body>
+</html>
+

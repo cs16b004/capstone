@@ -31,9 +31,9 @@ class Generator:
         self.price_avg    = price_avg
         self.quantity_avg = quantity_avg 
 #        print(self.noextra)
-        my_thread         = Thread(target = self.start_generator)
-        my_thread.daemon  = True
-        my_thread.start()
+        #my_thread         = Thread(target = self.start_generator)
+        #my_thread.daemon  = True
+        #my_thread.start()
     def generate(self,  total):
         price_spread =      0.25
         quantity_spread =   5 
@@ -45,7 +45,7 @@ class Generator:
             quantity  = int(np.random.normal(self.quantity_avg,quantity_spread))
             o_type    = ("MR","LM")[self.type_prob < np.random.uniform()]
             o_cat     = ("Buy","Sell")[self.cat_prob < np.random.uniform()] 
-            print(raw_price)
+            print(o_cat)
             Minimum_fill = np.random.randint(0,int(0.2*quantity))
             all_or_none  = np.random.choice(["True", "False"])
             dis_quant    = np.random.randint(0,int(0.2*quantity))
