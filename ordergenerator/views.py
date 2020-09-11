@@ -64,3 +64,6 @@ def startgenerate(request):
         return render(request, 'order/gen-success.html')
     else:
         return render(request, 'order/generator.html')
+
+def room(request):
+    return render(request, 'order/room.html')
