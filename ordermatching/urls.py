@@ -10,4 +10,5 @@ urlpatterns = [
     path('waiting/', views.waiting, name = 'waiting-list'),
     path('rejected/', views.rejected, name = 'rejected-list'),
     path("ajax/getUsers",views.getUsers,name='getUsers'),
+    path("logout/", views.logoutView, name="logout-page"),
 ]
