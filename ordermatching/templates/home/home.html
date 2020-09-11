@@ -6,7 +6,13 @@
 
 {% block user-content %}
 	{% if request.session.username %}
-		<div class="nav-link-wrapper"> <i class="far fa-user-circle"></i>Welcome {{ request.session.username }}</div>
+		<div class="nav-link-wrapper dropdown">
+			<i class="far fa-user-circle"></i>
+			Welcome {{ request.session.username }}
+			<div class="dropdown-content">
+				<a href="#">Logout</a>
+			</div>
+		</div>
 	{% else %}
 		<div class="nav-link-wrapper">
 			<a href="{%url 'signup-page'%}"><i class="glyphicon glyphicon-user"></i> Sign Up</a>

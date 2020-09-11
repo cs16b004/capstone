@@ -1,4 +1,142 @@
-{% load static %}
+{% extends "order/base.html" %}
+
+{% block title-content %}
+	<title> Order Page </title>
+{% endblock %}
+
+{% block user-content %}
+	{% if request.session.username %}
+		<div class="nav-link-wrapper dropdown">
+			<i class="far fa-user-circle"></i>
+			Welcome {{ request.session.username }}
+			<div class="dropdown-content">
+				<a href="#">Logout</a>
+			</div>
+		</div>
+	{% else %}
+		<div class="nav-link-wrapper">
+			<a href="{%url 'signup-page'%}"><i class="glyphicon glyphicon-user"></i> Sign Up</a>
+		</div>
+		<div class="nav-link-wrapper">
+			<a href="{%url 'signin-page'%}"><i class="glyphicon glyphicon-log-in"></i> Login</a>
+		</div>
+	{% endif %}
+{% endblock %}
+
+{% block trades-list %}
+	{% if request.session.username %}
+		<div class="nav-link-wrapper"> 
+			<a href="{% url 'accepted-list' %}"><i class="fas fa-building"></i>Trades List</a>
+		</div>
+	{% endif %}
+{% endblock %}
+
+{% block main-content %}
+<div class="wrapper">
+    <div class="sidebar">
+        <h2>Shares List</h2>
+        <ul>
+            <li><a href="#">Microsoft Shares</a></li>
+            <li><a href="#">Google Shares</a></li>
+            <li><a href="#">Amazon Shares</a></li>
+        </ul>
+    </div>
+    <div class="main_content">
+        <div class="header">
+        	<p>Welcome {{ request.session.username }}!! You are currently viewing Order Page</p>
+    	</div>
+    	<!-- <div class="header" style="text-align: center;"> -->
+    		<span>Want to place a new order?</span>
+    		<button type="button" href="#myModal" class="btn btn-primary order-button" data-backdrop="false" data-toggle="modal">Start Ordering</button>
+    	<!-- </div> -->
+    	
+		<div class="modal fade" id="myModal" >
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		      	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		        <h5 class="modal-title">Place your order</h5>
+		      </div>
+		      <div class="modal-body">
+		        <form method="post" id="place_order">
+			        {% csrf_token %}
+			        <table border="1" class="table table-striped">
+			        	{% for field in form %}
+				        	{% if field.label != 'All or none' %}
+					        	<tr>
+					        		<th style="text-align: center;">{{field.label}}</th>
+					        		<td>{{field}}</td>
+					        	</tr>
+				        	{% else %}
+					        	<tr>
+					        		<th colspan="2" style="text-align: center; color: green">Extra Conditions</th>
+					        	</tr>
+					        	<tr>
+					        		<th style="text-align: center;">{{field.label_tag}}</th>
+					        		<td>{{field}}</td>
+					        	</tr>
+				        	{% endif %}
+			        	{% endfor %}
+			        </table>
+		        </form>
+		      </div>
+		      <div class="modal-footer">
+		      	<button type="button" class="btn btn-info">Help</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="submit" class="btn btn-primary" form="place_order">Place Order</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<div class="my_orders">
+			<table border="1" class="table table-striped" style="width: 30%; float: left; margin: 5px;">
+			    <tr>
+			    	<th>Order ID</th>
+			    	<td>Order ID</td>
+			    </tr>
+			    <tr>
+			    	<th>Order Price</th>
+			    	<td>Order Price</td>
+			    </tr>
+			    <tr>
+			    	<th>Order Quantity</th>
+			    	<td>Order Quantity</td>
+			    </tr>
+			    <tr>
+			    	<th>Order ID</th>
+			    	<td>Order ID</td>
+			    </tr>
+			</table>
+
+			<table border="1" class="table table-striped" style="width: 30%; float: left; margin: 5px;">
+			    <tr>
+			    	<th>Order ID</th>
+			    	<td>Order ID</td>
+			    </tr>
+			    <tr>
+			    	<th>Order Price</th>
+			    	<td>Order Price</td>
+			    </tr>
+			    <tr>
+			    	<th>Order Quantity</th>
+			    	<td>Order Quantity</td>
+			    </tr>
+			    <tr>
+			    	<th>Order ID</th>
+			    	<td>Order ID</td>
+			    </tr>
+			</table>
+		</div>
+
+    </div>
+</div>
+{% endblock %}
+
+
+<!-- {% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,3 +214,4 @@
 	<script src="{% static '/order/order.js' %}" type="text/javascript"></script>
 </body>
 </html>
+ -->
