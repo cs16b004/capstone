@@ -23,14 +23,12 @@ def signinView(request):
         request.session['username'] = user_name
         user_obj = UserSignup.objects.filter(username = user_name, password=pwd).exists()
         if user_obj :
-            print("user object ecists")
+            print("user object exists")
             return render(request,'trade.html')
         else :
             return render(request,'/signup/signup.html')
     else:
         return render(request, 'signin/signin.html')
-
-
 
 def signupView(request):
     if request.method == "POST":
@@ -54,3 +52,9 @@ def signupView(request):
 
 def accepted(request):
 	return render(request, 'tradeslist/accepted/accepted.html')
+
+def waiting(request):
+    return render(request, 'tradeslist/waiting/waiting.html')
+
+def rejected(request):
+    return render(request, 'tradeslist/rejected/rejected.html')
