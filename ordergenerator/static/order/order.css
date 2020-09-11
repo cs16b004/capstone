@@ -51,3 +51,8 @@ button.btn-settings:active {
   padding-top:10px;
   font-size: 1.1em;
 }
+
+.my_orders .table {
+  float: left;
+  width: 30%;
+}

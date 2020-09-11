@@ -5,15 +5,15 @@
 	{% block title-content %}
 	{% endblock %}
 	<meta charset="utf-8">
-	
 	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="{% static '/order/order.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static '/tradeslist/tradeslist.css' %}">
-	
-	
 </head>
 <body>
 	<div class="nav-wrapper">
@@ -31,16 +31,12 @@
 			</div>
 		</div>
 		<div class="right-side">
-			<div class="nav-link-wrapper dropdown">
-				<i class="far fa-user-circle"></i>
-				Welcome {{ request.session.username }}
-				<div class="dropdown-content">
-					<a href="#">Logout</a>
-				</div>
-			</div>
+			{% block user-content %}
+			{% endblock %}
 		</div>
 	</div>
 	{% block main-content %}
 	{% endblock %}
+	<script src="{% static '/order/order.js' %}" type="text/javascript"></script>
 </body>
 </html>
