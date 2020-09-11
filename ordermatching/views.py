@@ -49,6 +49,13 @@ def signupView(request):
     else :
         return render(request,'signup/signup.html')
 
+def logoutView(request):
+    try:
+        del request.session['username']
+    except:
+       pass
+    return render(request,'home/home.html')
+
 
 def accepted(request):
 	return render(request, 'tradeslist/accepted/accepted.html')
