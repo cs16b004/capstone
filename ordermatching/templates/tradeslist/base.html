@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	{% block title-content %}
+	{% endblock %}
+	<meta charset="utf-8">
+	
+	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="{% static '/tradeslist/tradeslist.css' %}">
+	
+	
+</head>
+<body>
+	<div class="nav-wrapper">
+		<div class="left-side">
+			<div class="nav-link-wrapper">
+				<a href="{%url 'home-page'%}"><i class="fas fa-house-user"></i>Home</a>
+			</div>
+			<div class="nav-link-wrapper">
+				<a href="#">About</a>
+			</div>
+			{% block trades-list%}
+			{% endblock %}
+			<div class="nav-link-wrapper">
+				<a href="#"><i class="fas fa-phone"></i>Contact</a>
+			</div>
+		</div>
+		<div class="right-side">
+			<div class="nav-link-wrapper"> <i class="far fa-user-circle"></i>Welcome {{ request.session.username }}</div>
+		</div>
+	</div>
+	{% block main-content %}
+	{% endblock %}
+</body>
+</html>
