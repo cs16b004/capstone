@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import Order, Generator
 from .forms  import OrderForm
 import openpyxl
+import json
+from django.http import HttpResponse, JsonResponse
 # Create your views here.
 def order(request):
     if request.method == "POST":
@@ -15,7 +17,8 @@ def order(request):
         print("-----------------------------------------------------------------")
         keys = request.POST.keys()
         userid              = 'YAID' #change this to one received from session
-        
+        if request.session['username']:
+            userid = request.session['username']
         quantity            = int(request.POST["order_quantity"])      
         o_type              = request.POST["order_type"]         
         o_cat               = request.POST["order_category"]
@@ -54,10 +57,13 @@ def order(request):
         print("-----------------------------------------------------------------")
         #k = order.save()
             #print(k)
-        return render(request,'order/success.html')
+        form = OrderForm()
+        my_orders = Order.objects.all().filter(user_id = request.session['username'])
+        return render(request,'order/order.html',{'order':order, 'form': form, 'my_orders': my_orders})
     else:
         form = OrderForm()
-        return render(request, 'order/order.html', {'form': form})
+        my_orders = Order.objects.all().filter(user_id = request.session['username'])
+        return render(request, 'order/order.html', {'form': form, 'my_orders': my_orders})
 def startgenerate(request):
     if request.method == "POST":
         g = Generator()
