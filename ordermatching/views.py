@@ -26,7 +26,7 @@ def signinView(request):
             print("user object exists")
             return render(request,'trade.html')
         else :
-            return render(request,'/signup/signup.html')
+            return render(request,'signup/signup.html')
     else:
         return render(request, 'signin/signin.html')
 
