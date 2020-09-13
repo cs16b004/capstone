@@ -10,7 +10,7 @@
 			<i class="far fa-user-circle"></i>
 			Welcome {{ request.session.username }}
 			<div class="dropdown-content">
-				<a href="#">Logout</a>
+				<a href="{%url 'logout-page'%}">Logout</a>
 			</div>
 		</div>
 	{% else %}
