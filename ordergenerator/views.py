@@ -4,6 +4,7 @@ from .forms  import OrderForm
 import openpyxl
 import json
 from django.http import HttpResponse, JsonResponse
+from .consumers import Generator
 # Create your views here.
 def order(request):
     if request.method == "POST":
@@ -45,7 +46,8 @@ def order(request):
                                     All_or_none        = all_or_none,\
                                     Minimum_fill       = Minimum_fill,\
                                     Disclosed_Quantity = dis_quant,\
-                                    user_id            = userid,)
+                                    user_id            = userid,\
+                                    order_status       = 'Waiting')
                                     
         order.save()
         print("-----------------------------------------------------------------")
@@ -73,3 +75,6 @@ def startgenerate(request):
 
 def room(request):
     return render(request, 'order/room.html')
+
+def room_test(request):
+    return render(request, 'order/test.html')
