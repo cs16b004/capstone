@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from .models import Order, Generator
+from .models import Order
 from .forms  import OrderForm
 import openpyxl
+import json
+from django.http import HttpResponse, JsonResponse
+from .consumers import Generator
 # Create your views here.
 def order(request):
     if request.method == "POST":
@@ -15,7 +18,8 @@ def order(request):
         print("-----------------------------------------------------------------")
         keys = request.POST.keys()
         userid              = 'YAID' #change this to one received from session
-        
+        if request.session['username']:
+            userid = request.session['username']
         quantity            = int(request.POST["order_quantity"])      
         o_type              = request.POST["order_type"]         
         o_cat               = request.POST["order_category"]
@@ -42,7 +46,8 @@ def order(request):
                                     All_or_none        = all_or_none,\
                                     Minimum_fill       = Minimum_fill,\
                                     Disclosed_Quantity = dis_quant,\
-                                    user_id            = userid,)
+                                    user_id            = userid,\
+                                    order_status       = 'Waiting')
                                     
         order.save()
         print("-----------------------------------------------------------------")
@@ -54,10 +59,13 @@ def order(request):
         print("-----------------------------------------------------------------")
         #k = order.save()
             #print(k)
-        return render(request,'order/success.html')
+        form = OrderForm()
+        my_orders = Order.objects.all().filter(user_id = request.session['username'])
+        return render(request,'order/order.html',{'order':order, 'form': form, 'my_orders': my_orders})
     else:
         form = OrderForm()
-        return render(request, 'order/order.html', {'form': form})
+        my_orders = Order.objects.all().filter(user_id = request.session['username'])
+        return render(request, 'order/order.html', {'form': form, 'my_orders': my_orders})
 def startgenerate(request):
     if request.method == "POST":
         g = Generator()
@@ -67,3 +75,6 @@ def startgenerate(request):
 
 def room(request):
     return render(request, 'order/room.html')
+
+def room_test(request):
+    return render(request, 'order/test.html')
