@@ -234,6 +234,13 @@ iframe {
   width: 100%;
   position: relative;
   border-bottom: 1px solid #e6e6e6;
+  padding: 18px 0;
+}
+
+.wrap-input200 {
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid #e6e6e6;
   padding: 29px 0;
 }
 
