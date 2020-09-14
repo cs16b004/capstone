@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Order, Generator
+from .models import Order
 from .forms  import OrderForm
 import openpyxl
 import json
