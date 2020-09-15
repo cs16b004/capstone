@@ -17,10 +17,13 @@ class Order(models.Model):
 	Minimum_fill       = models.IntegerField(null=True,blank=True)
 	Disclosed_Quantity = models.IntegerField(null=True, blank=True)
 	user_id            = models.CharField(null=False, blank=False, max_length=100, default = 'YAUID')
-	order_status       = models.CharField(editable=False, max_length=10, )
+	order_status       = models.CharField(editable=False, max_length=10, default='Waiting')
 	traded_quantity    = models.IntegerField(null = False, editable=False, default = 0)
 	def net_quantity(self):
-		return self.Disclosed_Quantity - (self.traded_quantity % self.Disclosed_Quantity)
+		if (self.order_quantity - self.traded_quantity) >= self.Disclosed_Quantity:
+			return self.Disclosed_Quantity - (self.traded_quantity % self.Disclosed_Quantity)
+		else:
+			return self.order_quantity - self.traded_quantity
 
 
 

@@ -4,6 +4,7 @@ from django.template import loader
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User, auth
 from django.contrib.auth import authenticate, login
+from ordergenerator.models import Order
 
 def home(request):
 	return render(request, 'home/home.html')
@@ -66,13 +67,27 @@ def logoutView(request):
 
 
 def accepted(request):
-	return render(request, 'tradeslist/accepted/accepted.html')
+	accepted_list = Order.objects.all().filter(order_status = 'Accepted')
+	buy = Order.objects.all().filter(order_category = 'Buy')
+	sell = Order.objects.all().filter(order_category = 'Sell')
+	buy_shares = 0
+	sell_shares = 0
+	for order in buy:
+		buy_shares += order.traded_quantity
+	for order in sell:
+		sell_shares += order.traded_quantity
+	# print(len(accepted_list))
+	return render(request, 'tradeslist/accepted/accepted.html', {'accepted_list': accepted_list, 'buy_shares': buy_shares, 'sell_shares': sell_shares})
 
 def waiting(request):
-    return render(request, 'tradeslist/waiting/waiting.html')
+	waiting_list = Order.objects.all().filter(order_status = 'Waiting')
+	traded_shares = 0
+	for order in waiting_list:
+		traded_shares += order.traded_quantity
+	return render(request, 'tradeslist/waiting/waiting.html', {'waiting_list': waiting_list, 'traded_shares': traded_shares})
 
 def rejected(request):
-    return render(request, 'tradeslist/rejected/rejected.html')
+	return render(request, 'tradeslist/rejected/rejected.html')
 
 def adminView(request):
-    pass
+	pass
