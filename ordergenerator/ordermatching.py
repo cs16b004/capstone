@@ -30,6 +30,8 @@ def add_order(order):
 			if limit_price not in buy_orders:
 				heappush(buy_heap,-1*limit_price) #Max price on the top
 				buy_orders[limit_price]={"orders":[],"total":0, "disclosed":0}
+			elif -1*limit_price not in buy_heap:
+				heappush(buy_heap, -1*limit_price)
 			buy_orders[limit_price]["orders"].append(order)
 			buy_orders[limit_price]["orders"].sort(key = get_time)
 			buy_orders[limit_price]["total"]+=order.net_quantity()
@@ -38,6 +40,8 @@ def add_order(order):
 			if limit_price not in sell_orders:
 				heappush(sell_heap, limit_price) #Min on top
 				sell_orders[limit_price]={"orders":[],"total":0,"disclosed":0}
+			elif limit_price not in sell_heap:
+				heappush(sell_heap, limit_price)
 			sell_orders[limit_price]["orders"].append(order)
 			sell_orders[limit_price]["orders"].sort(key = get_time)
 			sell_orders[limit_price]["total"]+=order.net_quantity()
@@ -105,11 +109,11 @@ def util_starter():
 		else:
 			print('Executing Market Order')
 			order = market_orders['orders'][0]
-			del market_orders['orders'][0]
 			if order.order_category == 'Buy':
 				order1 = order
 				order2 = get_best_sell()
 				if order2 != -1:
+					del market_orders['orders'][0]
 					match_orders_with_conditions(order1, order2)
 				else:
 					print('No sell orders to execute')
@@ -117,6 +121,7 @@ def util_starter():
 				order1 = get_best_buy()
 				order2 = order
 				if order1 != -1:
+					del market_orders['orders'][0]
 					match_orders_with_conditions(order1, order2)
 				else:
 					print('No Buy orders to execute')
@@ -130,31 +135,64 @@ def start_matcher():
 def match_orders(order1, order2):
 	if  order1.net_quantity() <= order2.net_quantity():
 		order2.traded_quantity += order1.net_quantity()
-		order1.traded_quantity = order1.order_quantity
-		order1.order_status = 'Accepted'
+		order1.traded_quantity += order1.net_quantity()
+		if order1.traded_quantity == order1.order_quantity:
+			order1.order_status = 'Accepted'
+			print('Add order1 to accepted trades list')
+		elif order1.traded_quantity < order1.order_quantity:
+			add_order(order1)
+			print('Add order1 to buy order heap')
+		else:
+			print('Something wrong')
+
+		if order2.traded_quantity == order2.order_quantity:
+			order2.order_status = 'Accepted'
+			print('Add order2 to accepted trades list')
+		elif order2.traded_quantity < order2.order_quantity:
+			add_order(order2)
+			print('Add order2 to sell order heap')
+		else:
+			print('Something wrong')
+		
 		order1.save()
 		order2.save()
-		# Line to push the order1 to traded list of buy orders
-		print('# Line to push the order1 to traded list of buy orders')
-		if order1.net_quantity() == order2.net_quantity():
-			# Line to push the order2 to the traded list of sell orders
+		# # Line to push the order1 to traded list of buy orders
+		# print('# Line to push the order1 to traded list of buy orders')
+		# if order1.net_quantity() == order2.net_quantity():
+		# 	# Line to push the order2 to the traded list of sell orders
             
-			print('# Line to push the order2 to the traded list of sell orders')
-		else:
-			add_order(order2)
-			# Line to push the order2 back to the sell orders heap
-			print('# Line to push the order2 back to the sell orders heap')
+		# 	print('# Line to push the order2 to the traded list of sell orders')
+		# else:
+		# 	add_order(order2)
+		# 	# Line to push the order2 back to the sell orders heap
+		# 	print('# Line to push the order2 back to the sell orders heap')
 	else:
 		order1.traded_quantity += order2.net_quantity()
-		order2.traded_quantity = order2.order_quantity
-		order2.order_status = 'Accepted'
+		order2.traded_quantity += order2.net_quantity()
+		if order1.traded_quantity == order1.order_quantity:
+			order1.order_status = 'Accepted'
+			print('Add order1 to accepted trades list')
+		elif order1.traded_quantity < order1.order_quantity:
+			add_order(order1)
+			print('Add order1 to buy order heap')
+		else:
+			print('Something wrong')
+
+		if order2.traded_quantity == order2.order_quantity:
+			order2.order_status = 'Accepted'
+			print('Add order2 to accepted trades list')
+		elif order2.traded_quantity < order2.order_quantity:
+			add_order(order2)
+			print('Add order2 to sell order heap')
+		else:
+			print('Something wrong')
+		
 		order1.save()
 		order2.save()
-		add_order(order1)
 		# Line to push the order2 to traded list of sell orders
 		# Line to push the order1 back to the buy orders heap
-		print('# Line to push the order2 to traded list of sell orders')
-		print('# Line to push the order1 back to the buy orders heap')
+		# print('# Line to push the order2 to traded list of sell orders')
+		# print('# Line to push the order1 back to the buy orders heap')
 
 def match_orders_with_conditions(order1, order2):
 	order1_remaining = order1.net_quantity()

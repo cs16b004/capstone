@@ -26,6 +26,8 @@
         <div class="header">
         	<p>Welcome {{ request.session.username }}!! You are currently viewing accepted trades list</p>
     	</div>
+    	<p>Buy Traded Shares: {{buy_shares}}</p>
+		<p>Sell Traded Shares: {{sell_shares}}</p>
         <table class="content-table">
 			  <thead>
 			    <tr>
@@ -36,6 +38,9 @@
 					<th>Order Type</th>
 					<th>Order Price</th>
 					<th>Order Status</th>
+					<th>Traded Quantity</th>
+					<th>Minimum Fill</th>
+					<th>Disclosed</th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -43,12 +48,15 @@
 			    {% for order in accepted_list %}
 					<tr>
 						<th>{{order.order_id}}</th>
-						<th>{{order.order_catergory}}</th>
+						<th>{{order.order_category}}</th>
 						<th>{{order.order_time}}</th>
 						<th>{{order.order_quantity}}</th>
 						<th>{{order.order_type}}</th>
 						<th>{{order.order_price}}</th>
 						<th>{{order.order_status}}</th>
+						<th>{{order.traded_quantity}}</th>
+						<th>{{order.Minimum_fill}}</th>
+						<th>{{order.Disclosed_Quantity}}</th>
 					</tr>
 				{% endfor %}
 				{% else %}
