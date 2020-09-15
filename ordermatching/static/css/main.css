@@ -234,6 +234,13 @@ iframe {
   width: 100%;
   position: relative;
   border-bottom: 1px solid #e6e6e6;
+  padding: 18px 0;
+}
+
+.wrap-input200 {
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid #e6e6e6;
   padding: 29px 0;
 }
 
@@ -279,11 +286,11 @@ iframe {
   -moz-transition: all 0.4s;
   transition: all 0.4s;
 
-  background: #d41872;
-  background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: linear-gradient(left, #a445b2, #d41872, #fa4299);
+  background: #a445b2;
+  background: -webkit-linear-gradient(left, #a445b2, #a445b2, #a445b2);
+  background: -o-linear-gradient(left, #a445b2, #a445b2, #a445b2);
+  background: -moz-linear-gradient(left, #a445b2, #a445b2, #a445b2);
+  background: linear-gradient(left, #a445b2, #a445b2, #a445b2);
 }
 
 .focus-input100::after {
@@ -311,7 +318,7 @@ iframe {
 
 .input100:focus + .focus-input100::after {
   left: 23px;
-  color: #d41872;
+  color: #a445b2;
 }
 
 .input100:focus + .focus-input100::before {
@@ -320,7 +327,7 @@ iframe {
 
 .has-val.input100 + .focus-input100::after {
   left: 23px;
-  color: #d41872;
+  color: #a445b2;
 }
 
 .has-val.input100 + .focus-input100::before {
@@ -348,7 +355,7 @@ iframe {
 
 
 .container-signup100-form-btn {
-  width: 70%;
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -377,11 +384,11 @@ iframe {
   height: 42px;
   border-radius: 21px;
 
-  background: #d41872;
-  background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);
-  background: linear-gradient(left, #a445b2, #d41872, #fa4299);
+  background: #a445b2;
+  background: -webkit-linear-gradient(left, #a445b2, #a445b2, #a445b2);
+  background: -o-linear-gradient(left, #a445b2, #a445b2, #a445b2);
+  background: -moz-linear-gradient(left, #a445b2, #a445b2, #a445b2);
+  background: linear-gradient(left, #a445b2, #a445b2, #a445b2);
   position: relative;
   z-index: 1;
 

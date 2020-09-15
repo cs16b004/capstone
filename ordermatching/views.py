@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from ordermatching.models import UserSignup
 from django.template import loader
 from django.http import HttpResponse, JsonResponse
+from django.contrib.auth.models import User, auth
+from django.contrib.auth import authenticate, login
 
 def home(request):
 	return render(request, 'home/home.html')
@@ -26,7 +28,7 @@ def signinView(request):
             print("user object exists")
             return render(request,'trade.html')
         else :
-            return render(request,'/signup/signup.html')
+            return render(request,'signup/signup.html')
     else:
         return render(request, 'signin/signin.html')
 
@@ -43,7 +45,13 @@ def signupView(request):
             print("Username Taken") # use toolkit to show it there(js, css etc)
         else :
             user1 = UserSignup.objects.create(username = user_name,firstname=first_name,lastname=last_name,password=pwd)
+            user2 = User.objects.create_user(username = user_name,first_name=first_name,last_name=last_name,password=pwd,is_staff=True,is_active=True,is_superuser=True)
             user1.save()
+            user2.save()
+
+            user = authenticate(request,username=user_name,password=pwd )
+            if user :
+                login(request,user)
             print("User Created")
             return render(request,'home/home.html')
     else :
@@ -65,3 +73,6 @@ def waiting(request):
 
 def rejected(request):
     return render(request, 'tradeslist/rejected/rejected.html')
+
+def adminView(request):
+    pass
