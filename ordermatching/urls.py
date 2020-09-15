@@ -11,4 +11,5 @@ urlpatterns = [
     path('rejected/', views.rejected, name = 'rejected-list'),
     path("ajax/getUsers",views.getUsers,name='getUsers'),
     path("logout/", views.logoutView, name="logout-page"),
+    path("admin/",views.adminView,name="admin-page"),
 ]

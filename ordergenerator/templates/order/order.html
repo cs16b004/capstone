@@ -93,7 +93,7 @@
 
 		<div class="my_orders">
 			{% for order in my_orders %}
-				<table border="1" class="table table-striped" style="width: 30%; float: left; margin: 10px;">
+				<table border="1" class="table table-striped" style="width: 30%; float: left; margin: 10px;" id={{order.order_id}}>
 					<tr>
 						<th style = "width: 40%;">Order ID</th>
 						<td>{{order.order_id}}</td>
@@ -125,6 +125,14 @@
 					<tr>
 						<th style = "width: 40%;">Disclosed Quantity</th>
 						<td>{{order.Disclosed_Quantity}}</td>
+					</tr>
+					<tr>
+						<td>
+							<button type="button" class="btn btn-primary order-btn" data-backdrop="false" data-toggle="modal">Edit Order</button>
+						</td>
+						<td>
+							<button type="button" class="btn btn-primary delete-btn">Delete Order</button>
+						</td>
 					</tr>
 				</table>
 			{% endfor %}
