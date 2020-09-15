@@ -5,6 +5,7 @@ from threading import Thread, Semaphore
 import time
 import datetime
 from .models import Order
+from .ordermatching import add_order
 sem = Semaphore(1)
 recent_order = {\
     'time_out'    : False,\
@@ -13,7 +14,7 @@ recent_order = {\
 }
 
 class Generator:
-    def __init__(self, duration=100, cat_prob=0.5, type_prob=0.2, noextra=False, price_avg=100, quantity_avg=100):
+    def __init__(self, duration=50, cat_prob=0.5, type_prob=0.2, noextra=False, price_avg=100, quantity_avg=100):
         self.duration     = duration
         self.cat_prob     = cat_prob
         self.type_prob    = type_prob
@@ -54,7 +55,7 @@ class Generator:
         endTime = datetime.datetime.now() + datetime.timedelta(seconds=self.duration)
         while True:
             if datetime.datetime.now() < endTime:
-                time.sleep(np.random.exponential(1))
+                time.sleep(0.2)
                 new_order = self.generate()
                 #sem.acquire()
                 if new_order['order_type'] == 'MR':
@@ -62,7 +63,7 @@ class Generator:
                     new_order['All_or_none']        = False                 #Default if not specified
                     new_order['Minimum_fill']       = 0                     #Default if not specified
                     new_order['Disclosed_Quantity'] = new_order['order_quantity']
-                Order.objects.create(order_price        = new_order['order_price'],\
+                order = Order.objects.create(order_price        = new_order['order_price'],\
                                      order_category     = new_order['order_category'],\
                                      order_type         = new_order['order_type'],\
                                      order_quantity     = new_order['order_quantity'],\
@@ -71,6 +72,7 @@ class Generator:
                                      Disclosed_Quantity = new_order['Disclosed_Quantity'],\
                                      user_id            = 'Generator',\
                                      order_status       = 'Waiting')
+                # add_order(order)
                 recent_order['order_count'] += 1
                 recent_order['latest_order'] = new_order
                 print('updated - order')

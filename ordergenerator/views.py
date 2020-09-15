@@ -1,10 +1,12 @@
 from django.shortcuts import render
-from .models import Order, Generator
+from .models import Order
 from .forms  import OrderForm
 import openpyxl
 import json
 from django.http import HttpResponse, JsonResponse
 from .consumers import Generator
+from .ordermatching import add_order, start_matcher
+import threading
 # Create your views here.
 def order(request):
     if request.method == "POST":
@@ -28,6 +30,7 @@ def order(request):
         all_or_none         = False                 #Default if not specified
         Minimum_fill        = 0                     #Default if not specified
         dis_quant           = quantity              #Default if not specified
+        traded_quantity     = 0
        
         if "order_price" in keys and request.POST["order_price"] != '' :
             price           = round(float(request.POST["order_price"]),2)
@@ -47,9 +50,11 @@ def order(request):
                                     Minimum_fill       = Minimum_fill,\
                                     Disclosed_Quantity = dis_quant,\
                                     user_id            = userid,\
-                                    order_status       = 'Waiting')
+                                    order_status       = 'Waiting',\
+                                    traded_quantity    = traded_quantity)
                                     
         order.save()
+        add_order(order)
         print("-----------------------------------------------------------------")
         print("-----------------------------------------------------------------")
         print(order.All_or_none)
@@ -68,7 +73,8 @@ def order(request):
         return render(request, 'order/order.html', {'form': form, 'my_orders': my_orders})
 def startgenerate(request):
     if request.method == "POST":
-        g = Generator()
+        # g = Generator()
+        start_matcher()
         return render(request, 'order/gen-success.html')
     else:
         return render(request, 'order/generator.html')
@@ -78,3 +84,8 @@ def room(request):
 
 def room_test(request):
     return render(request, 'order/test.html')
+
+def startmatcher(request):
+    print('started startmatcher')
+    #start_matcher()
+    return render(request, 'order/room.html')

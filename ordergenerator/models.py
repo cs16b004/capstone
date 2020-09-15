@@ -4,20 +4,23 @@ import uuid
 import time
 # Create your models here.
 class Order(models.Model):
-    TYPE_CHOICES = [("LM", "Limit"),("MR","Market"),]
-    CAT_CHOICES  = [("Buy","Buy"), ("Sell","Sell")]
-    order_id           = models.UUIDField(editable=False, default=uuid.uuid4)
-    order_category     = models.CharField(null=False,blank=False, max_length=10, choices = CAT_CHOICES)
-    order_time         = models.DateTimeField(editable=False, default=datetime.datetime.now)
-    order_quantity     = models.IntegerField(null=False, blank=False ,default =100)
-    order_type         = models.CharField(null=False,blank=False, choices = TYPE_CHOICES, max_length=10,default = "MR")
-    order_price        = models.FloatField(null=False,blank=False,default = 100)
-    #No_extra           = models.BooleanField(null=False,blank=False,default = True)
-    All_or_none        = models.BooleanField(null=True,blank=True)
-    Minimum_fill       = models.IntegerField(null=True,blank=True)
-    Disclosed_Quantity = models.IntegerField(null=True, blank=True)
-    user_id            = models.CharField(null=False, blank=False, max_length=100, default = 'YAUID')
-    order_status       = models.CharField(editable=False, max_length=10, )
+	TYPE_CHOICES = [("LM", "Limit"),("MR","Market"),]
+	CAT_CHOICES  = [("Buy","Buy"), ("Sell","Sell")]
+	order_id           = models.UUIDField(editable=False, default=uuid.uuid4)
+	order_category     = models.CharField(null=False,blank=False, max_length=10, choices = CAT_CHOICES)
+	order_time         = models.DateTimeField(editable=False, default=datetime.datetime.now)
+	order_quantity     = models.IntegerField(null=False, blank=False ,default =100)
+	order_type         = models.CharField(null=False,blank=False, choices = TYPE_CHOICES, max_length=10,default = "MR")
+	order_price        = models.FloatField(null=False,blank=False,default = 100)
+	#No_extra           = models.BooleanField(null=False,blank=False,default = True)
+	All_or_none        = models.BooleanField(null=True,blank=True)
+	Minimum_fill       = models.IntegerField(null=True,blank=True)
+	Disclosed_Quantity = models.IntegerField(null=True, blank=True)
+	user_id            = models.CharField(null=False, blank=False, max_length=100, default = 'YAUID')
+	order_status       = models.CharField(editable=False, max_length=10, )
+	traded_quantity    = models.IntegerField(null = False, editable=False, default = 0)
+	def net_quantity(self):
+		return self.Disclosed_Quantity - (self.traded_quantity % self.Disclosed_Quantity)
 
 
 
