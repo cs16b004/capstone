@@ -1,4 +1,4 @@
-from ordergenerator.models import Order
+from ordergenerator.models import Order,TradePrice
 from heapq import heappush, heappop
 import threading
 import time
@@ -10,9 +10,9 @@ sell_heap   = []
 buy_orders  = {}
 sell_orders = {}
 all_orders  = 0 
-
+last_traded_price = 100 #TradePrice.objects.all().order_by('-last_trade_day')[0].last_trade_price
 sem = threading.Lock()
-
+sem2 = threading.Lock()
 def get_time(order):
 	return order.order_time
 
@@ -260,3 +260,5 @@ def get_clock():
 	if len(buy_heap) > 5 and len(sell_heap) > 5: 
 		return all_orders
 	return 0
+def get_last_price():
+	return last_traded_price
