@@ -81,7 +81,8 @@ def order(request):
             #print(k)
         form = OrderForm()
         my_orders = Order.objects.all().filter(user_id = request.session['username'])
-        return render(request,'order/order.html',{'order':order, 'form': form, 'my_orders': my_orders})
+        success_msg = 'Order placed successfully'
+        return render(request,'order/order.html',{'order':order, 'form': form, 'my_orders': my_orders, 'success_msg': success_msg})
     else:
         form = OrderForm()
         my_orders = Order.objects.all().filter(user_id = request.session['username'])

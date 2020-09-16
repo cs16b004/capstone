@@ -28,7 +28,7 @@ def add_order(order):
 		sem.acquire()
 		global all_orders
 		all_orders = all_orders + 1
-		print(all_orders)
+		# print(all_orders)
 		if order.order_category=='Buy':
 			if limit_price not in buy_orders:
 				heappush(buy_heap,-1*limit_price) #Max price on the top
@@ -69,9 +69,6 @@ def get_best_buy():
 	if len(buy_orders[top_buy_price]["orders"]) == 0:
 		del buy_orders[top_buy_price]
 	sem.release()
-	
-	if len(buy_orders[top_buy_price]["orders"]) == 0:
-		del buy_orders[buy_sell_price]
 	return order1
 
 def get_best_sell():
@@ -109,9 +106,9 @@ def get_orders_for_ordermatching():
 # if price dont match push them back using add orders function
 
 def util_starter():
-	#orders = Order.objects.all().filter(order_status='Waiting')
-	#for order in orders:
-	#	add_order(order)
+	orders = Order.objects.all().filter(order_status='Waiting')
+	for order in orders:
+		add_order(order)
 
 	while True:
 		if len(market_orders["orders"]) == 0:
@@ -153,53 +150,82 @@ def start_matcher():
 	t = threading.Thread(target = util_starter)
 	t.start()
 
+def check_and_update_order_status(order1, order2):
+	if order1.traded_quantity == order1.order_quantity:
+		order1.order_status = 'Accepted'
+		print('Add order1 to accepted trades list')
+	elif order1.traded_quantity < order1.order_quantity:
+		add_order(order1)
+		print('Add order1 to buy order heap')
+	else:
+		print('Something wrong')
+
+	if order2.traded_quantity == order2.order_quantity:
+		order2.order_status = 'Accepted'
+		print('Add order2 to accepted trades list')
+	elif order2.traded_quantity < order2.order_quantity:
+		add_order(order2)
+		print('Add order2 to sell order heap')
+	else:
+		print('Something wrong')
+	
+	order1.save()
+	order2.save()
+
 def match_orders(order1, order2):
 	if  order1.net_quantity() <= order2.net_quantity():
 		order2.traded_quantity += order1.net_quantity()
+		order2.trade_quant_list += str(order1.net_quantity()) + ' '
+		order1.trade_quant_list += str(order1.net_quantity()) + ' '
 		order1.traded_quantity += order1.net_quantity()
-		if order1.traded_quantity == order1.order_quantity:
-			order1.order_status = 'Accepted'
-			print('Add order1 to accepted trades list')
-		elif order1.traded_quantity < order1.order_quantity:
-			add_order(order1)
-			print('Add order1 to buy order heap')
-		else:
-			print('Something wrong')
-
-		if order2.traded_quantity == order2.order_quantity:
-			order2.order_status = 'Accepted'
-			print('Add order2 to accepted trades list')
-		elif order2.traded_quantity < order2.order_quantity:
-			add_order(order2)
-			print('Add order2 to sell order heap')
-		else:
-			print('Something wrong')
-		
-		order1.save()
-		order2.save()
+		order2.trade_price_list += str(order1.order_price) + ' '
+		order1.trade_price_list += str(order2.order_price) + ' '
+		check_and_update_order_status(order1, order2)
 	else:
 		order1.traded_quantity += order2.net_quantity()
+		order1.trade_quant_list += str(order2.net_quantity()) + ' '
+		order2.trade_quant_list += str(order2.net_quantity()) + ' '
 		order2.traded_quantity += order2.net_quantity()
-		if order1.traded_quantity == order1.order_quantity:
-			order1.order_status = 'Accepted'
-			print('Add order1 to accepted trades list')
-		elif order1.traded_quantity < order1.order_quantity:
-			add_order(order1)
-			print('Add order1 to buy order heap')
-		else:
-			print('Something wrong')
+		order2.trade_price_list += str(order1.order_price) + ' '
+		order1.trade_price_list += str(order2.order_price) + ' '
+		check_and_update_order_status(order1, order2)
 
-		if order2.traded_quantity == order2.order_quantity:
-			order2.order_status = 'Accepted'
-			print('Add order2 to accepted trades list')
-		elif order2.traded_quantity < order2.order_quantity:
-			add_order(order2)
-			print('Add order2 to sell order heap')
+def not_satified_disclosed_quantity(order1, order2):
+	if order1.order_type == 'MR':
+		order = get_best_sell()
+		if order != -1:
+			match_orders_with_conditions(order1, order)
+			print(order1.order_id)
+			print(order.order_id)
 		else:
-			print('Something wrong')
-		
-		order1.save()
-		order2.save()
+			# add_order(order1)
+			# Need to add market order somewhere
+			print('error with sell order')
+		add_order(order2)
+	elif order2.order_type == 'MR':
+		order = get_best_buy()
+		if order != -1:
+			match_orders_with_conditions(order, order2)
+			print(order2.order_id)
+			print(order.order_id)
+		else:
+			# add_order(order2)
+			# Need to add market order somewhere
+			print('error with buy order')
+		add_order(order1)
+	else:
+		# time.sleep(2)
+		order = get_best_sell()
+		if order != -1:
+			if order1.order_price >= order.order_price:
+				match_orders_with_conditions(order1, order)
+			else:
+				add_order(order1)
+			#add_order(order1)
+			add_order(order2)
+		else:
+			add_order(order1)
+			add_order(order2)
 
 def match_orders_with_conditions(order1, order2):
 	order1_remaining = order1.net_quantity()
@@ -208,52 +234,13 @@ def match_orders_with_conditions(order1, order2):
 		if (order2.traded_quantity !=0) or (order2.traded_quantity == 0 and order1_remaining >= order2.Minimum_fill):
 			match_orders(order1, order2)
 		else:
-			if order1.order_type == 'MR':
-				order = get_best_sell()
-				match_orders_with_conditions(order1, order)
-				add_order(order2)
-			elif order2.order_type == 'MR':
-				order = get_best_buy()
-				match_orders_with_conditions(order, order2)
-				add_order(order1)
-			else:
-				# time.sleep(2)
-				order = get_best_sell()
-				if order != -1:
-					if order1.order_price >= order.order_price:
-						match_orders_with_conditions(order1, order)
-					else:
-						add_order(order1)
-					#add_order(order1)
-					add_order(order2)
-				else:
-					add_order(order1)
-					add_order(order2)
+			not_satified_disclosed_quantity(order1, order2)
 	else:
 		if (order1.traded_quantity != 0 and (order2.traded_quantity != 0 or (order2.traded_quantity == 0 and order1_remaining >= order2.Minimum_fill))) or ((order1.traded_quantity == 0 and order2_remaining >= order1.Minimum_fill) and (order2.traded_quantity!=0 or (order2.traded_quantity == 0 and order1_remaining >= order2.Minimum_fill))):
 			match_orders(order1, order2)
 		else:
-			if order1.order_type == 'MR':
-				order = get_best_sell()
-				match_orders_with_conditions(order1, order)
-				add_order(order2)
-			elif order2.order_type == 'MR':
-				order = get_best_buy()
-				match_orders_with_conditions(order, order2)
-				add_order(order1)
-			else:
-				# time.sleep(2)
-				order = get_best_sell()
-				if order != -1:
-					if order1.order_price >= order.order_price:
-						match_orders_with_conditions(order1, order)
-					else:
-						add_order(order1)
-					#add_order(order1)
-					add_order(order2)
-				else:
-					add_order(order1)
-					add_order(order2)
+			not_satified_disclosed_quantity(order1, order2)
+
 def get_market_data(): 
 	return buy_orders,sell_orders 
 def get_clock(): 
