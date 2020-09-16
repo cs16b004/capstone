@@ -19,12 +19,19 @@ class Order(models.Model):
 	user_id            = models.CharField(null=False, blank=False, max_length=100, default = 'YAUID')
 	order_status       = models.CharField(editable=False, max_length=10, default='Waiting')
 	traded_quantity    = models.IntegerField(null = False, editable=False, default = 0)
+	trade_price_list   = models.TextField(null = False, editable=False, default = '',max_length=200)
+	trade_quant_list   = models.TextField(null = False, editable=False, default = '',max_length=200)
+
 	def net_quantity(self):
 		if (self.order_quantity - self.traded_quantity) >= self.Disclosed_Quantity:
 			return self.Disclosed_Quantity - (self.traded_quantity % self.Disclosed_Quantity)
 		else:
 			return self.order_quantity - self.traded_quantity
 
+
+class TradePrice(models.Model):
+	last_trade_price = models.FloatField(editable=False,null=False,blank=False,default = 100)
+	last_trade_day   = models.DateTimeField(editable=False,null=False, default=datetime.date.today)
 
 
 
