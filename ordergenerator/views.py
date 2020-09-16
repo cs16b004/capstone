@@ -54,7 +54,7 @@ def order(request):
                                     traded_quantity    = traded_quantity)
                                     
         order.save()
-        # add_order(order)
+        add_order(order)
         print("-----------------------------------------------------------------")
         print("-----------------------------------------------------------------")
         print(order.All_or_none)
