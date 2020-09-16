@@ -82,25 +82,25 @@ def accepted(request):
 def waiting(request):
 	waiting_list = Order.objects.all().filter(order_status = 'Waiting')
 	buy = Order.objects.all().filter(order_category = 'Buy')
-    sell = Order.objects.all().filter(order_category = 'Sell')
-    buy_shares = 0
-    sell_shares = 0
-    for order in buy:
-        buy_shares += order.traded_quantity
-    for order in sell:
-        sell_shares += order.traded_quantity
+	sell = Order.objects.all().filter(order_category = 'Sell')
+	buy_shares = 0
+	sell_shares = 0
+	for order in buy:
+		buy_shares += order.traded_quantity
+	for order in sell:
+		sell_shares += order.traded_quantity
 	return render(request, 'tradeslist/waiting/waiting.html', {'waiting_list': waiting_list, 'buy_shares': buy_shares, 'sell_shares': sell_shares})
 
 def rejected(request):
-    rejected_list = Order.objects.all().filter(order_status = 'Rejected')
-    buy = Order.objects.all().filter(order_category = 'Buy')
-    sell = Order.objects.all().filter(order_category = 'Sell')
-    buy_shares = 0
-    sell_shares = 0
-    for order in buy:
-        buy_shares += order.traded_quantity
-    for order in sell:
-        sell_shares += order.traded_quantity
+	rejected_list = Order.objects.all().filter(order_status = 'Rejected')
+	buy = Order.objects.all().filter(order_category = 'Buy')
+	sell = Order.objects.all().filter(order_category = 'Sell')
+	buy_shares = 0
+	sell_shares = 0
+	for order in buy:
+		buy_shares += order.traded_quantity
+	for order in sell:
+		sell_shares += order.traded_quantity
 	return render(request, 'tradeslist/rejected/rejected.html', {'rejected_list': rejected_list, 'buy_shares': buy_shares, 'sell_shares': sell_shares})
 
 def adminView(request):
