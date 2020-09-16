@@ -42,6 +42,21 @@ def order(request):
         
         if "Disclosed_Quantity" in keys and request.POST["Disclosed_Quantity"] != '' :
             dis_quant       = int(request.POST["Disclosed_Quantity"])
+        error_msg = ''
+        if all_or_none:
+            Minimum_fill = quantity
+            dis_quant = quantity
+        else:
+            if Minimum_fill > quantity:
+                error_msg = 'Minimum fill is greater than order quantity'
+            if Minimum_fill > dis_quant:
+                error_msg += ' and Minimum fill is greater than disclosed quantity'
+            if dis_quant > quantity:
+                error_msg += ' and Disclosed Quantity is greater than order quantity'
+        if error_msg != '':
+            form = OrderForm()
+            my_orders = Order.objects.all().filter(user_id = request.session['username'])
+            return render(request,'order/order.html',{'form': form, 'my_orders': my_orders, 'error_msg': error_msg})
         order = Order.objects.create(order_price       = price,\
                                     order_category     = o_cat,\
                                     order_type         = o_type,\

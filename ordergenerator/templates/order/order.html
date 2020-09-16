@@ -113,13 +113,13 @@
 				chatSocket.onclose = function(e) {
 					console.error('Order socket closed unexpectedly');
 				};
-				/*document.querySelector('#market-show').onclick = function(e) {
-					const message = 'Show Market';
-					chatSocket.send(JSON.stringify({
-						'message': message
-					}));*/
+				// document.querySelector('#market-show').onclick = function(e) {
+				// 	const message = 'Show Market';
+				// 	chatSocket.send(JSON.stringify({
+				// 		'message': message
+				// 	}));
 					
-				};
+				// };
 		
 			</script></li>
             <li><a href="#">Google Shares</a></li>
@@ -134,7 +134,7 @@
     		<span>Want to place a new order?</span>
     		<button type="button" href="#myModal" class="btn btn-primary order-button" data-backdrop="false" data-toggle="modal">Start Ordering</button>
     	<!-- </div> -->
-    	
+    	<p>{{error_msg}}</p>
 		<div class="modal fade" id="myModal" >
 		  <div class="modal-dialog">
 		    <div class="modal-content">
