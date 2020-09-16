@@ -73,8 +73,8 @@ def order(request):
         return render(request, 'order/order.html', {'form': form, 'my_orders': my_orders})
 def startgenerate(request):
     if request.method == "POST":
-        g = Generator()
-        #start_matcher()
+        # g = Generator()
+        start_matcher()
         return render(request, 'order/gen-success.html')
     else:
         return render(request, 'order/generator.html')
