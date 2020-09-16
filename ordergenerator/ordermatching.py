@@ -26,6 +26,7 @@ def add_order(order):
 		sem.acquire()
 		global all_orders
 		all_orders = all_orders + 1
+		print(all_orders)
 		if order.order_category=='Buy':
 			if limit_price not in buy_orders:
 				heappush(buy_heap,-1*limit_price) #Max price on the top
@@ -54,12 +55,16 @@ def get_best_buy():
 	if len(buy_heap) > 0:
 		top_buy_price                            = -1 * heappop(buy_heap)
 	else:
+		sem.release()
 		return -1
 	order1                                   = buy_orders[top_buy_price]["orders"][0]
 	buy_orders[top_buy_price]["orders"]      = buy_orders[top_buy_price]["orders"][1:]
 	buy_orders[top_buy_price]["total"]   -= order1.net_quantity()
 	buy_orders[top_buy_price]["disclosed"]  -= order1.Disclosed_Quantity
 	sem.release()
+	
+	if len(buy_orders[top_buy_price]["orders"]) == 0:
+		del buy_orders[buy_sell_price]
 	return order1
 
 def get_best_sell():
@@ -67,11 +72,14 @@ def get_best_sell():
 	if len(sell_heap) > 0:
 		top_sell_price                           = heappop(sell_heap)
 	else:
+		sem.release()
 		return -1
 	order2                                   = sell_orders[top_sell_price]["orders"][0]
 	sell_orders[top_sell_price]["orders"]    = sell_orders[top_sell_price]["orders"][1:]
 	sell_orders[top_sell_price]["total"] -= order2.net_quantity()
 	sell_orders[top_sell_price]["disclosed"]  -= order2.Disclosed_Quantity
+	if len(sell_orders[top_sell_price]["orders"]) == 0:
+		del sell_orders[top_sell_price]
 	sem.release()
 	return order2
 
@@ -91,9 +99,9 @@ def get_orders_for_ordermatching():
 # if price dont match push them back using add orders function
 
 def util_starter():
-	orders = Order.objects.all().filter(order_status='Waiting')
-	for order in orders:
-		add_order(order)
+	#orders = Order.objects.all().filter(order_status='Waiting')
+	#for order in orders:
+	#	add_order(order)
 
 	while True:
 		if len(market_orders["orders"]) == 0:
@@ -209,3 +217,9 @@ def match_orders_with_conditions(order1, order2):
 		else:
 			add_order(order2)
 			add_order(order1)
+def get_market_data():
+		return buy_orders,sell_orders
+def get_clock():
+	if len(buy_heap) > 5 and len(sell_heap) > 5:
+		return all_orders
+	return 0

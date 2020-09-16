@@ -5,16 +5,12 @@ from threading import Thread, Semaphore
 import time
 import datetime
 from .models import Order
-from .ordermatching import add_order
-sem = Semaphore(1)
-recent_order = {\
-    'time_out'    : False,\
-    'order_count' : 0,\
-    'latest_order' : {},\
-}
+from .ordermatching import add_order, get_market_data, get_clock
+
+
 
 class Generator:
-    def __init__(self, duration=10, cat_prob=0.5, type_prob=0.2, noextra=False, price_avg=100, quantity_avg=100):
+    def __init__(self, duration=100, cat_prob=0.5, type_prob=0.2, noextra=False, price_avg=100, quantity_avg=100):
         self.duration     = duration
         self.cat_prob     = cat_prob
         self.type_prob    = type_prob
@@ -26,7 +22,7 @@ class Generator:
         #my_thread.daemon  = True
         my_thread.start()
     def generate(self):
-        price_spread =      0.25
+        price_spread =      0.15
         quantity_spread =   5
         #endTime = datetime.datetime.now() + datetime.timedelta(seconds=self.duration)
         order_list = []
@@ -56,7 +52,7 @@ class Generator:
         endTime = datetime.datetime.now() + datetime.timedelta(seconds=self.duration)
         while True:
             if datetime.datetime.now() < endTime:
-                time.sleep(0.2)
+                #time.sleep(0.5)
                 new_order = self.generate()
                 #sem.acquire()
                 if new_order['order_type'] == 'MR':
@@ -73,13 +69,13 @@ class Generator:
                                      Disclosed_Quantity = new_order['Disclosed_Quantity'],\
                                      user_id            = 'Generator',\
                                      order_status       = 'Waiting')
-                # add_order(order)
-                recent_order['order_count'] += 1
-                recent_order['latest_order'] = new_order
+                add_order(order)
+                #recent_order['order_count'] += 1
+                #recent_order['latest_order'] = new_order
                 print('updated - order')
                 #sem.release()
             else:
-                recent_order['time_out'] = True
+                #recent_order['time_out'] = True
                 print('Time Over')
                 break
         return 0
@@ -88,6 +84,8 @@ class Generator:
 class OrderConsumer(WebsocketConsumer):
     def connect(self):
         self.accept()
+        t = Thread(target = self.start_gen,)
+        t.start()
         print('Conection successful')
 
     def disconnect(self, close_code):
@@ -99,24 +97,57 @@ class OrderConsumer(WebsocketConsumer):
         print("Text data received : ",text_data)
         message = text_data_json['message']
         #print(message)
-        self.start_gen()
-        #print(self)
+       # t = Thread(target = self.start_gen,)
+        #t.daemon  = True
+       # t.start()
+        #start_gen()
+         #print(self)
     def start_gen(self):
         #g1 = Generator()
         #ol = g1.generate()
-        myorder_count = 0
-        while not recent_order['time_out']:
-            if myorder_count < recent_order['order_count']:
-                myorder_count  = recent_order['order_count']
-                ol = recent_order['latest_order']
-                self.send(text_data=json.dumps({
-                    'message'  : str(ol["order_price"]),
-                    'price'    : str(ol["order_price"]),
-                    'quantity' : str(ol["order_quantity"]),
-                    'category' : ol["order_category"],
+        my_clock = 0
+        while True:
+            #time.sleep(2)
+            k = get_clock()
+            if my_clock < k:
+                my_clock = k
+                buy_orders, sell_orders = get_market_data()
+                lis1 = []
+                lis2 = []
+                for key in sell_orders.keys(): 
+                    lis2.append(key)
+                for key in buy_orders.keys(): 
+                    lis1.append(key)
+                lis1.sort()
+                lis2.sort()
+                top_buy_prices = lis1[-5:]
+                top_sell_prices = lis2[:5]
+                i=0
+                for price in top_buy_prices:
+                    self.send(text_data=json.dumps({
+                        'row'      : str(i),
+                        'price'    : str(price),
+                        'quantity' : str(buy_orders[price]["total"]),
+                        'num'      : str(len(buy_orders[price]["orders"])),
+                        'category' : 'Buy',
 
-                }))
+                    }))
+                    i = i+1
+                i=0
+                for price in top_sell_prices:
+                    self.send(text_data=json.dumps({
+                        'row'      : str(i),
+                        'price'    : str(price),
+                        'quantity' : str(sell_orders[price]["total"]),
+                        'num'      : str(len(sell_orders[price]["orders"])),
+                        'category' : 'Sell',
+
+                    }))
+                    i= i+1
                 print('sent')
+            #else:
+            #    print('Already up to date')
+            #    time.sleep(2)
             #else:
             #    print('waiting for new order')
 

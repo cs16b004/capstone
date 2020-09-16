@@ -54,7 +54,7 @@ def order(request):
                                     traded_quantity    = traded_quantity)
                                     
         order.save()
-        # add_order(order)
+        add_order(order)
         print("-----------------------------------------------------------------")
         print("-----------------------------------------------------------------")
         print(order.All_or_none)
@@ -74,7 +74,7 @@ def order(request):
 def startgenerate(request):
     if request.method == "POST":
         g = Generator()
-        # start_matcher()
+        #start_matcher()
         return render(request, 'order/gen-success.html')
     else:
         return render(request, 'order/generator.html')
