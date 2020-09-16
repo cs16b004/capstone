@@ -254,3 +254,9 @@ def match_orders_with_conditions(order1, order2):
 				else:
 					add_order(order1)
 					add_order(order2)
+def get_market_data(): 
+	return buy_orders,sell_orders 
+def get_clock(): 
+	if len(buy_heap) > 5 and len(sell_heap) > 5: 
+		return all_orders
+	return 0
