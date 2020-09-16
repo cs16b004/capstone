@@ -28,6 +28,7 @@ def add_order(order):
 		sem.acquire()
 		global all_orders
 		all_orders = all_orders + 1
+		print(all_orders)
 		if order.order_category=='Buy':
 			if limit_price not in buy_orders:
 				heappush(buy_heap,-1*limit_price) #Max price on the top
@@ -68,6 +69,9 @@ def get_best_buy():
 	if len(buy_orders[top_buy_price]["orders"]) == 0:
 		del buy_orders[top_buy_price]
 	sem.release()
+	
+	if len(buy_orders[top_buy_price]["orders"]) == 0:
+		del buy_orders[buy_sell_price]
 	return order1
 
 def get_best_sell():
@@ -105,9 +109,9 @@ def get_orders_for_ordermatching():
 # if price dont match push them back using add orders function
 
 def util_starter():
-	orders = Order.objects.all().filter(order_status='Waiting')
-	for order in orders:
-		add_order(order)
+	#orders = Order.objects.all().filter(order_status='Waiting')
+	#for order in orders:
+	#	add_order(order)
 
 	while True:
 		if len(market_orders["orders"]) == 0:
@@ -250,3 +254,9 @@ def match_orders_with_conditions(order1, order2):
 				else:
 					add_order(order1)
 					add_order(order2)
+def get_market_data(): 
+	return buy_orders,sell_orders 
+def get_clock(): 
+	if len(buy_heap) > 5 and len(sell_heap) > 5: 
+		return all_orders
+	return 0

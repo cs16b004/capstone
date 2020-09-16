@@ -36,7 +36,92 @@
     <div class="sidebar">
         <h2>Shares List</h2>
         <ul>
-            <li><a href="#">Microsoft Shares</a></li>
+			<li><a href="#">Microsoft Shares</a></li>
+			<li><table id = "Buy">
+				<tr><th>Price </th><th>Numbers</th><th>Quantity</th>></tr>
+				<tr id  = "br0"><td id  = "bp0"></td><td id = "bn0"></td>><td id = "bq0"></td>></tr>
+				<tr id  = "br1"><td id  = "bp1"></td><td id = "bn1"></td>><td id = "bq1"></td>></tr>
+				<tr id  = "br2"><td id  = "bp2"></td><td id = "bn2"></td>><td id = "bq2"></td>></tr>
+				<tr id  = "br3"><td id  = "bp3"></td><td id = "bn3"></td>><td id = "bq3"></td>></tr>
+				<tr id  = "br4"><td id  = "bp4"></td><td id = "bn4"></td>><td id = "bq4"></td>></tr>
+			</table>
+			<table id = "Sell">
+				<tr><th>Price </th><th>Numbers</th><th>Quantity</th>></tr>
+				<tr id  = "sr0"><td id  = "sp0"></td><td id = "sn0"></td>><td id = "sq0"></td>></tr>
+				<tr id  = "sr1"><td id  = "sp1"></td><td id = "sn1"></td>><td id = "sq1"></td>></tr>
+				<tr id  = "sr2"><td id  = "sp2"></td><td id = "sn2"></td>><td id = "sq2"></td>></tr>
+				<tr id  = "sr3"><td id  = "sp3"></td><td id = "sn3"></td>><td id = "sq3"></td>></tr>
+				<tr id  = "sr4"><td id  = "sp4"></td><td id = "sn4"></td>><td id = "sq4"></td>></tr>
+			</table>
+			<span>Order_Price: </span><span id="price"></span><br>
+			<span>Order_Number: </span><span id="category"></span><br>
+			<span>Order_Quantity: </span><span id="quantity"></span><br>
+			
+			<script>
+				console.log(window.location.host)
+				const chatSocket = new WebSocket(
+					'ws://'
+					+ '127.0.0.1:8000'
+					+ '/ws/order/'
+					+ 'order'
+					+ '/'
+				);
+				var i = 0;
+				var j = 0;
+				console.log('runrunr');
+				//var variableSpan = document.getElementById('variable');
+				var lap          = document.getElementById('price');
+				var laq          = document.getElementById('quantity');
+				var lac          = document.getElementById('category');
+				chatSocket.onmessage = function(e) {
+					
+					//tab1         = document.getElementById('b' + (i).toString());
+					//tabCellS       = document.getElementById('s' + (j).toString());
+					
+					var tabelem;
+					//alert("Message is received...");
+					const mdata = JSON.parse(e.data);
+					//cello = '<td>';
+					//cellc = '</td>';
+					var row = mdata.row
+					if(mdata.category == 'Buy'){
+						var update_price  = document.getElementById('bp'+ row);
+						update_price.innerHTML = mdata.price;
+					
+						var update_quant  = document.getElementById('bq'+ row);
+						update_quant.innerHTML = mdata.quantity;
+					
+						var update_number = document.getElementById('bn'+ row);
+						update_number.innerHTML = mdata.num;
+					}
+					if(mdata.category == 'Sell'){
+						var update_price  = document.getElementById('sp'+ row);
+						update_price.innerHTML = mdata.price;
+					
+						var update_quant  = document.getElementById('sq'+ row);
+						update_quant.innerHTML = mdata.quantity;
+					
+						var update_number = document.getElementById('sn'+ row);
+						update_number.innerHTML = mdata.num;
+					}
+				   //variableSpan.innerHTML = mdata.message
+					lap.innerHTML          = mdata.price
+					laq.innerHTML          = mdata.quantity
+					lac.innerHTML          = mdata.num
+				};
+		
+				chatSocket.onclose = function(e) {
+					console.error('Order socket closed unexpectedly');
+				};
+				/*document.querySelector('#market-show').onclick = function(e) {
+					const message = 'Show Market';
+					chatSocket.send(JSON.stringify({
+						'message': message
+					}));*/
+					
+				};
+		
+			</script></li>
             <li><a href="#">Google Shares</a></li>
             <li><a href="#">Amazon Shares</a></li>
         </ul>
