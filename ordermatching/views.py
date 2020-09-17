@@ -9,7 +9,7 @@ from ordergenerator.consumers import Generator
 from ordergenerator.views import start_matcher
 
 def home(request):
-	return render(request, 'home/home.html')
+	return render(request, 'home/index.html')
 
 def getUsers(request):
 	queryset = UserSignup.objects.all()
