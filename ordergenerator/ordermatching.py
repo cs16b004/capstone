@@ -242,9 +242,14 @@ def match_orders_with_conditions(order1, order2):
 			not_satified_disclosed_quantity(order1, order2)
 
 def get_market_data(): 
-	return buy_orders,sell_orders 
+	sem.acquire()
+	k1=buy_orders
+	k2=sell_orders
+	sem.release()
+	return k1,k2
 def get_clock(): 
-	if len(buy_heap) > 5 and len(sell_heap) > 5: 
+	if len(buy_heap) > 0 and len(sell_heap) > 0: 
+		global all_orders
 		return all_orders
 	return 0
 def get_last_price():
