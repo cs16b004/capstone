@@ -24,10 +24,12 @@ def order(request):
                 my_orders = Order.objects.all().filter(user_id = request.session['username'])
                 return render(request,'order/order.html',{'form': form, 'my_orders': my_orders, 'success_msg': success_msg})
             else:
-                return render(request,'order/order.html',{'form': form, 'my_orders': my_orders, 'success_msg': 'Cannot delete'})
+                form = OrderForm()
+                my_orders = Order.objects.all().filter(user_id = request.session['username'])
+                return render(request,'order/order.html',{'form': form, 'my_orders': my_orders, 'error_msg': 'Cannot delete Order in execution'})
         print("-----------------------------------------------------------------")
         print("-----------------------------------------------------------------")
-        print(request.POST.keys())
+        print(request.POST)
         print("-----------------------------------------------------------------")
         print("-----------------------------------------------------------------")
         keys = request.POST.keys()
@@ -100,6 +102,7 @@ def order(request):
                 """
                 order = Order.objects.filter(order_id = request.POST['modify-btn'])[0]#,traded_quantity    = traded_quantity)
                 # Ayush add your function for updating
+                print(o_cat)
                 order.order_price        = price
                 order.order_category     = o_cat
                 order.order_type         = o_type
@@ -108,13 +111,18 @@ def order(request):
                 order.Minimum_fill       = Minimum_fill
                 order.Disclosed_Quantity = dis_quant
                 order.user_id            = userid
-                update_order(order)
-                form = OrderForm()
-                my_orders = Order.objects.all().filter(user_id = request.session['username'])
-                success_msg = 'Order Modified successfully'
-                return render(request,'order/order.html',{'form': form, 'my_orders': my_orders, 'success_msg': success_msg})
-            else:
-                error_msg = 'Order is not modified successfully because <br>' + error_msg
+                print(order.order_id)
+                k = update_order(order)
+                if k == 1:
+                    form = OrderForm()
+                    my_orders = Order.objects.all().filter(user_id = request.session['username'])
+                    success_msg = 'Order Modified successfully'
+                    return render(request,'order/order.html',{'form': form, 'my_orders': my_orders, 'success_msg': success_msg})
+                else:
+                    error_msg = 'Order in execution'
+                    form = OrderForm()
+                    my_orders = Order.objects.all().filter(user_id = request.session['username'])
+                    error_msg = 'Order is not modified successfully because <br>' + error_msg
 
         if error_msg != '':
             form = OrderForm()
@@ -130,8 +138,6 @@ def order(request):
                                     user_id            = userid,\
                                     order_status       = 'Waiting',\
                                     traded_quantity    = traded_quantity)
-                                    
-        order.save()
         add_order(order)
         print("added order")
         print("-----------------------------------------------------------------")

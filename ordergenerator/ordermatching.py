@@ -351,6 +351,7 @@ def update_order(order):
 		add_order(order)
 		print(order.order_price)
 		order.save()
+		return 1
 def add_in_wait(order):
 	sem.acquire()
 	market_orders['wait-orders'].append(order)
