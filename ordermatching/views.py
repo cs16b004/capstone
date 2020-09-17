@@ -25,11 +25,15 @@ def signinView(request):
 		pwd = request.POST['password']
 		request.session['username'] = user_name
 		user_obj = UserSignup.objects.filter(username = user_name, password=pwd).exists()
+		print(user_obj)
 		if user_obj :
 			print("user object exists")
-			return render(request,'trade.html')
+			return redirect('home-page')
+			# return render(request,'trade.html')
 		else :
-			return render(request,'signup/signup.html')
+			error_msg = 'user name doesnot exist or password didnot match'
+			return render(request, 'signin/signin.html', {'error_msg': error_msg})
+			# return render(request,'signup/signup.html')
 	else:
 		return render(request, 'signin/signin.html')
 
@@ -41,20 +45,21 @@ def signupView(request):
 		pwd = request.POST['password']
 
 		request.session['username'] = user_name
-
 		if UserSignup.objects.filter(username=user_name).exists():
+			error_msg = 'username already taken'
 			print("Username Taken") # use toolkit to show it there(js, css etc)
+			return render(request, 'signup/signup.html', {'error_msg': error_msg})
 		else :
 			user1 = UserSignup.objects.create(username = user_name,firstname=first_name,lastname=last_name,password=pwd)
 			user2 = User.objects.create_user(username = user_name,first_name=first_name,last_name=last_name,password=pwd,is_staff=True,is_active=True,is_superuser=True)
 			user1.save()
 			user2.save()
-
 			user = authenticate(request,username=user_name,password=pwd )
 			if user :
 				login(request,user)
 			print("User Created")
-			return render(request,'home/home.html')
+			return redirect('home-page')
+			# return render(request,'home/home.html')
 	else :
 		return render(request,'signup/signup.html')
 
@@ -63,7 +68,8 @@ def logoutView(request):
 		del request.session['username']
 	except:
 		pass
-	return render(request,'home/home.html')
+	return redirect('home-page')
+	# return render(request,'home/home.html')
 
 
 def accepted(request):
