@@ -3,6 +3,7 @@ from heapq import heappush, heappop
 import threading
 import time
 import os
+import csv
 total_orders = {'Buy' : {'MR': {}, 'LM': {}}, 'Sell': {'MR': {}, 'LM': {}}}
 traded_orders = {'Buy' : {'MR': {}, 'LM': {}}, 'Sell': {'MR': {}, 'LM': {}}}
 market_orders = {'orders': []}
