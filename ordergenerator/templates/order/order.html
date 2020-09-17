@@ -141,7 +141,7 @@
 	    {% elif success_msg %}
 	    	<p style="color: green;">{{success_msg}}</p>
     	{% endif %}
-		<div class="modal fade" id="myModal" >
+		<div class="modal fade myModal" id="myModal" >
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
@@ -165,7 +165,7 @@
 					        		<th colspan="2" style="text-align: center; color: green">Extra Conditions</th>
 					        	</tr>
 					        	<tr>
-					        		<th style="text-align: center;">{{field.label_tag}}</th>
+					        		<th style="text-align: center;">{{field.label}}</th>
 					        		<td>{{field}}</td>
 					        	</tr>
 				        	{% endif %}
@@ -174,7 +174,7 @@
 		        </form>
 		      </div>
 		      <div class="modal-footer">
-		      	<button type="button" class="btn btn-info">Help</button>
+		      	<!-- <button type="button" class="btn btn-info">Help</button> -->
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 		        <button type="submit" class="btn btn-primary place_order" form="place_order">Place Order</button>
 		      </div>
@@ -184,7 +184,9 @@
 
 		<div class="my_orders">
 			{% for order in my_orders %}
-				<table border="1" class="table table-striped" style="width: 30%; float: left; margin: 10px;" id={{order.order_id}}>
+				<!-- <form method="post" id={{order.order_id}}> -->
+				<!-- {% csrf_token %} -->
+				<table border="1" class="table table-striped" style="width: 30%; float: left; margin: 10px;">
 					<tr>
 						<th style = "width: 40%;">Order ID</th>
 						<td>{{order.order_id}}</td>
@@ -219,13 +221,84 @@
 					</tr>
 					<tr>
 						<td>
-							<button type="button" class="btn btn-primary order-btn" data-backdrop="false" data-toggle="modal">Edit Order</button>
+							<button type="submit" href = '#{{order.order_id}}'class="btn btn-primary order-btn" data-backdrop="false" data-toggle="modal">Edit Order</button>
 						</td>
 						<td>
-							<button type="button" class="btn btn-primary delete-btn">Delete Order</button>
+							<form method="post">
+								{% csrf_token %}
+								<button type="submit" class="btn btn-primary delete-btn" name="delete-btn" value={{order.order_id}}>Delete Order</button>
+							</form>
 						</td>
 					</tr>
 				</table>
+				<div class="modal fade modify-modal myModal" id="{{order.order_id}}" >
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				      	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				        <h5 class="modal-title">Place your order</h5>
+				      </div>
+				      <div class="modal-body">
+				        <form method="post" id="modify_order">
+					        {% csrf_token %}
+						        <table border="1" class="table table-striped">
+									<tbody>
+										<tr>
+											<th style="text-align: center;">Order category</th>
+											<td>
+												<select name="order_category" maxlength="10" id="id_order_category" value={{order.order_category}}>
+												  <option value="Buy">Buy</option>
+												  <option value="Sell">Sell</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<th style="text-align: center;">Order quantity</th>
+											<td><input type="number" name="order_quantity" required="" id="id_order_quantity" value={{order.order_quantity}}></td>
+										</tr>
+										<tr>
+											<th style="text-align: center;">Order type</th>
+											<td>
+												<select name="order_type" id="id_order_type" value={{order.order_type}}>
+													<option value="LM">Limit</option>
+													<option value="MR">Market</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<th style="text-align: center;">Order price</th>
+											<td><input type="number" name="order_price" step="any" required="" id="id_order_price" value={{order.order_price}}></td>
+										</tr>
+										<tr>
+											<th colspan="2" style="text-align: center; color: green">Extra Conditions</th>
+										</tr>
+										<tr>
+											<th style="text-align: center;">All or none</th>
+											<td><input type="checkbox" name="all_or_none" id="id_all_or_none" value={{order.All_or_none}}></td>
+										</tr>
+										<tr>
+											<th style="text-align: center;">Minimum fill</th>
+											<td><input type="number" name="Minimum_fill" id="id_Minimum_fill" value={{order.Minimum_fill}}></td>
+										</tr>
+										<tr>
+											<th style="text-align: center;">Disclosed quantity</th>
+											<td><input type="number" name="Disclosed_Quantity" id="id_Disclosed_Quantity" value={{order.Disclosed_Quantity}}></td>
+										</tr>
+									</tbody>
+						        </table>
+				        </form>
+				      </div>
+				      <div class="modal-footer">
+				      	<!-- <button type="button" class="btn btn-info">Help</button> -->
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				        <button type="submit" class="btn btn-primary place_order" form="modify_order" name="modify-btn" value="{{order.order_id}}">Place Order</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<!-- </form> -->
 			{% endfor %}
 		</div>
     </div>

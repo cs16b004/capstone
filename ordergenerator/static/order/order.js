@@ -29,7 +29,7 @@ $("#id_all_or_none").change(function(){
 })
 
 $( function () {
-	$("#myModal").draggable({
+	$(".myModal").draggable({
       handle: ".modal-header"
 	}); 
 });

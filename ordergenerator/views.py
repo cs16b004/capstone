@@ -13,6 +13,15 @@ def order(request):
     #   Here get
     #   Retrieve User id from session for now I am using using the id as 'YAUID(Yet another user id)'
     #        
+        if 'delete-btn' in request.POST:
+            delete_order = Order.objects.filter(order_id = request.POST['delete-btn'])
+            # Ayush add your function here for deleteing
+            delete_order.delete()
+            success_msg = 'Order deleted successfully'
+            form = OrderForm()
+            my_orders = Order.objects.all().filter(user_id = request.session['username'])
+            return render(request,'order/order.html',{'form': form, 'my_orders': my_orders, 'success_msg': success_msg})
+            
         print("-----------------------------------------------------------------")
         print("-----------------------------------------------------------------")
         print(request.POST.keys())
@@ -42,25 +51,57 @@ def order(request):
         
         if "Disclosed_Quantity" in keys and request.POST["Disclosed_Quantity"] != '' :
             dis_quant       = int(request.POST["Disclosed_Quantity"])
+
         error_msg = ''
         i = 1
         if all_or_none:
             Minimum_fill = quantity
             dis_quant = quantity
         else:
+            temp = False
             if Minimum_fill > quantity:
-                error_msg = 'Order is not placed successfully because: <br>'
                 error_msg += '&emsp;' +str(i) +'. Minimum fill is greater than order quantity <br>'
                 i += 1
+                temp = True
             if Minimum_fill > dis_quant:
                 error_msg += '&emsp;' +str(i) +'. Minimum fill is greater than disclosed quantity <br>'
                 i += 1
+                temp = True
             if dis_quant > quantity:
                 error_msg += '&emsp;' +str(i) +'. Disclosed Quantity is greater than order quantity <br>'
                 i += 1
-        check_price = price/0.05
-        if check_price * 0.05 != price:
-            error_msg += '&emsp;' +str(i) +'. Order Price is not a multiple of 0.05 <br>'
+                temp = True
+            if temp:
+                if 'modify-btn' not in request.POST:
+                    error_msg = 'Order is not placed successfully because <br>' + error_msg
+        if o_type == 'LM':
+            check_price = price/0.05
+            if check_price * 0.05 != price:
+                error_msg += '&emsp;' +str(i) +'. Order Price is not a multiple of 0.05 <br>'
+        else:
+            print(o_cat)
+            price = -1
+
+        if 'modify-btn' in request.POST:
+            print('Modify Order')
+            if error_msg == '':
+                order = Order.objects.filter(order_id = request.POST['modify-btn']).update( order_price       = price,\
+                                                                                    order_category     = o_cat,\
+                                                                                    order_type         = o_type,\
+                                                                                    order_quantity     = quantity,\
+                                                                                    All_or_none        = all_or_none,\
+                                                                                    Minimum_fill       = Minimum_fill,\
+                                                                                    Disclosed_Quantity = dis_quant,\
+                                                                                    user_id            = userid,\
+                                                                                    traded_quantity    = traded_quantity)
+                # Ayush add your function for updating
+                form = OrderForm()
+                my_orders = Order.objects.all().filter(user_id = request.session['username'])
+                success_msg = 'Order Modified successfully'
+                return render(request,'order/order.html',{'form': form, 'my_orders': my_orders, 'success_msg': success_msg})
+            else:
+                error_msg = 'Order is not modified successfully because <br>' + error_msg
+
         if error_msg != '':
             form = OrderForm()
             my_orders = Order.objects.all().filter(user_id = request.session['username'])
@@ -90,7 +131,7 @@ def order(request):
         form = OrderForm()
         my_orders = Order.objects.all().filter(user_id = request.session['username'])
         success_msg = 'Order placed successfully'
-        return render(request,'order/order.html',{'order':order, 'form': form, 'my_orders': my_orders, 'success_msg': success_msg})
+        return render(request,'order/order.html',{'form': form, 'my_orders': my_orders, 'success_msg': success_msg})
     else:
         if 'username' in request.session:
             form = OrderForm()
