@@ -12,4 +12,5 @@ urlpatterns = [
 	path("ajax/getUsers",views.getUsers,name='getUsers'),
 	path("logout/", views.logoutView, name="logout-page"),
 	path("admin/",views.adminView,name="admin-page"),
+	path("generate/",views.generateView,name="generate-page"),
 ]
