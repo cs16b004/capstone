@@ -135,9 +135,11 @@
     		<button type="button" href="#myModal" class="btn btn-primary order-button" data-backdrop="false" data-toggle="modal">Start Ordering</button>
     	<!-- </div> -->
     	{% if error_msg %}
-    	<p>{{error_msg}}</p>
-    	{% elif success_msg %}
-    	<p>{{success_msg}}</p>
+	    	{% autoescape off %}
+	    		<p style="color: red;">{{error_msg}}</p>
+	    	{% endautoescape %}
+	    {% elif success_msg %}
+	    	<p style="color: green;">{{success_msg}}</p>
     	{% endif %}
 		<div class="modal fade" id="myModal" >
 		  <div class="modal-dialog">
