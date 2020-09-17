@@ -10,7 +10,7 @@ from .ordermatching import add_order, get_market_data, get_clock
 
 
 class Generator:
-    def __init__(self, duration=100, cat_prob=0.5, type_prob=0.2, noextra=False, price_avg=100, quantity_avg=100):
+    def __init__(self, duration=2, cat_prob=0.5, type_prob=0.2, noextra=False, price_avg=100, quantity_avg=100):
         self.duration     = duration
         self.cat_prob     = cat_prob
         self.type_prob    = type_prob
@@ -36,6 +36,9 @@ class Generator:
         Minimum_fill = np.random.randint(0,int(0.1*quantity))
         all_or_none  = np.random.choice(["True", "False"])
         dis_quant    = np.random.randint(int(0.2*quantity), quantity)
+        if all_or_none:
+            Minimum_fill = quantity
+            dis_quant = quantity
         # dis_quant = quantity
         new_order    = {"order_price"        : price,\
                            "order_quantity"     : quantity,\

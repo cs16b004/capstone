@@ -134,7 +134,11 @@
     		<span>Want to place a new order?</span>
     		<button type="button" href="#myModal" class="btn btn-primary order-button" data-backdrop="false" data-toggle="modal">Start Ordering</button>
     	<!-- </div> -->
+    	{% if error_msg %}
     	<p>{{error_msg}}</p>
+    	{% elif success_msg %}
+    	<p>{{success_msg}}</p>
+    	{% endif %}
 		<div class="modal fade" id="myModal" >
 		  <div class="modal-dialog">
 		    <div class="modal-content">

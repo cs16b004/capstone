@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Order
 from .forms  import OrderForm
 import openpyxl
@@ -20,7 +20,7 @@ def order(request):
         print("-----------------------------------------------------------------")
         keys = request.POST.keys()
         userid              = 'YAID' #change this to one received from session
-        if request.session['username']:
+        if 'username' in request.session:
             userid = request.session['username']
         quantity            = int(request.POST["order_quantity"])      
         o_type              = request.POST["order_type"]         
@@ -81,11 +81,16 @@ def order(request):
             #print(k)
         form = OrderForm()
         my_orders = Order.objects.all().filter(user_id = request.session['username'])
-        return render(request,'order/order.html',{'order':order, 'form': form, 'my_orders': my_orders})
+        success_msg = 'Order placed successfully'
+        return render(request,'order/order.html',{'order':order, 'form': form, 'my_orders': my_orders, 'success_msg': success_msg})
     else:
-        form = OrderForm()
-        my_orders = Order.objects.all().filter(user_id = request.session['username'])
-        return render(request, 'order/order.html', {'form': form, 'my_orders': my_orders})
+        if 'username' in request.session:
+            form = OrderForm()
+            my_orders = Order.objects.all().filter(user_id = request.session['username'])
+            return render(request, 'order/order.html', {'form': form, 'my_orders': my_orders})
+        else:
+            print('Ok')
+            return redirect('signin-page')
 def startgenerate(request):
     if request.method == "POST":
         g = Generator()

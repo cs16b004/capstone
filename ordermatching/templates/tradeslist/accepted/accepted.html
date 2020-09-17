@@ -41,6 +41,8 @@
 					<th>Traded Quantity</th>
 					<th>Minimum Fill</th>
 					<th>Disclosed</th>
+					<th>Traded Quantity</th>
+					<th>Traded Prices</th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -57,6 +59,8 @@
 						<th>{{order.traded_quantity}}</th>
 						<th>{{order.Minimum_fill}}</th>
 						<th>{{order.Disclosed_Quantity}}</th>
+						<th>{{order.trade_quant_list}}</th>
+						<th>{{order.trade_price_list}}</th>
 					</tr>
 				{% endfor %}
 				{% else %}
