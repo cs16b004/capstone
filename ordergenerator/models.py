@@ -21,6 +21,7 @@ class Order(models.Model):
 	traded_quantity    = models.IntegerField(null = False, editable=False, default = 0)
 	trade_price_list   = models.TextField(null = False, editable=False, default = '',max_length=200)
 	trade_quant_list   = models.TextField(null = False, editable=False, default = '',max_length=200)
+	trade_id           = models.CharField(null = False, editable=False, default='',max_length=100)
 
 	def net_quantity(self):
 		if (self.order_quantity - self.traded_quantity) >= self.Disclosed_Quantity:

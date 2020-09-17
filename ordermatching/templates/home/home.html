@@ -10,13 +10,14 @@
 			<i class="far fa-user-circle"></i>
 			Welcome {{ request.session.username }}
 			<div class="dropdown-content">
+				<a href="{% url 'generate-page' %}">Start Generator</a>
 				<a href="{% url 'admin-page' %}">Admin</a>
 				<a href="{% url 'logout-page' %}">Logout</a>
 			</div>
 		</div>
 	{% else %}
 		<div class="nav-link-wrapper">
-			<a href="{%url 'signup-page'%}"><i class="glyphicon glyphicon-user"></i> Sign Up</a>
+			<a href="{%url 'signup-page'%}"> Sign Up</a>
 		</div>
 		<div class="nav-link-wrapper">
 			<a href="{%url 'signin-page'%}"><i class="glyphicon glyphicon-log-in"></i> Login</a>

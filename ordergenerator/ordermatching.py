@@ -2,6 +2,8 @@ from ordergenerator.models import Order,TradePrice
 from heapq import heappush, heappop
 import threading
 import time
+import os
+import csv
 total_orders = {'Buy' : {'MR': {}, 'LM': {}}, 'Sell': {'MR': {}, 'LM': {}}}
 traded_orders = {'Buy' : {'MR': {}, 'LM': {}}, 'Sell': {'MR': {}, 'LM': {}}}
 market_orders = {'orders': []}
@@ -13,6 +15,7 @@ all_orders  = 0
 last_traded_price = 100 #TradePrice.objects.all().order_by('-last_trade_day')[0].last_trade_price
 sem = threading.Lock()
 sem2 = threading.Lock()
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def get_time(order):
 	return order.order_time
 
@@ -242,10 +245,41 @@ def match_orders_with_conditions(order1, order2):
 			not_satified_disclosed_quantity(order1, order2)
 
 def get_market_data(): 
-	return buy_orders,sell_orders 
+	sem.acquire()
+	k1=buy_orders
+	k2=sell_orders
+	sem.release()
+	return k1,k2
 def get_clock(): 
-	if len(buy_heap) > 5 and len(sell_heap) > 5: 
+	if len(buy_heap) > 0 and len(sell_heap) > 0: 
+		global all_orders
 		return all_orders
 	return 0
 def get_last_price():
 	return last_traded_price
+
+def fill_excel(lst,filename,fields):
+	path = os.path.join(BASE_DIR,'excel/')
+	flag = os.path.exists(path)
+
+	if flag == False :
+		os.mkdir(path)
+
+	with open(path+filename,'w',newline='') as csvfile:
+		csvwriter = csv.writer(csvfile)
+		csvwriter.writerow(fields)
+	for id in lst:
+		order = Order.objects.get(order_id = id)
+		print(id)
+		order = vars(order)
+		values = list(order.values())
+		values = values[1:]
+		print(values)
+		with open(path+filename,'a',newline='') as csvfile:
+			csvwriter = csv.writer(csvfile)
+			csvwriter.writerow(values)
+
+
+
+
+

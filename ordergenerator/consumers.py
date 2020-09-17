@@ -5,12 +5,13 @@ from threading import Thread, Semaphore
 import time
 import datetime
 from .models import Order
-from .ordermatching import add_order, get_market_data, get_clock
+from .ordermatching import add_order, get_market_data, get_clock, fill_excel
+import csv
 
 
 
 class Generator:
-    def __init__(self, duration=2, cat_prob=0.5, type_prob=0.2, noextra=False, price_avg=100, quantity_avg=100):
+    def __init__(self, duration=100, cat_prob=0.5, type_prob=0.2, noextra=False, price_avg=100, quantity_avg=100):
         self.duration     = duration
         self.cat_prob     = cat_prob
         self.type_prob    = type_prob
@@ -53,9 +54,13 @@ class Generator:
         return new_order
     def start_generator(self):
         endTime = datetime.datetime.now() + datetime.timedelta(seconds=self.duration)
+        date = datetime.datetime.now()
+        filename = date.strftime("%m_%d_%Y_%H_%M_%S") + ".csv"
+        start = True
+        lst = []
         while True:
             if datetime.datetime.now() < endTime:
-                #time.sleep(0.5)
+                time.sleep(0.5)
                 new_order = self.generate()
                 #sem.acquire()
                 if new_order['order_type'] == 'MR':
@@ -73,13 +78,20 @@ class Generator:
                                      user_id            = 'Generator',\
                                      order_status       = 'Waiting')
                 add_order(order)
+                lst.append(order.order_id)
+                if start :
+                    start = False
+                    order = vars(order)
+                    fields = list(order.keys())
+                    fields = fields[1:] 
                 #recent_order['order_count'] += 1
                 #recent_order['latest_order'] = new_order
-                print('updated - order')
+                #print('updated - order')
                 #sem.release()
             else:
                 #recent_order['time_out'] = True
                 print('Time Over')
+                fill_excel(lst,filename,fields)
                 break
         return 0
 
@@ -114,40 +126,43 @@ class OrderConsumer(WebsocketConsumer):
             k = get_clock()
             if my_clock < k:
                 my_clock = k
-                buy_orders, sell_orders = get_market_data()
+                b_orders, s_orders = get_market_data()
                 lis1 = []
                 lis2 = []
-                for key in sell_orders.keys(): 
+                for key in s_orders.keys(): 
                     lis2.append(key)
-                for key in buy_orders.keys(): 
+                for key in b_orders.keys(): 
                     lis1.append(key)
                 lis1.sort()
                 lis2.sort()
-                top_buy_prices = lis1[-5:]
-                top_sell_prices = lis2[:5]
+                top_buy_prices = (lis1,lis1[-5:])[len(lis1) > 5]
+                top_sell_prices = (lis2,lis2[-5:])[len(lis2) > 5]
                 i=0
                 for price in top_buy_prices:
                     self.send(text_data=json.dumps({
                         'row'      : str(i),
                         'price'    : str(price),
-                        'quantity' : str(buy_orders[price]["total"]),
-                        'num'      : str(len(buy_orders[price]["orders"])),
+                        'quantity' : str(b_orders[price]["total"]),
+                        'num'      : str(len(b_orders[price]["orders"])),
                         'category' : 'Buy',
 
                     }))
                     i = i+1
                 i=0
+                print(s_orders)
                 for price in top_sell_prices:
                     self.send(text_data=json.dumps({
                         'row'      : str(i),
                         'price'    : str(price),
-                        'quantity' : str(sell_orders[price]["total"]),
-                        'num'      : str(len(sell_orders[price]["orders"])),
+                        'quantity' : str(s_orders[price]["total"]),
+                        'num'      : str(len(s_orders[price]["orders"])),
                         'category' : 'Sell',
 
                     }))
                     i= i+1
                 print('sent')
+            else:
+                time.sleep(1)
             #else:
             #    print('Already up to date')
             #    time.sleep(2)
