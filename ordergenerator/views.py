@@ -43,16 +43,24 @@ def order(request):
         if "Disclosed_Quantity" in keys and request.POST["Disclosed_Quantity"] != '' :
             dis_quant       = int(request.POST["Disclosed_Quantity"])
         error_msg = ''
+        i = 1
         if all_or_none:
             Minimum_fill = quantity
             dis_quant = quantity
         else:
             if Minimum_fill > quantity:
-                error_msg = 'Minimum fill is greater than order quantity'
+                error_msg = 'Order is not placed successfully because: <br>'
+                error_msg += '&emsp;' +str(i) +'. Minimum fill is greater than order quantity <br>'
+                i += 1
             if Minimum_fill > dis_quant:
-                error_msg += ' and Minimum fill is greater than disclosed quantity'
+                error_msg += '&emsp;' +str(i) +'. Minimum fill is greater than disclosed quantity <br>'
+                i += 1
             if dis_quant > quantity:
-                error_msg += ' and Disclosed Quantity is greater than order quantity'
+                error_msg += '&emsp;' +str(i) +'. Disclosed Quantity is greater than order quantity <br>'
+                i += 1
+        check_price = price/0.05
+        if check_price * 0.05 != price:
+            error_msg += '&emsp;' +str(i) +'. Order Price is not a multiple of 0.05 <br>'
         if error_msg != '':
             form = OrderForm()
             my_orders = Order.objects.all().filter(user_id = request.session['username'])
