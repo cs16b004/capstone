@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 from ordergenerator.models import Order
 
 def home(request):
-	return render(request, 'home/home.html')
+	return render(request, 'home/index.html')
 
 def getUsers(request):
 	queryset = UserSignup.objects.all()
