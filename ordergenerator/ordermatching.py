@@ -20,7 +20,7 @@ def get_time(order):
 	return order.order_time
 
 def add_order(order):
-	#print(order.order_time)
+	#print(order.order_time)git 
 	limit_price = order.order_price 
 	if order.order_type == "MR":
 		print("Market order added")
@@ -282,101 +282,75 @@ def fill_excel(lst,filename,fields):
 
 def delete_order(order):
 	sem.acquire()
-	if order.order_category == 'Buy':
-		if order.order_price  not in buy_orders.keys():
-			print('Order not present in the dict : already traded')
-			sem.release()
-			return -1
-		else:
-			for b_order in buy_orders[order.order_price]["orders"]:
-				if b_order.order_id == order.order_id:
-					if b_order.traded_quantity > 0:
-						print("cannot delete order : already traded")
-						sem.release()
-						return -1
-					else:
-						print("deletion successful")
-						buy_orders[b_order.order_price]["orders"].remove(b_order)
-						order.delete()
-						sem.release()
-						return 1
-			print("order already in execution")
-			sem.release()
-			return -1
-	else:
-		if order.order_price not in sell_orders.keys():
-			print('Order not present in the dict : already traded')
-			sem.release()
-			return -1
-		else:
-			for s_orders in sell_orders[order.order_price]:
-				if s_order.order_id == order.order_id:
-					if s_order.traded_quantity > 0:
-						print("cannot delete order : already traded")
-						sem.release()
-						return -1
-					else:
-						sell_orders[s_orders.order_price]["orders"].remove(s_order)
-						order.delete()
-						print("Delete Successful")
-						sem.release()
-						return 1
-			print("order already in excution ")
-			sem.release()
-			return -1
+	for previous_price in buy_orders.keys():
+		for b_order in buy_orders[previous_price]["orders"]:
+			if b_order.order_id == order.order_id:
+				if b_order.traded_quantity > 0:
+					print("cannot delete order : already traded")
+					sem.release()
+					return -1
+				else:
+					print("deletion successful")
+					buy_orders[b_order.order_price]["orders"].remove(b_order)
+					buy_orders[b_order.order_price]["total"]-= b_order.order_quantity
+					buy_orders[b_order.order_price]["disclosed"]-= b_order.Disclosed_Quantity
+					#order.delete()
+					sem.release()
+					return 1
+	for previous_price in sell_orders.keys():
+		for s_order in sell_orders[previous_price]:
+			if s_order.order_id == order.order_id:
+				if s_order.traded_quantity > 0:
+					print("cannot delete order : already traded")
+					sem.release()
+					return -1
+				else:
+					sell_orders[s_order.order_price]["orders"].remove(s_order)
+					sell_orders[s_order.order_price]["total"] -= s_order.order_quantity
+					sell_orders[s_order.order_price]["dislosed"] -= s_order.Disclosed_Quantity
+					#order.delete()
+					print("Delete Successful")
+					sem.release()
+					return 1
+	for m_order in market_orders["orders"]:
+		if m_order.order_id == order.order_id:
+			if m_order.traded_quantity > 0:
+				print('Cannot Delete order Already traded')
+				sem.release()
+				return -1
+			else:
+				market_orders["orders"].remove(m_order)
+				#order.delete()
+				print("deleted successfully")
+				sem.release()
+				return 1
+	for m_order in market_orders["wait-orders"]:
+		if m_order.order_id == order.order_id:
+			if m_order.traded_quantity > 0:
+				print('Cannot Delete order Already traded')
+				sem.release()
+				return -1
+			else:
+				market_orders["wait-orders"].remove(m_order)
+				print("deleted successfully")
+				#order.delete()
+				sem.release()
+				return 1
+	print("Order already executed cannot delete")
+	sem.release()
+	return -1
 
 
 	
 def update_order(order):
-	sem.acquire()
-	if order.order_category == 'Buy':
-		if order.order_price not in buy_orders.keys():
-			print("Order not present in dictoinary")
-			sem.release()
-			return -1
-		else:
-			for b_order in buy_orders[order.order_price]["orders"]:
-				if b_order.order_id  == order.order_id:
-					if b_order.traded_quantity > 0:
-						print('Order already traded cannot update')
-						sem.release()
-						return -1
-					else:
-						b_order.order_price        = order.order_price
-						b_order.order_quantity     = order.order_quantity
-						b_order.Disclosed_Quantity = order.Disclosed_Quantity
-						b_order.Minimum_fill       = order.Minimum_fill
-						order.save()
-						print('update successful')
-						sem.release()
-						return 1
-			print("Order already in execution cannot update")
-			sem.release()
-			return -1
+	k = delete_order(order)
+	if k == -1:
+		print('Order cannot be updated')
+		return -1
 	else:
-		if order.order_price not in sell_orders.keys():
-			print("Order not present in dictoinary")
-			sem.release()
-			return -1
-		else:
-			for s_order in sell_orders[order.order_price]["orders"]:
-				if s_order.order_id  == order.order_id:
-					if s_order.traded_quantity > 0:
-						print('Order already traded cannot update')
-						sem.release()
-						return -1
-					else:
-						s_order.order_price        = order.order_price
-						s_order.order_quantity     = order.order_quantity
-						s_order.Disclosed_Quantity = order.Disclosed_Quantity
-						s_order.Minimum_fill       = order.Minimum_fill
-						order.save()
-						print('update successful')
-						sem.release()
-						return 1
-			print("Order already in execution cannot update")
-			sem.release()
-			return -1
+		add_order(order)
+		print(order.order_price)
+		order.save()
 def add_in_wait(order):
 	sem.acquire()
 	market_orders['wait-orders'].append(order)
