@@ -52,7 +52,7 @@ class Generator:
         endTime = datetime.datetime.now() + datetime.timedelta(seconds=self.duration)
         while True:
             if datetime.datetime.now() < endTime:
-                #time.sleep(0.5)
+                time.sleep(0.5)
                 new_order = self.generate()
                 #sem.acquire()
                 if new_order['order_type'] == 'MR':
@@ -72,7 +72,7 @@ class Generator:
                 add_order(order)
                 #recent_order['order_count'] += 1
                 #recent_order['latest_order'] = new_order
-                print('updated - order')
+                #print('updated - order')
                 #sem.release()
             else:
                 #recent_order['time_out'] = True
