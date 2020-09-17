@@ -5,7 +5,8 @@ from threading import Thread, Semaphore
 import time
 import datetime
 from .models import Order
-from .ordermatching import add_order, get_market_data, get_clock
+from .ordermatching import add_order, get_market_data, get_clock, fill_excel
+import csv
 
 
 
@@ -53,6 +54,10 @@ class Generator:
         return new_order
     def start_generator(self):
         endTime = datetime.datetime.now() + datetime.timedelta(seconds=self.duration)
+        date = datetime.datetime.now()
+        filename = date.strftime("%m_%d_%Y_%H_%M_%S") + ".csv"
+        start = True
+        lst = []
         while True:
             if datetime.datetime.now() < endTime:
                 time.sleep(0.5)
@@ -73,6 +78,12 @@ class Generator:
                                      user_id            = 'Generator',\
                                      order_status       = 'Waiting')
                 add_order(order)
+                lst.append(order.order_id)
+                if start :
+                    start = False
+                    order = vars(order)
+                    fields = list(order.keys())
+                    fields = fields[1:] 
                 #recent_order['order_count'] += 1
                 #recent_order['latest_order'] = new_order
                 #print('updated - order')
@@ -80,6 +91,7 @@ class Generator:
             else:
                 #recent_order['time_out'] = True
                 print('Time Over')
+                fill_excel(lst,filename,fields)
                 break
         return 0
 

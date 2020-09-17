@@ -5,6 +5,8 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User, auth
 from django.contrib.auth import authenticate, login
 from ordergenerator.models import Order
+from ordergenerator.consumers import Generator
+from ordergenerator.views import start_matcher
 
 def home(request):
 	return render(request, 'home/home.html')
@@ -113,6 +115,12 @@ def rejected(request):
 	for order in sell:
 		sell_shares += order.traded_quantity
 	return render(request, 'tradeslist/rejected/rejected.html', {'rejected_list': rejected_list, 'buy_shares': buy_shares, 'sell_shares': sell_shares})
+
+def generateView(request):
+    g = Generator()
+    start_matcher()
+    #render(request, 'order/room.html')
+    return render(request,'tradeslist/waiting/waiting.html')
 
 def adminView(request):
 	pass
