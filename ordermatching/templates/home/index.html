@@ -2,12 +2,13 @@
 <!DOCTYPE html>
 <html lang="en">
    <!-- Basic -->
+   <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
    <meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <!-- Mobile Metas -->
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    <!-- Site Metas -->
-   <title>Home</title>
+   <title>Trading home</title>
    <meta name="keywords" content="">
    <meta name="description" content="">
    <meta name="author" content="">
@@ -18,7 +19,7 @@
    <!-- FontAwesome Icons core CSS -->
    <link href="css/font-awesome.min.css" rel="stylesheet">
 
-  
+    
    <!-- Custom animate styles for this template -->
    <link href="{% static 'home/css/animate.css' %}" rel="stylesheet">
    <!-- Custom styles for this template -->
@@ -29,6 +30,8 @@
    <link href="{% static 'home/css/colors.css' %}" rel="stylesheet">
    <!-- light box gallery -->
    <link href="{% static 'home/css/ekko-lightbox.css' %}" rel="stylesheet">
+
+   <link rel="stylesheet" type="text/css" href="{% static '/tradeslist/tradeslist.css' %}">
    <!--[if lt IE 9]>
    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -44,7 +47,7 @@
                <div class="col-lg-3">
                   <div class="full">
                      <div class="logo">
-                        <a href="index.html"><img src="images/logo2.png" alt="#" /></a>
+                        <a href=""><img src="{% static 'home/images/logo2.png' %}" alt="#" /></a>
                      </div>
                   </div>
                </div>
@@ -58,21 +61,34 @@
                            </button>
                            <div class="collapse navbar-collapse justify-content-md-center" id="cloapediamenu">
                               <ul class="navbar-nav">
-                                 <li class="nav-item active">
-                                    <a class="nav-link" href="index.html"><i class="glyphicon glyphicon-user"></i>Home</a>
+                                 <li  class="nav-item active">
+                                    <a style="font-size: 25px" class="nav-link" href=""></i><i class="fas fa-house-user"></i> Home</a>
                                  </li>
                                  
                                  <li class="nav-item">
-                                    <a class="nav-link color-aqua-hover" href="coaching.html">Contact</a>
+                                    <a style="font-size: 25px" class="nav-link color-aqua-hover" href="#"><i class="fas fa-phone"></i>  Contact</a>
                                  </li>
-                                 
+                                 {% if request.session.username %}
+                                 <li >
+                                  <div class="dropdown">
+                                    <a style="font-size: 25px" class="nav-link color-grey-hover"><i class="far fa-user-circle"></i> Welcome, {{ request.session.username }}
+                                        
+                                    </a>
+                                    <div class="dropdown-content">
+                                            <a  href="{% url 'admin-page' %}">Admin</a>
+                                            <a href="{% url 'logout-page' %}">Logout</a>
+                                    </div>
+                                  </div>
+                                    
+                                 </li>
+                                 {% else %}
+                                 <li class="nav-item">
+                                    <a style="font-size: 25px" class="nav-link color-grey-hover" href="{%url 'signup-page'%}">Sign Up</a>
                                  </li>
                                  <li class="nav-item">
-                                    <a class="nav-link color-grey-hover" href="contact.html">Sign Up</a>
+                                    <a style="font-size: 25px" class="nav-link color-grey-hover" href="{%url 'signin-page'%}">Login</a>
                                  </li>
-                                 <li class="nav-item">
-                                    <a class="nav-link color-grey-hover" href="contact.html">Login</a>
-                                 </li>
+                                 {% endif %}
                               </ul>
                               
                            </div>
@@ -93,12 +109,17 @@
           <div class="row">
              <div class="full">
                   <div class="slider_banner">
-                    <img class="img-responsive" src="images/slider3.png" alt="#" />
+                    <img class="img-responsive" src="{% static 'home/images/slider3.png' %}" alt="#" />
                       <div class="slide_cont">
                         <div class="slider_cont_inner">
                           <h3>Welcome to the trading arena</h3>
                         <p></p>
-                        <a class="blue_bt" href="#">Let's trade</a>
+                        {% if request.session.username %}
+                            <a class="blue_bt" href="{% url 'order-page' %}">Let's trade</a>
+                        {% else %}
+                            <a class="blue_bt" href="{% url 'signin-page' %}">Let's trade</a>
+                        {% endif %}
+
                         </div>
                       </div>
                   </div>
@@ -117,7 +138,7 @@
                      <h2>About</h2>
                   </div>
                   <div class="full">
-                     <p class="large">Something we can write here</p>
+                     <p style="font-size: 30px">Hey there, this is an order generator/matcher website created by Nirupama , Ayush Jain, Sandeep Muvva and Akash. </p>
                   </div>
                </div>
                <div class="col-md-12">
@@ -126,27 +147,8 @@
             </div>
          </div>
       </section>
-      <!-- end about section -->
-
-      <!-- section -->
-      
-      <!-- end section -->
-
-      <!-- section -->
-      
-      <!-- end section -->
-
-    
-      <!-- section -->
-      
-      <!-- end section -->
-     
-      <!-- footer -->
       
       
-      <!-- end footer -->
-      <!-- Core JavaScript
-         ================================================== -->
       <script src="{% static 'home/js/jquery.min.js' %}"></script>  
       <script src="{% static 'home/js/tether.min.js' %}"></script>  
       <script src="{% static 'home/js/bootstrap.min.js' %}"></script> 
