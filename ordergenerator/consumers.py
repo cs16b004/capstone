@@ -151,6 +151,7 @@ class OrderConsumer(WebsocketConsumer):
 
                     }))
                     i = i+1
+
                 i=0
                 #print(s_orders)
                 for price in top_sell_prices:

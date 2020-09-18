@@ -22,6 +22,9 @@ class Order(models.Model):
 	trade_price_list   = models.TextField(null = False, editable=False, default = '',max_length=200)
 	trade_quant_list   = models.TextField(null = False, editable=False, default = '',max_length=200)
 	trade_id           = models.CharField(null = False, editable=False, default='',max_length=100)
+	user_all           = models.BooleanField(null = False, editable=False, default =False)
+	user_MinFill       = models.BooleanField(null = False, editable=False, default =False)
+	user_disclosed     = models.BooleanField(null=False, editable =False,default=False)
 
 	def net_quantity(self):
 		if (self.order_quantity - self.traded_quantity) >= self.Disclosed_Quantity:

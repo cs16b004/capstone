@@ -1,4 +1,6 @@
 {% extends "order/base.html" %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static '/order/order.css' %}">
 
 {% block title-content %}
 	<title> Order Page </title>
@@ -40,22 +42,24 @@
         <h2>Shares List</h2>
         <ul>
 			<li><a href="#">Microsoft Shares</a></li>
+			<li class = "BuyRow">Ask Orders</li>
 			<li><table id = "BuyTable" class = "MarketTable">
-				<tr><th>Price </th><th>Numbers</th><th>Quantity</th>></tr>
-				<tr id  = "br0" class = "BuyRow"><td id  = "bp0"></td><td id = "bn0"></td>><td id = "bq0"></td>></tr>
-				<tr id  = "br1" class = "BuyRow"><td id  = "bp1"></td><td id = "bn1"></td>><td id = "bq1"></td>></tr>
-				<tr id  = "br2" class = "BuyRow"><td id  = "bp2"></td><td id = "bn2"></td>><td id = "bq2"></td>></tr>
-				<tr id  = "br3" class = "BuyRow"><td id  = "bp3"></td><td id = "bn3"></td>><td id = "bq3"></td>></tr>
-				<tr id  = "br4" class = "BuyRow"><td id  = "bp4"></td><td id = "bn4"></td>><td id = "bq4"></td>></tr>
-			</table>
-			<table id = "SellTable" class = "MarketTable">
-				<tr><th>Price </th><th>Numbers</th><th>Quantity</th>></tr>
-				<tr id  = "sr0" class = "SellRow"><td id  = "sp0"></td><td id = "sn0"></td>><td id = "sq0"></td>></tr>
-				<tr id  = "sr1" class = "SellRow"><td id  = "sp1"></td><td id = "sn1"></td>><td id = "sq1"></td>></tr>
-				<tr id  = "sr2" class = "SellRow"><td id  = "sp2"></td><td id = "sn2"></td>><td id = "sq2"></td>></tr>
-				<tr id  = "sr3" class = "SellRow"><td id  = "sp3"></td><td id = "sn3"></td>><td id = "sq3"></td>></tr>
-				<tr id  = "sr4" class = "SellRow"><td id  = "sp4"></td><td id = "sn4"></td>><td id = "sq4"></td>></tr>
-			</table>
+				<tr><th class = "BuyRow">Price </th><th class = "BuyRow">Numbers</th><th class = "BuyRow">Quantity</th></tr>
+				<tr id  = "br0" class = "BuyRow"><td id  = "bp0" class = "BuyRow"></td><td id = "bn0" class = "BuyRow" ></td><td id = "bq0" class = "BuyRow"></td></tr>
+				<tr id  = "br1" class = "BuyRow"><td id  = "bp1" class = "BuyRow"></td><td id = "bn1" class = "BuyRow"></td><td id = "bq1" class = "BuyRow"></td></tr>
+				<tr id  = "br2" class = "BuyRow"><td id  = "bp2" class = "BuyRow"></td><td id = "bn2" class = "BuyRow"></td><td id = "bq2" class = "BuyRow"></td></tr>
+				<tr id  = "br3" class = "BuyRow"><td id  = "bp3" class = "BuyRow"></td><td id = "bn3" class = "BuyRow"></td><td id = "bq3" class = "BuyRow"></td></tr>
+				<tr id  = "br4" class = "BuyRow"><td id  = "bp4" class = "BuyRow"></td><td id = "bn4" class = "BuyRow"></td><td id = "bq4" class = "BuyRow"></td></tr>
+			</table></li>
+			<li class = "SellRow">Bid Orders</li>
+			<li><table id = "SellTable" class = "MarketTable">
+				<tr><th class = "SellRow">Price </th><th class = "SellRow">Numbers</th><th class = "SellRow">Quantity</th></tr>
+				<tr id  = "sr0" class = "SellRow"><td id  = "sp0" class = "SellRow"></td><td id = "sn0" class = "SellRow"></td><td id = "sq0" class = "SellRow"></td></tr>
+				<tr id  = "sr1" class = "SellRow"><td id  = "sp1" class = "SellRow"></td><td id = "sn1" class = "SellRow"></td><td id = "sq1" class = "SellRow"></td></tr>
+				<tr id  = "sr2" class = "SellRow"><td id  = "sp2" class = "SellRow"></td><td id = "sn2" class = "SellRow"></td><td id = "sq2" class = "SellRow"></td></tr>
+				<tr id  = "sr3" class = "SellRow"><td id  = "sp3" class = "SellRow"></td><td id = "sn3" class = "SellRow"></td><td id = "sq3" class = "SellRow"></td></tr>
+				<tr id  = "sr4" class = "SellRow"><td id  = "sp4" class = "SellRow"></td><td id = "sn4" class = "SellRow"></td><td id = "sq4" class = "SellRow"></td></tr>
+			</table></li>
 			<span>Order_Price: </span><span id="price"></span><br>
 			<span>Order_Number: </span><span id="category"></span><br>
 			<span>Order_Quantity: </span><span id="quantity"></span><br>
@@ -124,7 +128,7 @@
 					
 				// };
 		
-			</script></li>
+			</script>
             <li><a href="#">Google Shares</a></li>
             <li><a href="#">Amazon Shares</a></li>
         </ul>
