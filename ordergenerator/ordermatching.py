@@ -116,6 +116,7 @@ def util_starter():
 	#	add_order(order)
 
 	while True:
+		time.sleep(2)
 		if len(market_orders["orders"]) == 0:
 			print('Executing Limit Order')
 			order1, order2 = get_orders_for_ordermatching()
@@ -126,8 +127,10 @@ def util_starter():
 					add_order(order1)
 					add_order(order2)
 			elif order1 == -1:
+				#time.sleep(3)
 				print('No Buy orders to execute')
 			elif order2 == -1:
+				#time.sleep(3)
 				print('No sell orders to execute')
 			time.sleep(2)
 		else:
@@ -146,6 +149,7 @@ def util_starter():
 					sem.acquire()
 					del market_orders['orders'][0]
 					sem.release()
+					time.sleep(3)
 					print('No sell orders to execute')
 			else:
 				order1 = get_best_buy()
@@ -160,6 +164,7 @@ def util_starter():
 					sem.acquire()
 					del market_orders['orders'][0]
 					sem.release()
+					time.sleep(3)
 					print('No Buy orders to execute')
 		print(buy_heap)
 		print(sell_heap)
