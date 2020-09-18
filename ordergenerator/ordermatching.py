@@ -128,6 +128,7 @@ def util_starter():
 				print('No Buy orders to execute')
 			elif order2 == -1:
 				print('No sell orders to execute')
+			# time.sleep(5)
 		else:
 			print('Executing Market Order')
 			order = market_orders['orders'][0]
@@ -135,24 +136,40 @@ def util_starter():
 				order1 = order
 				order2 = get_best_sell()
 				if order2 != -1:
+					sem.acquire()
 					del market_orders['orders'][0]
+					sem.release()
 					match_orders_with_conditions(order1, order2)
 				else:
+					add_in_wait(order1)
+					sem.acquire()
+					del market_orders['orders'][0]
+					sem.release()
 					print('No sell orders to execute')
 			else:
 				order1 = get_best_buy()
 				order2 = order
 				if order1 != -1:
+					sem.acquire()
 					del market_orders['orders'][0]
+					sem.release()
 					match_orders_with_conditions(order1, order2)
 				else:
+					add_in_wait(order2)
+					sem.acquire()
+					del market_orders['orders'][0]
+					sem.release()
 					print('No Buy orders to execute')
 		print(buy_heap)
 		print(sell_heap)
+		print(market_orders['orders'])
+		print(market_orders['wait-orders'])
 
 def start_matcher():
 	t = threading.Thread(target = util_starter)
 	t.start()
+	t1 = threading.Thread(target = activate_util)
+	t1.start()
 
 def check_and_update_order_status(order1, order2):
 	if order1.traded_quantity == order1.order_quantity:
@@ -203,6 +220,7 @@ def not_satified_disclosed_quantity(order1, order2):
 			print(order.order_id)
 		else:
 			# add_order(order1)
+			add_in_wait(order1)
 			# Need to add market order somewhere
 			print('error with sell order')
 		add_order(order2)
@@ -214,6 +232,7 @@ def not_satified_disclosed_quantity(order1, order2):
 			print(order.order_id)
 		else:
 			# add_order(order2)
+			add_in_wait(order2)
 			# Need to add market order somewhere
 			print('error with buy order')
 		add_order(order1)
@@ -271,11 +290,11 @@ def fill_excel(lst,filename,fields):
 		csvwriter.writerow(fields)
 	for id in lst:
 		order = Order.objects.get(order_id = id)
-		print(id)
+		# print(id)
 		order = vars(order)
 		values = list(order.values())
 		values = values[1:]
-		print(values)
+		# print(values)
 		with open(path+filename,'a',newline='') as csvfile:
 			csvwriter = csv.writer(csvfile)
 			csvwriter.writerow(values)
@@ -298,7 +317,7 @@ def delete_order(order):
 					sem.release()
 					return 1
 	for previous_price in sell_orders.keys():
-		for s_order in sell_orders[previous_price]:
+		for s_order in sell_orders[previous_price]["orders"]:
 			if s_order.order_id == order.order_id:
 				if s_order.traded_quantity > 0:
 					print("cannot delete order : already traded")
@@ -363,9 +382,15 @@ def activate_util():
 		sem.acquire()
 		if len(market_orders['wait-orders']) > 0:
 			print('Activating MR order')
-			market_orders['orders'].append(market_orders['wait-orders'][0])
-			del market_orders['wait-orders'][0]
+			# market_orders['orders'].append(market_orders['wait-orders'][0])
+			# del market_orders['wait-orders'][0]
+			# print(market_orders['wait-orders'])
+			market_orders['orders'] = list(market_orders['wait-orders'])
+			market_orders['wait-orders'].clear()
+			# print(market_orders['orders'])
+			# print(market_orders['wait-orders'])
 			print('Activated')
+		sem.release()
 		
 
 		

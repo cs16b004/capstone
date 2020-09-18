@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login
 from ordergenerator.models import Order
 from ordergenerator.consumers import Generator
 from ordergenerator.views import start_matcher
+import time
 
 def home(request):
 	return render(request, 'home/index.html')
@@ -118,6 +119,7 @@ def rejected(request):
 
 def generateView(request):
     g = Generator()
+    time.sleep(5)
     start_matcher()
     #render(request, 'order/room.html')
     return render(request,'tradeslist/waiting/waiting.html')
