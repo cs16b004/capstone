@@ -34,14 +34,13 @@
         <table class="content-table">
 			  <thead>
 			    <tr>
+					<th>Trade ID</th>
 					<th>Order ID</th>
 					<th>Order Category</th>
 					<th>Order Time</th>
 					<th>Order Quantity</th>
 					<th>Order Type</th>
 					<th>Order Price</th>
-					<th>Order Status</th>
-					<th>Traded Quantity</th>
 					<th>Minimum Fill</th>
 					<th>Disclosed</th>
 					<th>Traded Quantity</th>
@@ -52,6 +51,7 @@
 			  	{% if accepted_list %}
 			    {% for order in accepted_list %}
 					<tr>
+						<th>{{order.trade_id}}</th>
 						<th>{{order.order_id}}</th>
 						<th>{{order.order_category}}</th>
 						<th>{{order.order_time}}</th>
@@ -62,8 +62,6 @@
 						{% else %}
 						<th></th>
 						{% endif %}
-						<th>{{order.order_status}}</th>
-						<th>{{order.traded_quantity}}</th>
 						<th>{{order.Minimum_fill}}</th>
 						<th>{{order.Disclosed_Quantity}}</th>
 						<th>{{order.trade_quant_list}}</th>
@@ -72,7 +70,7 @@
 				{% endfor %}
 				{% else %}
 					<tr>
-						<th colspan="12" style="text-align: center;"> No Orders to Display</th>
+						<th colspan="11" style="text-align: center;"> No Orders to Display</th>
 					</tr>
 				{% endif %}
 			  </tbody>
