@@ -33,7 +33,7 @@ class Generator:
         quantity  = int(np.random.normal(self.quantity_avg,quantity_spread))
         o_type    = ("MR","LM")[self.type_prob < np.random.uniform()]
         o_cat     = ("Buy","Sell")[self.cat_prob < np.random.uniform()]
-        print(o_cat)
+        #print(o_cat)
         Minimum_fill = np.random.randint(0,int(0.1*quantity))
         # all_or_none  = np.random.choice(["True", "False"])
         all_or_none = ("False", "True")[self.type_prob < np.random.uniform()]
@@ -139,34 +139,56 @@ class OrderConsumer(WebsocketConsumer):
                 lis1.sort()
                 lis2.sort()
                 top_buy_prices = (lis1,lis1[-5:])[len(lis1) > 5]
-                top_sell_prices = (lis2,lis2[-5:])[len(lis2) > 5]
+                top_sell_prices = (lis2,lis2[:5])[len(lis2) > 5]
                 i=0
-                for price in top_buy_prices :
-                    self.send(text_data=json.dumps({
-                        'row'      : str(len(top_buy_prices)-1-i),
-                        'price'    : str(price),
-                        'quantity' : str(b_orders[price]["total"]),
-                        'num'      : str(len(b_orders[price]["orders"])),
-                        'category' : 'Buy',
+                while i < 5 :
+                    if i < len(top_buy_prices):
+                        price = top_buy_prices[i]
+                        self.send(text_data=json.dumps({
+                            'row'      : str(4-i),
+                            'price'    : str(price),
+                            'quantity' : str(b_orders[price]["total"]),
+                            'num'      : str(len(b_orders[price]["orders"])),
+                            'category' : 'Buy',
 
-                    }))
+                        }))
+                    else:
+                        self.send(text_data=json.dumps({
+                            'row'      : str(4-i),
+                            'price'    : '',
+                            'quantity' : '',
+                            'num'      : '',
+                            'category' : 'Buy',
+
+                        }))
                     i = i+1
 
                 i=0
                 #print(s_orders)
-                for price in top_sell_prices:
-                    self.send(text_data=json.dumps({
-                        'row'      : str(i),
-                        'price'    : str(price),
-                        'quantity' : str(s_orders[price]["total"]),
-                        'num'      : str(len(s_orders[price]["orders"])),
-                        'category' : 'Sell',
+                while i < 5:
+                    if i < len(top_sell_prices):
+                        price = top_sell_prices[i]
+                        self.send(text_data=json.dumps({
+                            'row'      : str(i),
+                            'price'    : str(price),
+                            'quantity' : str(s_orders[price]["total"]),
+                            'num'      : str(len(s_orders[price]["orders"])),
+                            'category' : 'Sell',
 
-                    }))
-                    i= i+1
+                        }))
+                    else:
+                        self.send(text_data=json.dumps({
+                            'row'      : str(i),
+                            'price'    : '',
+                            'quantity' : '',
+                            'num'      : '',
+                            'category' : 'Sell',
+
+                        }))
+                    i = i+1
                 print('sent')
             else:
-                time.sleep(1)
+                time.sleep(6)
             #else:
             #    print('Already up to date')
             #    time.sleep(2)
