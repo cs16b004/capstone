@@ -60,11 +60,13 @@ table.MarketTable{
   text-align: center;
   background-color:#18456ba;
   border: 2px whitesmoke;
+  width: 220px;
 }
 th.BuyRow, th.SellRow{
-  width: 100;
+  /*width: 100;*/
   color: white;
   font-size: 11;
+  text-align: center;
 }
 td.BuyRow{
   color: lime; 
@@ -73,5 +75,8 @@ td.SellRow{
   color: rgb(231, 99, 99);
 }
 li.SellRow{
+  color: whitesmoke;
+}
+li.BuyRow{
   color: whitesmoke;
 }

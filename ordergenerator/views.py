@@ -16,17 +16,18 @@ def order(request):
         if 'delete-btn' in request.POST:
             order = Order.objects.filter(order_id = request.POST['delete-btn'])[0]
             # Ayush add your function here for deleteing
-            if delete_order(order) == 1:
-            #del_order.delete()
-                order.delete()
-                success_msg = 'Order deleted successfully'
-                form = OrderForm()
-                my_orders = Order.objects.all().filter(user_id = request.session['username'])
-                return render(request,'order/order.html',{'form': form, 'my_orders': my_orders, 'success_msg': success_msg})
-            else:
-                form = OrderForm()
-                my_orders = Order.objects.all().filter(user_id = request.session['username'])
-                return render(request,'order/order.html',{'form': form, 'my_orders': my_orders, 'error_msg': 'Cannot delete Order in execution'})
+            if order.traded_quantity == 0:
+                if delete_order(order) == 1:
+                #del_order.delete()
+                    order.delete()
+                    success_msg = 'Order deleted successfully'
+                    form = OrderForm()
+                    my_orders = Order.objects.all().filter(user_id = request.session['username'])
+                    return render(request,'order/order.html',{'form': form, 'my_orders': my_orders, 'success_msg': success_msg})
+            # else:
+            form = OrderForm()
+            my_orders = Order.objects.all().filter(user_id = request.session['username'])
+            return render(request,'order/order.html',{'form': form, 'my_orders': my_orders, 'error_msg': 'Cannot delete Order in execution'})
         print("-----------------------------------------------------------------")
         print("-----------------------------------------------------------------")
         print(request.POST)
@@ -80,9 +81,12 @@ def order(request):
                 if 'modify-btn' not in request.POST:
                     error_msg = 'Order is not placed successfully because <br>' + error_msg
         if o_type == 'LM':
-            check_price = price/0.05
-            if check_price * 0.05 != price:
-                error_msg += '&emsp;' +str(i) +'. Order Price is not a multiple of 0.05 <br>'
+            if price > 0:
+                check_price = price/0.05
+                if not check_price.is_integer():
+                    error_msg += '&emsp;' +str(i) +'. Order Price is not a multiple of 0.05 <br>'
+            else:
+                error_msg += '&emsp;' +str(i) +'. Limit Order Price should be greater than 0 <br>'
         else:
             print(o_cat)
             price = -1
@@ -112,7 +116,9 @@ def order(request):
                 order.Disclosed_Quantity = dis_quant
                 order.user_id            = userid
                 print(order.order_id)
-                k = update_order(order)
+                k = -1
+                if order.traded_quantity == 0:
+                    k = update_order(order)
                 if k == 1:
                     form = OrderForm()
                     my_orders = Order.objects.all().filter(user_id = request.session['username'])

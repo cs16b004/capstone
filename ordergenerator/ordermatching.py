@@ -221,8 +221,8 @@ def not_satified_disclosed_quantity(order1, order2):
 		order = get_best_sell()
 		if order != -1:
 			match_orders_with_conditions(order1, order)
-			print(order1.order_id)
-			print(order.order_id)
+			# print(order1.order_id)
+			# print(order.order_id)
 		else:
 			# add_order(order1)
 			add_in_wait(order1)
@@ -233,8 +233,8 @@ def not_satified_disclosed_quantity(order1, order2):
 		order = get_best_buy()
 		if order != -1:
 			match_orders_with_conditions(order, order2)
-			print(order2.order_id)
-			print(order.order_id)
+			# print(order2.order_id)
+			# print(order.order_id)
 		else:
 			# add_order(order2)
 			add_in_wait(order2)
