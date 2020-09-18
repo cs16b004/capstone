@@ -55,7 +55,11 @@
 						<th>{{order.order_time}}</th>
 						<th>{{order.order_quantity}}</th>
 						<th>{{order.order_type}}</th>
+						{% if order.order_type == 'LM' %}
 						<th>{{order.order_price}}</th>
+						{% else %}
+						<th></th>
+						{% endif %}
 						<th>{{order.order_status}}</th>
 						<th>{{order.traded_quantity}}</th>
 						<th>{{order.Minimum_fill}}</th>

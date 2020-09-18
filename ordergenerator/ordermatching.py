@@ -4,6 +4,7 @@ import threading
 import time
 import os
 import csv
+import uuid
 total_orders = {'Buy' : {'MR': {}, 'LM': {}}, 'Sell': {'MR': {}, 'LM': {}}}
 traded_orders = {'Buy' : {'MR': {}, 'LM': {}}, 'Sell': {'MR': {}, 'LM': {}}}
 market_orders = {'orders': [], 'wait-orders':[]}
@@ -128,7 +129,7 @@ def util_starter():
 				print('No Buy orders to execute')
 			elif order2 == -1:
 				print('No sell orders to execute')
-			time.sleep(5)
+			time.sleep(2)
 		else:
 			print('Executing Market Order')
 			order = market_orders['orders'][0]
@@ -174,6 +175,7 @@ def start_matcher():
 def check_and_update_order_status(order1, order2):
 	if order1.traded_quantity == order1.order_quantity:
 		order1.order_status = 'Accepted'
+		order1.trade_id = str(uuid.uuid4())
 		print('Add order1 to accepted trades list')
 	elif order1.traded_quantity < order1.order_quantity:
 		add_order(order1)
@@ -183,6 +185,7 @@ def check_and_update_order_status(order1, order2):
 
 	if order2.traded_quantity == order2.order_quantity:
 		order2.order_status = 'Accepted'
+		order2.trade_id = str(uuid.uuid4())
 		print('Add order2 to accepted trades list')
 	elif order2.traded_quantity < order2.order_quantity:
 		add_order(order2)
@@ -199,16 +202,28 @@ def match_orders(order1, order2):
 		order2.trade_quant_list += str(order1.net_quantity()) + ' '
 		order1.trade_quant_list += str(order1.net_quantity()) + ' '
 		order1.traded_quantity += order1.net_quantity()
-		order2.trade_price_list += str(order1.order_price) + ' '
-		order1.trade_price_list += str(order2.order_price) + ' '
+		if order1.order_type == 'LM':
+			order2.trade_price_list += str(order1.order_price) + ' '
+		else:
+			order2.trade_price_list += str(order2.order_price) + ' '
+		if order2.order_type == 'LM':
+			order1.trade_price_list += str(order2.order_price) + ' '
+		else:
+			order1.trade_price_list += str(order1.order_price) + ' '
 		check_and_update_order_status(order1, order2)
 	else:
 		order1.traded_quantity += order2.net_quantity()
 		order1.trade_quant_list += str(order2.net_quantity()) + ' '
 		order2.trade_quant_list += str(order2.net_quantity()) + ' '
 		order2.traded_quantity += order2.net_quantity()
-		order2.trade_price_list += str(order1.order_price) + ' '
-		order1.trade_price_list += str(order2.order_price) + ' '
+		if order1.order_type == 'LM':
+			order2.trade_price_list += str(order1.order_price) + ' '
+		else:
+			order2.trade_price_list += str(order2.order_price) + ' '
+		if order2.order_type == 'LM':
+			order1.trade_price_list += str(order2.order_price) + ' '
+		else:
+			order1.trade_price_list += str(order1.order_price) + ' '
 		check_and_update_order_status(order1, order2)
 
 def not_satified_disclosed_quantity(order1, order2):

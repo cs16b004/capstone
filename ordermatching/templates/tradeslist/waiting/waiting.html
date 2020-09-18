@@ -42,6 +42,7 @@
 					<th>Order Price</th>
 					<th>Order Status</th>
 					<th>Traded Quantity</th>
+					<th>All or none</th>
 					<th>Minimum Fill</th>
 					<th>Disclosed</th>
 					<th>Traded Quantity</th>
@@ -57,9 +58,14 @@
 						<th>{{order.order_time}}</th>
 						<th>{{order.order_quantity}}</th>
 						<th>{{order.order_type}}</th>
+						{% if order.order_type == 'LM' %}
 						<th>{{order.order_price}}</th>
+						{% else %}
+						<th></th>
+						{% endif %}
 						<th>{{order.order_status}}</th>
 						<th>{{order.traded_quantity}}</th>
+						<th>{{order.All_or_none}}</th>
 						<th>{{order.Minimum_fill}}</th>
 						<th>{{order.Disclosed_Quantity}}</th>
 						<th>{{order.trade_quant_list}}</th>

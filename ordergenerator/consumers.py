@@ -36,7 +36,7 @@ class Generator:
         print(o_cat)
         Minimum_fill = np.random.randint(0,int(0.1*quantity))
         # all_or_none  = np.random.choice(["True", "False"])
-        all_or_none = ("False", "True")[self.type_prob < np.random.uniform()]
+        all_or_none = (False, True)[self.type_prob < np.random.uniform()]
         dis_quant    = np.random.randint(int(0.2*quantity), quantity)
         if all_or_none:
             Minimum_fill = quantity
