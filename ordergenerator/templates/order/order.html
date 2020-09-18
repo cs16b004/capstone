@@ -26,7 +26,10 @@
 {% block trades-list %}
 	{% if request.session.username %}
 		<div class="nav-link-wrapper"> 
-			<a href="{% url 'accepted-list' %}"><i class="fas fa-building"></i>Trades List</a>
+			<a href="{% url 'accepted-list' %}"><i class="fas fa-building"></i> Trades List</a>
+		</div>
+		<div class="nav-link-wrapper"> 
+			<a href="{% url 'order-page' %}"><i class="fas fa-shopping-cart"></i> Order Page</a>
 		</div>
 	{% endif %}
 {% endblock %}
@@ -193,7 +196,11 @@
 					</tr>
 					<tr>
 						<th style = "width: 40%;">Order Price</th>
-						<td>{{order.order_price}}</td>
+						{% if order.order_type == 'LM' %}
+							<td>{{order.order_price}}</td>
+						{% else %}
+							<td></td>
+						{% endif %}
 					</tr>
 					<tr>
 						<th style = "width: 40%;">Order Quantity</th>
@@ -238,10 +245,10 @@
 				      	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				          <span aria-hidden="true">&times;</span>
 				        </button>
-				        <h5 class="modal-title">Place your order</h5>
+				        <h5 class="modal-title">Modify your order</h5>
 				      </div>
 				      <div class="modal-body">
-				        <form method="post" id="modify_order">
+				        <form method="post" id="modify_{{order.order_id}}">
 					        {% csrf_token %}
 						        <table border="1" class="table table-striped">
 									<tbody>
@@ -293,7 +300,7 @@
 				      <div class="modal-footer">
 				      	<!-- <button type="button" class="btn btn-info">Help</button> -->
 				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				        <button type="submit" class="btn btn-primary place_order" form="modify_order" name="modify-btn" value="{{order.order_id}}">Place Order</button>
+				        <button type="submit" class="btn btn-primary place_order" form="modify_{{order.order_id}}" name="modify-btn" value="{{order.order_id}}">Modify Order</button>
 				      </div>
 				    </div>
 				  </div>

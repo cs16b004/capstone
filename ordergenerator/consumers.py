@@ -8,7 +8,7 @@ from .models import Order
 from .ordermatching import add_order, get_market_data, get_clock, fill_excel
 import csv
 
-
+#Adding functionality to start or stop generator
 
 class Generator:
     def __init__(self, duration=100, cat_prob=0.5, type_prob=0.2, noextra=False, price_avg=100, quantity_avg=100):
@@ -35,7 +35,8 @@ class Generator:
         o_cat     = ("Buy","Sell")[self.cat_prob < np.random.uniform()]
         print(o_cat)
         Minimum_fill = np.random.randint(0,int(0.1*quantity))
-        all_or_none  = np.random.choice(["True", "False"])
+        # all_or_none  = np.random.choice(["True", "False"])
+        all_or_none = ("True", "False")[self.type_prob < np.random.uniform()]
         dis_quant    = np.random.randint(int(0.2*quantity), quantity)
         if all_or_none:
             Minimum_fill = quantity
@@ -99,9 +100,11 @@ class Generator:
 class OrderConsumer(WebsocketConsumer):
     def connect(self):
         self.accept()
+        print('Conection successful')
+        print(self.scope["path"])
         t = Thread(target = self.start_gen,)
         t.start()
-        print('Conection successful')
+        
 
     def disconnect(self, close_code):
         pass
@@ -138,9 +141,9 @@ class OrderConsumer(WebsocketConsumer):
                 top_buy_prices = (lis1,lis1[-5:])[len(lis1) > 5]
                 top_sell_prices = (lis2,lis2[-5:])[len(lis2) > 5]
                 i=0
-                for price in top_buy_prices:
+                for price in top_buy_prices :
                     self.send(text_data=json.dumps({
-                        'row'      : str(i),
+                        'row'      : str(len(top_buy_prices)-1-i),
                         'price'    : str(price),
                         'quantity' : str(b_orders[price]["total"]),
                         'num'      : str(len(b_orders[price]["orders"])),
@@ -149,7 +152,7 @@ class OrderConsumer(WebsocketConsumer):
                     }))
                     i = i+1
                 i=0
-                print(s_orders)
+                #print(s_orders)
                 for price in top_sell_prices:
                     self.send(text_data=json.dumps({
                         'row'      : str(i),
@@ -169,6 +172,4 @@ class OrderConsumer(WebsocketConsumer):
             #else:
             #    print('waiting for new order')
 
-        print(self.scope["path"])
-
-        print('sent')
+        

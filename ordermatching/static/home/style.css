@@ -1312,6 +1312,7 @@ header .main_menu .nav-item.active a.nav-link {
     float: left;
     margin-top: 25px;
     margin-bottom: 25px;
+    width: 150px;
 }
 
 .site_information {
