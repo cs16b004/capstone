@@ -68,11 +68,11 @@ body{
 }
 
 .wrapper .sidebar{
-  width: 200px;
+  width: 250px;
   height: 100%;
   background: #4b4276;
   padding: 30px 0px;
-  position: fixed;
+  position: absolute;
 }
 
 .wrapper .sidebar h2{
@@ -92,6 +92,7 @@ body{
 .wrapper .sidebar ul li a{
   color: #bdb8d7;
   display: block;
+  font-size: 20px;
 }
 
 .wrapper .sidebar ul li a .fas{
@@ -130,7 +131,7 @@ body{
 
 .wrapper .main_content{
   width: 100%;
-  margin-left: 200px;
+  margin-left: 250px;
 }
 
 .wrapper .main_content .header{

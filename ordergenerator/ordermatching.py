@@ -128,7 +128,7 @@ def util_starter():
 				print('No Buy orders to execute')
 			elif order2 == -1:
 				print('No sell orders to execute')
-			# time.sleep(5)
+			time.sleep(5)
 		else:
 			print('Executing Market Order')
 			order = market_orders['orders'][0]
@@ -216,8 +216,8 @@ def not_satified_disclosed_quantity(order1, order2):
 		order = get_best_sell()
 		if order != -1:
 			match_orders_with_conditions(order1, order)
-			print(order1.order_id)
-			print(order.order_id)
+			# print(order1.order_id)
+			# print(order.order_id)
 		else:
 			# add_order(order1)
 			add_in_wait(order1)
@@ -228,8 +228,8 @@ def not_satified_disclosed_quantity(order1, order2):
 		order = get_best_buy()
 		if order != -1:
 			match_orders_with_conditions(order, order2)
-			print(order2.order_id)
-			print(order.order_id)
+			# print(order2.order_id)
+			# print(order.order_id)
 		else:
 			# add_order(order2)
 			add_in_wait(order2)
@@ -266,8 +266,8 @@ def match_orders_with_conditions(order1, order2):
 
 def get_market_data(): 
 	sem.acquire()
-	k1=buy_orders
-	k2=sell_orders
+	k1=buy_orders.copy()
+	k2=sell_orders.copy()
 	sem.release()
 	return k1,k2
 def get_clock(): 
