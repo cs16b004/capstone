@@ -6,7 +6,7 @@ import os
 import csv
 total_orders = {'Buy' : {'MR': {}, 'LM': {}}, 'Sell': {'MR': {}, 'LM': {}}}
 traded_orders = {'Buy' : {'MR': {}, 'LM': {}}, 'Sell': {'MR': {}, 'LM': {}}}
-market_orders = {'orders': []}
+market_orders = {'orders': [], 'wait-orders':[]}
 buy_heap    = []
 sell_heap   = []
 buy_orders  = {}
@@ -20,6 +20,7 @@ def get_time(order):
 	return order.order_time
 
 def add_order(order):
+	#print(order.order_time)git 
 	limit_price = order.order_price 
 	if order.order_type == "MR":
 		print("Market order added")
@@ -109,9 +110,9 @@ def get_orders_for_ordermatching():
 # if price dont match push them back using add orders function
 
 def util_starter():
-	# orders = Order.objects.all().filter(order_status='Waiting')
-	# for order in orders:
-	# 	add_order(order)
+	#orders = Order.objects.all().filter(order_status='Waiting')
+	#for order in orders:
+	#	add_order(order)
 
 	while True:
 		if len(market_orders["orders"]) == 0:
@@ -279,6 +280,95 @@ def fill_excel(lst,filename,fields):
 			csvwriter = csv.writer(csvfile)
 			csvwriter.writerow(values)
 
+def delete_order(order):
+	sem.acquire()
+	for previous_price in buy_orders.keys():
+		for b_order in buy_orders[previous_price]["orders"]:
+			if b_order.order_id == order.order_id:
+				if b_order.traded_quantity > 0:
+					print("cannot delete order : already traded")
+					sem.release()
+					return -1
+				else:
+					print("deletion successful")
+					buy_orders[b_order.order_price]["orders"].remove(b_order)
+					buy_orders[b_order.order_price]["total"]-= b_order.order_quantity
+					buy_orders[b_order.order_price]["disclosed"]-= b_order.Disclosed_Quantity
+					#order.delete()
+					sem.release()
+					return 1
+	for previous_price in sell_orders.keys():
+		for s_order in sell_orders[previous_price]:
+			if s_order.order_id == order.order_id:
+				if s_order.traded_quantity > 0:
+					print("cannot delete order : already traded")
+					sem.release()
+					return -1
+				else:
+					sell_orders[s_order.order_price]["orders"].remove(s_order)
+					sell_orders[s_order.order_price]["total"] -= s_order.order_quantity
+					sell_orders[s_order.order_price]["dislosed"] -= s_order.Disclosed_Quantity
+					#order.delete()
+					print("Delete Successful")
+					sem.release()
+					return 1
+	for m_order in market_orders["orders"]:
+		if m_order.order_id == order.order_id:
+			if m_order.traded_quantity > 0:
+				print('Cannot Delete order Already traded')
+				sem.release()
+				return -1
+			else:
+				market_orders["orders"].remove(m_order)
+				#order.delete()
+				print("deleted successfully")
+				sem.release()
+				return 1
+	for m_order in market_orders["wait-orders"]:
+		if m_order.order_id == order.order_id:
+			if m_order.traded_quantity > 0:
+				print('Cannot Delete order Already traded')
+				sem.release()
+				return -1
+			else:
+				market_orders["wait-orders"].remove(m_order)
+				print("deleted successfully")
+				#order.delete()
+				sem.release()
+				return 1
+	print("Order already executed cannot delete")
+	sem.release()
+	return -1
+
+
+	
+def update_order(order):
+	k = delete_order(order)
+	if k == -1:
+		print('Order cannot be updated')
+		return -1
+	else:
+		add_order(order)
+		print(order.order_price)
+		order.save()
+		return 1
+def add_in_wait(order):
+	sem.acquire()
+	market_orders['wait-orders'].append(order)
+	sem.release()
+#run as a thread in parallel of the util thread
+def activate_util():
+	while True:
+		time.sleep(5)
+		sem.acquire()
+		if len(market_orders['wait-orders']) > 0:
+			print('Activating MR order')
+			market_orders['orders'].append(market_orders['wait-orders'][0])
+			del market_orders['wait-orders'][0]
+			print('Activated')
+		
+
+		
 
 
 

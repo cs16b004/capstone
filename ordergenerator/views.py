@@ -5,7 +5,7 @@ import openpyxl
 import json
 from django.http import HttpResponse, JsonResponse
 from .consumers import Generator
-from .ordermatching import add_order, start_matcher
+from .ordermatching import add_order, start_matcher, delete_order, update_order
 import threading
 # Create your views here.
 def order(request):
@@ -14,18 +14,22 @@ def order(request):
     #   Retrieve User id from session for now I am using using the id as 'YAUID(Yet another user id)'
     #        
         if 'delete-btn' in request.POST:
-            print('deleteing order')
-            delete_order = Order.objects.filter(order_id = request.POST['delete-btn'])
+            order = Order.objects.filter(order_id = request.POST['delete-btn'])[0]
             # Ayush add your function here for deleteing
-            delete_order.delete()
-            success_msg = 'Order deleted successfully'
-            form = OrderForm()
-            my_orders = Order.objects.all().filter(user_id = request.session['username'])
-            return render(request,'order/order.html',{'form': form, 'my_orders': my_orders, 'success_msg': success_msg})
-            
+            if delete_order(order) == 1:
+            #del_order.delete()
+                order.delete()
+                success_msg = 'Order deleted successfully'
+                form = OrderForm()
+                my_orders = Order.objects.all().filter(user_id = request.session['username'])
+                return render(request,'order/order.html',{'form': form, 'my_orders': my_orders, 'success_msg': success_msg})
+            else:
+                form = OrderForm()
+                my_orders = Order.objects.all().filter(user_id = request.session['username'])
+                return render(request,'order/order.html',{'form': form, 'my_orders': my_orders, 'error_msg': 'Cannot delete Order in execution'})
         print("-----------------------------------------------------------------")
         print("-----------------------------------------------------------------")
-        print(request.POST.keys())
+        print(request.POST)
         print("-----------------------------------------------------------------")
         print("-----------------------------------------------------------------")
         keys = request.POST.keys()
@@ -86,22 +90,39 @@ def order(request):
         if 'modify-btn' in request.POST:
             print('Modify Order')
             if error_msg == '':
-                order = Order.objects.filter(order_id = request.POST['modify-btn']).update( order_price       = price,\
-                                                                                    order_category     = o_cat,\
+                
+                """order = Order.objects.filter(order_id = request.POST['modify-btn']).update( order_price       = price,\
+                                                                                    rorde_category     = o_cat,\
                                                                                     order_type         = o_type,\
                                                                                     order_quantity     = quantity,\
                                                                                     All_or_none        = all_or_none,\
                                                                                     Minimum_fill       = Minimum_fill,\
                                                                                     Disclosed_Quantity = dis_quant,\
                                                                                     user_id            = userid,\
-                                                                                    traded_quantity    = traded_quantity)
+                """
+                order = Order.objects.filter(order_id = request.POST['modify-btn'])[0]#,traded_quantity    = traded_quantity)
                 # Ayush add your function for updating
-                form = OrderForm()
-                my_orders = Order.objects.all().filter(user_id = request.session['username'])
-                success_msg = 'Order Modified successfully'
-                return render(request,'order/order.html',{'form': form, 'my_orders': my_orders, 'success_msg': success_msg})
-            else:
-                error_msg = 'Order is not modified successfully because <br>' + error_msg
+                print(o_cat)
+                order.order_price        = price
+                order.order_category     = o_cat
+                order.order_type         = o_type
+                order.order_quantity     = quantity
+                order.All_or_none        = all_or_none
+                order.Minimum_fill       = Minimum_fill
+                order.Disclosed_Quantity = dis_quant
+                order.user_id            = userid
+                print(order.order_id)
+                k = update_order(order)
+                if k == 1:
+                    form = OrderForm()
+                    my_orders = Order.objects.all().filter(user_id = request.session['username'])
+                    success_msg = 'Order Modified successfully'
+                    return render(request,'order/order.html',{'form': form, 'my_orders': my_orders, 'success_msg': success_msg})
+                else:
+                    error_msg = 'Order in execution'
+                    form = OrderForm()
+                    my_orders = Order.objects.all().filter(user_id = request.session['username'])
+                    error_msg = 'Order is not modified successfully because <br>' + error_msg
 
         if error_msg != '':
             form = OrderForm()
@@ -117,9 +138,8 @@ def order(request):
                                     user_id            = userid,\
                                     order_status       = 'Waiting',\
                                     traded_quantity    = traded_quantity)
-                                    
-        order.save()
         add_order(order)
+        print("added order")
         print("-----------------------------------------------------------------")
         print("-----------------------------------------------------------------")
         print(order.All_or_none)
