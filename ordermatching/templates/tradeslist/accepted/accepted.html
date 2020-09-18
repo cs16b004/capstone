@@ -9,6 +9,9 @@
 		<div class="nav-link-wrapper"> 
 			<a href="{% url 'accepted-list' %}"><i class="fas fa-building"></i>Trades List</a>
 		</div>
+		<div class="nav-link-wrapper"> 
+			<a href="{% url 'order-page' %}"><i class="fas fa-shopping-cart"></i> Order Page</a>
+		</div>
 	{% endif %}
 {% endblock %}
 
@@ -65,7 +68,7 @@
 				{% endfor %}
 				{% else %}
 					<tr>
-						<th colspan="7" style="text-align: center;"> No Orders to Display</th>
+						<th colspan="12" style="text-align: center;"> No Orders to Display</th>
 					</tr>
 				{% endif %}
 			  </tbody>

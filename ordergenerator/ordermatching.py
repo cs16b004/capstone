@@ -109,9 +109,9 @@ def get_orders_for_ordermatching():
 # if price dont match push them back using add orders function
 
 def util_starter():
-	orders = Order.objects.all().filter(order_status='Waiting')
-	for order in orders:
-		add_order(order)
+	# orders = Order.objects.all().filter(order_status='Waiting')
+	# for order in orders:
+	# 	add_order(order)
 
 	while True:
 		if len(market_orders["orders"]) == 0:

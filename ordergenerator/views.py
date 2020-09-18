@@ -14,6 +14,7 @@ def order(request):
     #   Retrieve User id from session for now I am using using the id as 'YAUID(Yet another user id)'
     #        
         if 'delete-btn' in request.POST:
+            print('deleteing order')
             delete_order = Order.objects.filter(order_id = request.POST['delete-btn'])
             # Ayush add your function here for deleteing
             delete_order.delete()
