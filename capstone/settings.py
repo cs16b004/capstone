@@ -29,10 +29,11 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+ASGI_APPLICATION = 'capstone.routing.application'
 INSTALLED_APPS = [
-    #'ordermatching',
-    'ordergenerator.apps.OrdergeneratorConfig',
+    'channels',
+    'ordergenerator',
+    #'ordergenerator.apps.OrdergeneratorConfig',
     'ordermatching.apps.OrdermatchingConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,7 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'channels'
+     'django_extensions'
+    
+    
 ]
 
 MIDDLEWARE = [
@@ -74,7 +77,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'capstone.wsgi.application'
-ASGI_APPLICATION = 'capstone.routing.application'
+
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases

@@ -107,6 +107,7 @@ class OrderConsumer(WebsocketConsumer):
         
 
     def disconnect(self, close_code):
+        print("Connection Ends")
         pass
 
     def receive(self, text_data):

@@ -1,0 +1,198 @@
+id,order_id,order_category,order_time,order_quantity,order_type,order_price,All_or_none,Minimum_fill,Disclosed_Quantity,user_id,order_status,traded_quantity,trade_price_list,trade_quant_list,trade_id,user_all,user_MinFill,user_disclosed
+949,e6c0c3b8-94e3-495a-b7c7-d1f652aaacd5,Sell,2023-04-02 02:40:26.937565,104,MR,-1.0,False,0,104,Generator,Accepted,104,100.15 100.15 100.05 ,63 39 2 ,f43c405c-4eb2-41f9-b40d-cc9208bc560c,False,False,False
+950,edb70d50-24b4-4ffc-a800-a77106c9bbac,Buy,2023-04-02 02:40:27.451388,99,MR,-1.0,False,0,99,Generator,Accepted,99,99.6 99.6 ,84 15 ,0776c727-f9b5-46cd-9df0-845c126f95d9,False,False,False
+951,83276ad3-846b-48c6-bc55-5dc17bbfb1aa,Sell,2023-04-02 02:40:27.961480,92,LM,99.65,False,3,57,Generator,Accepted,92,99.65 99.65 99.65 ,57 27 8 ,b94e637f-083a-4e02-a001-04eb1d61f656,False,False,False
+952,6f680789-0d66-4d87-8918-66af39d61b42,Buy,2023-04-02 02:40:28.471308,92,MR,-1.0,False,0,92,Generator,Accepted,92,99.6 99.65 99.65 ,8 57 27 ,c07a2a2e-eae2-459e-a902-c3cd007e1f2a,False,False,False
+953,8878431e-7061-4250-9a6b-97a4acf32094,Sell,2023-04-02 02:40:28.980911,98,LM,100.0,True,98,98,Generator,Waiting,0,,,,False,False,False
+954,ddb62af5-97a7-4f47-b9be-ab397d12e685,Sell,2023-04-02 02:40:29.489262,101,LM,99.8,False,9,50,Generator,Accepted,101,99.8 99.8 99.8 ,50 35 16 ,2937c935-34d1-46fd-9160-1975c6ce5760,False,False,False
+955,5d7be19c-8f96-4e71-9b58-e63e05b785b1,Sell,2023-04-02 02:40:29.994214,107,LM,99.85,False,3,46,Generator,Waiting,0,,,,False,False,False
+956,18b70f9f-2699-45e1-85b4-1cca97093054,Sell,2023-04-02 02:40:30.502825,98,LM,99.9,False,4,47,Generator,Waiting,0,,,,False,False,False
+957,4e9c21de-e06c-480e-ad97-f8a797cd654d,Buy,2023-04-02 02:40:31.008341,102,LM,99.9,False,3,81,Generator,Waiting,0,,,,False,False,False
+958,aa1edd80-3aba-4ecd-a4a7-08a3d995b462,Sell,2023-04-02 02:40:31.517391,97,LM,100.05,True,97,97,Generator,Waiting,0,,,,False,False,False
+959,6be258ce-afe2-4183-8345-6ab7df81f04b,Sell,2023-04-02 02:40:32.026517,107,LM,99.6,False,4,84,Generator,Accepted,107,99.6 99.6 99.6 ,84 15 8 ,7ffd3853-7a2b-4d01-ab55-ca314a2c1828,False,False,False
+960,61ec2932-e898-4a55-9e8f-7c50bb7490a8,Buy,2023-04-02 02:40:32.536622,99,LM,100.0,True,99,99,Generator,Waiting,0,,,,False,False,False
+961,2b13850c-7c92-40b7-af09-94e243ecffaf,Sell,2023-04-02 02:40:33.042856,101,LM,100.0,False,0,43,Generator,Waiting,0,,,,False,False,False
+962,a51443ff-a0aa-4649-b753-07581977879a,Buy,2023-04-02 02:40:33.551786,99,LM,100.0,False,5,82,Generator,Waiting,0,,,,False,False,False
+963,4ca7ff70-c44a-4380-b88d-02babf65d6d7,Buy,2023-04-02 02:40:34.059662,107,LM,100.05,False,1,82,Generator,Waiting,2,100.05 ,2 ,,False,False,False
+964,bea1f71c-934d-48d9-ae97-aa400ad4775a,Sell,2023-04-02 02:40:34.566621,104,LM,99.9,True,104,104,Generator,Waiting,0,,,,False,False,False
+965,c9e7d0dc-61eb-4f13-9211-da46b7eccc6e,Buy,2023-04-02 02:40:35.071757,98,LM,100.05,True,98,98,Generator,Waiting,0,,,,False,False,False
+966,db4dd513-1428-4fcb-82e2-f772fa65e86b,Sell,2023-04-02 02:40:35.581217,116,LM,100.1,False,8,56,Generator,Waiting,0,,,,False,False,False
+967,d74bd613-4066-4d09-bed6-0ae96e6a7a6e,Buy,2023-04-02 02:40:36.087688,90,MR,-1.0,False,0,90,Generator,Accepted,90,99.65 99.8 99.65 ,8 50 32 ,5ebee292-2f56-4e2d-ab57-eac2a6189c9b,False,False,False
+968,344513a1-fe4d-4aa7-b3c5-bdd92f18165b,Buy,2023-04-02 02:40:36.592784,100,MR,-1.0,False,0,100,Generator,Accepted,100,99.65 99.8 ,65 35 ,5d12dff9-4f1b-4133-a060-7736db6f664c,False,False,False
+969,37f32e78-9134-43cc-853b-220570b2f441,Buy,2023-04-02 02:40:37.101731,96,LM,100.0,True,96,96,Generator,Waiting,0,,,,False,False,False
+970,d3f176f7-b916-4dff-a5d5-806197347c3d,Sell,2023-04-02 02:40:37.611491,103,MR,-1.0,False,0,103,Generator,Accepted,103,100.2 100.2 ,74 29 ,4cab8fb0-9b7b-4ac3-bd75-2ff0a153971b,False,False,False
+971,5588bdf3-c981-41f7-8dd7-da1220b352c1,Sell,2023-04-02 02:40:38.121300,94,LM,100.1,True,94,94,Generator,Waiting,0,,,,False,False,False
+972,331c8251-909a-40dd-ab00-12fbdddf5bf5,Buy,2023-04-02 02:40:38.630835,99,LM,99.85,False,1,65,Generator,Waiting,0,,,,False,False,False
+973,3e2c0e27-565b-4df8-bd61-480bb2f30c47,Sell,2023-04-02 02:40:39.136336,94,LM,99.85,False,7,66,Generator,Waiting,0,,,,False,False,False
+974,d0a39107-c2b2-44a7-b62c-0e40cf096263,Sell,2023-04-02 02:40:39.642661,110,LM,99.8,False,3,43,Generator,Waiting,82,99.8 99.8 ,43 39 ,,False,False,False
+975,d1224dfa-7e65-45e3-b38a-6a9eee2445b2,Sell,2023-04-02 02:40:40.151860,99,LM,100.1,False,8,55,Generator,Waiting,0,,,,False,False,False
+976,485825eb-4f93-4fa4-bb55-11569c3aa38d,Buy,2023-04-02 02:40:40.661384,94,LM,99.5,False,3,77,Generator,Waiting,0,,,,False,False,False
+977,6eb2b5b4-35f6-4625-8235-ce0fcdc32ce3,Sell,2023-04-02 02:40:41.169219,101,LM,100.15,False,0,30,Generator,Waiting,0,,,,False,False,False
+978,62f32e60-76c9-45d7-8920-a20257da3b17,Sell,2023-04-02 02:40:41.676582,103,MR,-1.0,False,0,103,Generator,Accepted,103,100.15 100.15 ,59 44 ,8df38931-5c57-448a-b662-3f9e057bb0da,False,False,False
+979,a9f9e03f-86be-4330-b52b-dcaee5f9f8f2,Buy,2023-04-02 02:40:42.185588,100,LM,99.95,False,4,95,Generator,Waiting,0,,,,False,False,False
+980,6d748083-2fbd-4a89-af9e-ea5e65ad4235,Sell,2023-04-02 02:40:42.694229,100,LM,100.05,True,100,100,Generator,Waiting,0,,,,False,False,False
+981,9849a4e9-43c2-43e3-bf5a-63d6f6e5ed58,Buy,2023-04-02 02:40:43.202564,102,LM,100.15,False,4,63,Generator,Accepted,102,100.15 100.15 ,63 39 ,eba0fadb-3240-49dc-9120-5a34d1276e83,False,False,False
+982,b4c7f54c-25b8-4e64-8512-7ff43b770b08,Sell,2023-04-02 02:40:43.709277,99,LM,99.8,False,0,59,Generator,Waiting,0,,,,False,False,False
+983,852fa0c2-f97c-42a6-a49f-c3ccf9859552,Buy,2023-04-02 02:40:44.216948,103,MR,-1.0,False,0,103,Generator,Accepted,103,99.65 99.65 99.65 99.65 ,31 31 31 10 ,79eb2cab-694e-48e7-8f9a-3217cf9e11d0,False,False,False
+984,b333ee22-dc74-42c4-bcc1-a9ab11468120,Sell,2023-04-02 02:40:44.720930,91,LM,100.05,False,4,29,Generator,Waiting,0,,,,False,False,False
+985,ceec5edd-69da-46cd-bf72-4b135a9f2b85,Buy,2023-04-02 02:40:45.229894,100,LM,100.0,True,100,100,Generator,Waiting,0,,,,False,False,False
+986,20dc2c00-c0fb-4a6e-806b-4781b788da62,Buy,2023-04-02 02:40:45.737308,107,LM,100.15,False,5,59,Generator,Waiting,103,100.15 100.15 ,59 44 ,,False,False,False
+987,1ac5c690-6885-4227-aa44-88f12ce4b84f,Buy,2023-04-02 02:40:46.246543,91,LM,99.8,False,5,90,Generator,Waiting,0,,,,False,False,False
+988,db769f51-31d0-43ea-af95-17882114009d,Sell,2023-04-02 02:40:46.755156,104,LM,100.1,False,4,66,Generator,Waiting,0,,,,False,False,False
+989,18d9fd5c-531c-45c2-948c-5e4a3206ecb7,Buy,2023-04-02 02:40:47.263365,98,MR,-1.0,False,0,98,Generator,Accepted,98,99.8 99.8 99.8 ,16 43 39 ,88700a53-61e1-4880-a900-ce62f7197dec,False,False,False
+990,1337e4cb-a19e-4803-9482-6e3967966294,Buy,2023-04-02 02:40:47.772971,104,LM,100.1,False,9,56,Generator,Waiting,0,,,,False,False,False
+991,8f6e88a4-dc0f-4979-aed5-9410a722b1ab,Buy,2023-04-02 02:40:48.282668,104,LM,99.75,False,1,77,Generator,Waiting,0,,,,False,False,False
+992,40dedf4f-1974-476c-ad5c-6c02821cedce,Sell,2023-04-02 02:40:48.792271,96,MR,-1.0,False,0,96,Generator,Accepted,96,100.2 100.2 100.2 100.25 ,22 22 22 30 ,0924da52-0bdd-45b4-8542-a393d5662e23,False,False,False
+993,159e5922-bc4b-4bbd-a91a-e558d7970b0e,Buy,2023-04-02 02:40:49.297794,98,LM,99.8,False,4,92,Generator,Waiting,0,,,,False,False,False
+994,d937f57f-f4c6-4754-978d-457e2bf30d9e,Sell,2023-04-02 02:40:49.803262,100,MR,-1.0,False,0,100,Generator,Accepted,100,100.25 100.25 100.25 100.25 ,18 48 9 25 ,a6107e3e-a69d-4b09-94af-82b1b1efb7a3,False,False,False
+995,7f71c620-5b01-42cf-afeb-b008530273df,Sell,2023-04-02 02:40:50.306633,99,LM,100.0,True,99,99,Generator,Waiting,0,,,,False,False,False
+996,36904ee4-db9d-4d37-ae66-0b4d5c4a2e63,Buy,2023-04-02 02:40:50.812601,107,LM,100.1,True,107,107,Generator,Waiting,0,,,,False,False,False
+997,85ba5bf2-14ae-417b-9c53-f353afab2d19,Sell,2023-04-02 02:40:51.320777,100,MR,-1.0,False,0,100,Generator,Accepted,100,100.25 100.25 100.25 ,27 52 21 ,c1fdb5c5-5852-490f-96c0-4854fa87aef6,False,False,False
+998,c635c1a3-fabf-4988-b8d5-ff68c25e654c,Buy,2023-04-02 02:40:51.830553,92,LM,100.0,False,5,35,Generator,Waiting,0,,,,False,False,False
+999,6096f682-97d1-4564-b41c-155910b42cc0,Buy,2023-04-02 02:40:52.337104,95,MR,-1.0,False,0,95,Generator,Accepted,95,99.75 99.75 ,75 20 ,329f0907-c26c-49f8-bbdd-b14cdeb81c0a,False,False,False
+1000,79a4f1d8-c2d6-407b-8619-17c3a1c25a87,Buy,2023-04-02 02:40:52.846711,98,LM,99.85,False,2,36,Generator,Waiting,0,,,,False,False,False
+1001,39b9d0d3-8f58-4ece-8c10-049915fb7be9,Buy,2023-04-02 02:40:53.356578,108,MR,-1.0,False,0,108,Generator,Waiting,99,99.75 ,99 ,,False,False,False
+1002,b3bca651-ddc5-492f-9797-a9afcd428401,Buy,2023-04-02 02:40:53.862456,103,MR,-1.0,False,0,103,Generator,Waiting,0,,,,False,False,False
+1003,bba4408e-294c-4ecb-9162-f7ba5bd1f975,Sell,2023-04-02 02:40:54.372204,96,MR,-1.0,False,0,96,Generator,Waiting,0,,,,False,False,False
+1004,0206e63c-40a5-4efe-9e64-c7c5a44135e1,Buy,2023-04-02 02:40:54.880936,93,LM,99.85,False,8,60,Generator,Waiting,0,,,,False,False,False
+1005,766b0662-2e27-4d30-bed5-c91b8bc6821c,Sell,2023-04-02 02:40:55.388283,95,LM,100.0,True,95,95,Generator,Waiting,0,,,,False,False,False
+1006,5eca2840-9692-446e-9551-80691f0cade5,Sell,2023-04-02 02:40:55.895677,96,LM,99.95,False,4,45,Generator,Waiting,0,,,,False,False,False
+1007,8fcf5b02-e5cc-4850-a2a6-a806995d7909,Sell,2023-04-02 02:40:56.399943,97,LM,100.05,True,97,97,Generator,Waiting,0,,,,False,False,False
+1008,00bfef49-50f5-42af-b0c8-f17da0e21ffa,Sell,2023-04-02 02:40:56.909430,95,LM,99.9,False,3,85,Generator,Waiting,0,,,,False,False,False
+1009,3d642f29-87d5-4abe-be08-7a154431d079,Buy,2023-04-02 02:40:57.416102,103,LM,100.2,False,7,74,Generator,Accepted,103,100.2 100.2 ,74 29 ,2286b475-90a9-4c91-8843-6884d2c0bcc1,False,False,False
+1010,77569d7f-3aca-4197-8174-7a1e538960db,Buy,2023-04-02 02:40:57.925021,101,LM,100.1,False,9,49,Generator,Waiting,0,,,,False,False,False
+1011,879588d5-dc30-4a4f-8a10-4cb1f77b7b79,Sell,2023-04-02 02:40:58.434829,107,LM,100.05,False,2,77,Generator,Waiting,0,,,,False,False,False
+1012,fbdacba2-acac-407a-9a1c-f6cd7ecb68c9,Sell,2023-04-02 02:40:58.944616,91,LM,100.25,True,91,91,Generator,Waiting,0,,,,False,False,False
+1013,52dd5e1a-8f54-417b-92b7-c52f4519a4de,Buy,2023-04-02 02:40:59.453995,100,LM,99.75,True,100,100,Generator,Waiting,0,,,,False,False,False
+1014,e98c23ec-e56b-4f24-b7e7-00363f1da9dc,Sell,2023-04-02 02:40:59.962286,102,LM,99.95,False,8,24,Generator,Waiting,0,,,,False,False,False
+1015,bc8c8de6-771f-45a9-8ae9-c2f4b9e97b77,Sell,2023-04-02 02:41:00.471734,102,LM,100.0,True,102,102,Generator,Waiting,0,,,,False,False,False
+1016,7630f90a-5cc8-4a52-8629-e048297fc8d9,Buy,2023-04-02 02:41:00.981297,103,MR,-1.0,False,0,103,Generator,Waiting,0,,,,False,False,False
+1017,16fec5ec-a076-4ef0-bed2-82578defb41a,Sell,2023-04-02 02:41:01.487923,94,LM,100.1,True,94,94,Generator,Waiting,0,,,,False,False,False
+1018,7a07b90a-dbef-4bf3-8517-726746ad5577,Sell,2023-04-02 02:41:01.993636,94,LM,99.8,True,94,94,Generator,Waiting,0,,,,False,False,False
+1019,d4cd92c9-47ef-4b21-be59-0350b6eb469c,Sell,2023-04-02 02:41:02.502957,93,LM,100.1,False,0,80,Generator,Waiting,0,,,,False,False,False
+1020,f80a7938-113f-4f9b-a264-e2eaa5bf094e,Buy,2023-04-02 02:41:03.012346,96,LM,99.95,True,96,96,Generator,Waiting,0,,,,False,False,False
+1021,559110d1-b06a-464d-9b2a-f74fc9a554be,Buy,2023-04-02 02:41:03.521290,98,LM,99.95,False,2,71,Generator,Waiting,0,,,,False,False,False
+1022,9f7b2aa2-3770-4576-8ce6-5d40d6b0bd30,Sell,2023-04-02 02:41:04.028977,99,LM,99.75,True,99,99,Generator,Accepted,99,99.75 ,99 ,a411e654-4680-4ccf-a331-fb9980f581f0,False,False,False
+1023,30a7f9ea-1412-49f8-915a-c4b088e4ef07,Sell,2023-04-02 02:41:04.533170,89,LM,100.3,False,4,30,Generator,Waiting,0,,,,False,False,False
+1024,cdb412a7-6acc-4e9b-a260-a49a03f0133b,Sell,2023-04-02 02:41:05.039511,95,LM,100.05,False,4,63,Generator,Waiting,0,,,,False,False,False
+1025,69fddbc2-38a7-4fb0-babf-b97be502c009,Sell,2023-04-02 02:41:05.545649,100,LM,99.9,False,7,46,Generator,Waiting,0,,,,False,False,False
+1026,8192969f-17b7-40ea-8bb7-084edb23ff62,Buy,2023-04-02 02:41:06.053644,94,LM,99.85,False,3,39,Generator,Waiting,0,,,,False,False,False
+1027,df75a716-a9be-4f9c-913c-c0738eb348b6,Buy,2023-04-02 02:41:06.560358,100,LM,100.1,False,0,78,Generator,Waiting,0,,,,False,False,False
+1028,4e3d5054-9101-4ba8-813c-832b44e82002,Buy,2023-04-02 02:41:07.069291,100,MR,-1.0,False,0,100,Generator,Waiting,0,,,,False,False,False
+1029,54dd4ee9-43b2-4ef7-ba69-29af7d0869b3,Sell,2023-04-02 02:41:07.576248,95,LM,100.0,False,2,41,Generator,Waiting,0,,,,False,False,False
+1030,2bed259a-7b4c-4c8c-b098-06de45401d70,Sell,2023-04-02 02:41:08.084370,103,LM,99.95,False,0,80,Generator,Waiting,0,,,,False,False,False
+1031,6eb5de17-2fa1-407d-8fec-0cdf0168fe2f,Sell,2023-04-02 02:41:08.591489,93,LM,99.85,False,7,49,Generator,Waiting,0,,,,False,False,False
+1032,6c5fa959-ff9e-44e4-bf49-8e12dda1183f,Buy,2023-04-02 02:41:09.099549,102,LM,100.1,False,9,36,Generator,Waiting,0,,,,False,False,False
+1033,2eb84728-a6f7-4bac-9a1f-763411cff35a,Sell,2023-04-02 02:41:09.609615,102,LM,99.85,False,5,96,Generator,Waiting,0,,,,False,False,False
+1034,4a559f84-0926-4d37-b20a-c92ac3b0ac2a,Buy,2023-04-02 02:41:10.120161,99,MR,-1.0,False,0,99,Generator,Waiting,0,,,,False,False,False
+1035,a1d13d3b-69ab-446c-93e3-0d02f02d2b09,Sell,2023-04-02 02:41:10.626320,97,LM,99.65,False,7,70,Generator,Accepted,97,99.65 99.65 ,32 65 ,617f0e9e-1dae-4582-9547-91633795fa19,False,False,False
+1036,ed6b327d-2af8-4eae-a614-9ae82c3d0380,Buy,2023-04-02 02:41:11.135300,98,LM,100.15,True,98,98,Generator,Waiting,0,,,,False,False,False
+1037,a91b0450-b536-4f46-9d63-fef2ff698003,Buy,2023-04-02 02:41:11.641455,94,LM,100.0,False,0,81,Generator,Waiting,0,,,,False,False,False
+1038,e74d2543-ddb9-4b1c-a2e9-76a6adf76585,Sell,2023-04-02 02:41:12.150355,91,LM,100.25,True,91,91,Generator,Waiting,0,,,,False,False,False
+1039,d570a963-d45a-4c85-ba10-eec9a9324c63,Buy,2023-04-02 02:41:12.658905,94,LM,100.05,False,1,92,Generator,Waiting,0,,,,False,False,False
+1040,2295f0c2-675b-48e0-bfd6-06906707203e,Buy,2023-04-02 02:41:13.163483,95,LM,99.9,True,95,95,Generator,Waiting,0,,,,False,False,False
+1041,7f0aff86-f170-4ad4-a752-eeaf84d1d86f,Buy,2023-04-02 02:41:13.670688,100,LM,99.85,False,0,24,Generator,Waiting,0,,,,False,False,False
+1042,0a504c4e-158c-4686-9344-2a1fc5b94f12,Sell,2023-04-02 02:41:14.177891,101,LM,99.9,False,5,23,Generator,Waiting,0,,,,False,False,False
+1043,99ba5aac-c070-43ea-8ae4-d9c30178a0ce,Sell,2023-04-02 02:41:14.687517,104,LM,100.0,True,104,104,Generator,Waiting,0,,,,False,False,False
+1044,1dbbfb56-ec2d-44f8-97e3-0727c7105b88,Sell,2023-04-02 02:41:15.191583,98,LM,99.8,False,1,20,Generator,Waiting,0,,,,False,False,False
+1045,69d373b8-9382-475a-904f-1120e849ab8a,Sell,2023-04-02 02:41:15.696901,89,LM,100.2,False,2,83,Generator,Waiting,0,,,,False,False,False
+1046,64d18ba4-6a38-440a-8bd8-d21f20d0ae3f,Sell,2023-04-02 02:41:16.203973,102,LM,100.0,True,102,102,Generator,Waiting,0,,,,False,False,False
+1047,ce63e77a-929c-40ce-85c2-11c7b2e62459,Buy,2023-04-02 02:41:16.713409,104,MR,-1.0,False,0,104,Generator,Waiting,0,,,,False,False,False
+1048,07ee6808-e401-40b1-9a47-5d53a17efe81,Sell,2023-04-02 02:41:17.217103,106,MR,-1.0,False,0,106,Generator,Waiting,0,,,,False,False,False
+1049,0693dad9-f1ff-4290-a7ed-26c537d7484d,Sell,2023-04-02 02:41:17.725493,103,LM,99.65,False,8,31,Generator,Accepted,103,99.65 99.65 99.65 99.65 ,31 31 31 10 ,53bd0b16-6ef4-4527-9d0e-8a491f40dac5,False,False,False
+1050,38af5f97-668b-47df-ba3d-ab0b96d90c96,Sell,2023-04-02 02:41:18.234611,99,MR,-1.0,False,0,99,Generator,Waiting,0,,,,False,False,False
+1051,0c0dd2c3-5682-4cc5-b1c1-97186987304e,Sell,2023-04-02 02:41:18.742046,93,LM,100.1,False,2,85,Generator,Waiting,0,,,,False,False,False
+1052,ae622c14-d0be-49da-8a98-880917229d31,Sell,2023-04-02 02:41:19.251373,93,LM,99.9,False,5,82,Generator,Waiting,0,,,,False,False,False
+1053,9c9025fa-1c53-4077-9dfb-9c39c40bdc34,Buy,2023-04-02 02:41:19.760572,99,MR,-1.0,False,0,99,Generator,Waiting,0,,,,False,False,False
+1054,6fb7fc20-9eec-4c17-98b1-a3497450cdb4,Buy,2023-04-02 02:41:20.268997,98,MR,-1.0,False,0,98,Generator,Waiting,0,,,,False,False,False
+1055,8c39ae0d-0f1c-4291-8654-f9ba1dda4329,Buy,2023-04-02 02:41:20.773129,103,MR,-1.0,False,0,103,Generator,Waiting,0,,,,False,False,False
+1056,d254d478-59d9-4f07-bb23-b3bda57cdc71,Sell,2023-04-02 02:41:21.281642,94,MR,-1.0,False,0,94,Generator,Waiting,0,,,,False,False,False
+1057,e05cfa8a-3729-47b0-9277-71db8ee683e3,Sell,2023-04-02 02:41:21.787051,89,LM,100.35,True,89,89,Generator,Waiting,0,,,,False,False,False
+1058,71de73fb-675c-4609-836d-61f7438e6ce6,Sell,2023-04-02 02:41:22.295293,107,LM,100.1,False,2,49,Generator,Waiting,0,,,,False,False,False
+1059,5dbe7837-4700-428a-a943-2fe16a81796e,Sell,2023-04-02 02:41:22.803541,97,MR,-1.0,False,0,97,Generator,Waiting,0,,,,False,False,False
+1060,3ce1294f-aa3b-4019-9cb2-3ff29f5420e1,Buy,2023-04-02 02:41:23.306643,105,LM,99.95,False,2,84,Generator,Waiting,0,,,,False,False,False
+1061,03c7c5cd-ad2a-4e17-a4bd-8403b07b68b2,Buy,2023-04-02 02:41:23.810001,102,LM,100.05,False,5,93,Generator,Waiting,0,,,,False,False,False
+1062,56629e7f-4540-439a-bd23-747981f4e7cd,Buy,2023-04-02 02:41:24.318774,100,LM,100.2,False,9,22,Generator,Waiting,66,100.2 100.2 100.2 ,22 22 22 ,,False,False,False
+1063,34e07240-2264-489b-a1cf-627945d5b067,Sell,2023-04-02 02:41:24.823837,103,MR,-1.0,False,0,103,Generator,Waiting,0,,,,False,False,False
+1064,666e8614-da78-42f0-96e5-b635f2b3bcaf,Sell,2023-04-02 02:41:25.328680,108,LM,100.0,False,4,64,Generator,Waiting,0,,,,False,False,False
+1065,d3b20c5e-ffce-4859-856b-750ae48bcbb3,Buy,2023-04-02 02:41:25.838024,91,LM,100.05,True,91,91,Generator,Waiting,0,,,,False,False,False
+1066,d3fe8a22-141a-480c-977b-ea6266ab578f,Sell,2023-04-02 02:41:26.345490,104,LM,99.85,True,104,104,Generator,Waiting,0,,,,False,False,False
+1067,8145af3c-c16f-4871-8527-b31f5f33ce82,Buy,2023-04-02 02:41:26.855036,100,LM,99.65,False,2,20,Generator,Waiting,0,,,,False,False,False
+1068,278e85bb-117b-4837-9811-08d3d8856e25,Sell,2023-04-02 02:41:27.364282,98,LM,99.8,False,5,75,Generator,Waiting,0,,,,False,False,False
+1069,3260c8d6-b8a7-40a5-8046-76823ee857fd,Sell,2023-04-02 02:41:27.870365,102,LM,100.05,False,5,39,Generator,Waiting,0,,,,False,False,False
+1070,80ef5275-2fae-4142-9608-bb6f1e3d4669,Buy,2023-04-02 02:41:28.378844,89,LM,100.1,False,5,72,Generator,Waiting,0,,,,False,False,False
+1071,fec60d0a-2f36-40ad-931b-ee20b4246d11,Buy,2023-04-02 02:41:28.887082,106,MR,-1.0,False,0,106,Generator,Waiting,0,,,,False,False,False
+1072,9265aa79-e17a-4b97-96ef-4fe3d8a2da35,Sell,2023-04-02 02:41:29.395503,106,MR,-1.0,False,0,106,Generator,Waiting,0,,,,False,False,False
+1073,67d2bb3c-7665-46c3-a8e6-f6f384f236bf,Sell,2023-04-02 02:41:29.904962,98,LM,99.85,False,7,71,Generator,Waiting,0,,,,False,False,False
+1074,362e3d48-06d5-442c-baab-cfa92d51e3ae,Buy,2023-04-02 02:41:30.412813,96,LM,100.15,False,8,53,Generator,Waiting,0,,,,False,False,False
+1075,34475e2c-9df3-4702-8860-305ca1d7482b,Sell,2023-04-02 02:41:30.917518,97,LM,99.95,False,8,86,Generator,Waiting,0,,,,False,False,False
+1076,3f472312-1548-430f-89a8-517e066d206a,Buy,2023-04-02 02:41:31.426391,99,LM,100.0,True,99,99,Generator,Waiting,0,,,,False,False,False
+1078,629086a8-042a-42e9-8f34-9e9f22c881b5,Buy,2023-04-02 02:41:31.935407,104,LM,99.75,True,104,104,Generator,Waiting,0,,,,False,False,False
+1079,1d494c15-ba95-41c1-b63c-dd292513c6bc,Buy,2023-04-02 02:41:32.439826,103,MR,-1.0,False,0,103,Generator,Waiting,0,,,,False,False,False
+1080,8bf91e6c-8e06-4398-9738-db510c3fd531,Sell,2023-04-02 02:41:32.944228,92,LM,99.9,False,0,27,Generator,Waiting,0,,,,False,False,False
+1081,2d741972-f000-4857-892a-8ba4f2167aba,Buy,2023-04-02 02:41:33.453716,106,MR,-1.0,False,0,106,Generator,Waiting,0,,,,False,False,False
+1082,e9898e1c-f7fe-4bc6-ad69-1d8dee412caa,Buy,2023-04-02 02:41:33.960130,103,LM,99.95,False,8,60,Generator,Waiting,0,,,,False,False,False
+1083,07d24b8a-8dbd-4abe-8f54-e3ccba7aee72,Sell,2023-04-02 02:41:34.467863,94,LM,100.2,False,4,58,Generator,Waiting,0,,,,False,False,False
+1084,6c52e6e7-ff50-4ed7-a0d8-200e8b619e14,Buy,2023-04-02 02:41:34.975567,90,MR,-1.0,False,0,90,Generator,Waiting,0,,,,False,False,False
+1085,c9de26ce-cacf-415d-b7ab-bfa87580fa6c,Buy,2023-04-02 02:41:35.484429,91,LM,99.8,False,4,53,Generator,Waiting,0,,,,False,False,False
+1086,56441ce2-e642-431b-a65a-eb6d039404cd,Buy,2023-04-02 02:41:35.992410,112,LM,100.0,False,8,59,Generator,Waiting,0,,,,False,False,False
+1087,d1afbd1c-318c-43c4-9264-4551457720fb,Buy,2023-04-02 02:41:36.501287,97,LM,99.85,False,7,29,Generator,Waiting,0,,,,False,False,False
+1088,c0e0346a-30b2-4ff8-a498-302f437e4c74,Sell,2023-04-02 02:41:37.010358,98,LM,100.15,False,3,57,Generator,Waiting,0,,,,False,False,False
+1089,3227ba2d-81bd-4b9e-ae5a-7a07aaecbbff,Buy,2023-04-02 02:41:37.519430,104,LM,99.6,False,8,60,Generator,Waiting,0,,,,False,False,False
+1090,2bbd0f72-71ce-4024-9d62-1dd01c57d016,Sell,2023-04-02 02:41:38.028297,99,LM,100.15,False,7,33,Generator,Waiting,0,,,,False,False,False
+1091,56ee3d78-2ab7-4aee-b61e-6a91f7b85d63,Buy,2023-04-02 02:41:38.537693,107,MR,-1.0,False,0,107,Generator,Waiting,0,,,,False,False,False
+1092,4b897315-d3ad-41e3-bccf-737456dc8077,Buy,2023-04-02 02:41:39.046685,99,LM,99.75,True,99,99,Generator,Waiting,0,,,,False,False,False
+1093,be392554-f8fd-4cd2-8fd1-9bc5a7c22e57,Buy,2023-04-02 02:41:39.554109,90,MR,-1.0,False,0,90,Generator,Waiting,0,,,,False,False,False
+1094,f908e688-f31a-4682-a277-fee07a418b8d,Sell,2023-04-02 02:41:40.063258,95,LM,100.0,False,5,54,Generator,Waiting,0,,,,False,False,False
+1095,0e90f31f-b1d9-4f07-a58a-d2fb4f7546fb,Buy,2023-04-02 02:41:40.570750,101,LM,100.05,False,0,95,Generator,Waiting,0,,,,False,False,False
+1096,dcdbca17-10b1-4d1a-b2d7-857adafb0f92,Buy,2023-04-02 02:41:41.078217,113,LM,100.0,False,5,101,Generator,Waiting,0,,,,False,False,False
+1097,04db0ffc-0396-44cc-8d7e-0091fba0953d,Buy,2023-04-02 02:41:41.585349,101,LM,100.15,False,4,53,Generator,Waiting,0,,,,False,False,False
+1098,748f0da6-dd3e-490d-95c1-a00d7c915bd8,Buy,2023-04-02 02:41:42.092247,90,LM,99.85,False,3,46,Generator,Waiting,0,,,,False,False,False
+1099,14e925f8-dd71-43ac-82a8-9780150a01d7,Sell,2023-04-02 02:41:42.601504,101,LM,99.75,True,101,101,Generator,Waiting,0,,,,False,False,False
+1100,54392ec0-dc86-4db6-91c5-0217ae8c8bc1,Sell,2023-04-02 02:41:43.110849,101,LM,99.95,False,9,57,Generator,Waiting,0,,,,False,False,False
+1101,3dfc56aa-69c5-47fe-a6c1-064239507d2e,Sell,2023-04-02 02:41:43.616851,97,LM,100.1,False,7,88,Generator,Waiting,0,,,,False,False,False
+1102,9381b8d0-2625-4a92-8844-0ad27c4385d1,Buy,2023-04-02 02:41:44.126033,100,MR,-1.0,False,0,100,Generator,Waiting,0,,,,False,False,False
+1103,25b44018-0b60-43de-831f-f3f3ee6ce3fb,Buy,2023-04-02 02:41:44.635816,105,LM,100.25,False,5,48,Generator,Accepted,105,100.25 100.25 100.25 100.25 ,30 18 48 9 ,f6e58d5a-4eb4-4fa9-ae71-a8818b866aec,False,False,False
+1104,b3ce9cfa-b46b-402e-8f79-55dfb7470f2c,Buy,2023-04-02 02:41:45.140425,100,LM,100.2,False,8,60,Generator,Waiting,0,,,,False,False,False
+1105,9ceeb8e5-6a76-47b1-a64f-2eb8724348b8,Sell,2023-04-02 02:41:45.647579,110,MR,-1.0,False,0,110,Generator,Waiting,0,,,,False,False,False
+1106,a78642e7-668b-4b9f-9ccc-ff6ec052d367,Sell,2023-04-02 02:41:46.154597,99,LM,99.85,False,5,27,Generator,Waiting,0,,,,False,False,False
+1107,753b930d-f346-458a-bf55-7b566b74f5fd,Sell,2023-04-02 02:41:46.663669,98,LM,99.85,False,0,96,Generator,Waiting,0,,,,False,False,False
+1108,b90a9678-5fdb-4ba5-ac4e-9727efc4c093,Sell,2023-04-02 02:41:47.173483,97,LM,99.95,True,97,97,Generator,Waiting,0,,,,False,False,False
+1109,8f484964-5748-4fff-a797-8a9d1baa0aa5,Buy,2023-04-02 02:41:47.679542,96,LM,100.0,False,8,34,Generator,Waiting,0,,,,False,False,False
+1110,d7108eb6-e82d-4429-ac01-b37d3247dfb4,Sell,2023-04-02 02:41:48.186360,96,LM,99.75,False,3,75,Generator,Waiting,95,99.75 99.75 ,75 20 ,,False,False,False
+1111,b15adc76-20fb-4615-9aa5-cfcac4fb5c1b,Sell,2023-04-02 02:41:48.694868,98,LM,99.85,False,4,40,Generator,Waiting,0,,,,False,False,False
+1112,5935b2b0-e759-4198-9899-c577f2205fbc,Buy,2023-04-02 02:41:49.203479,110,MR,-1.0,False,0,110,Generator,Waiting,0,,,,False,False,False
+1113,b4a48af1-ef09-4c93-a2d4-a6e4b9684ccc,Sell,2023-04-02 02:41:49.711820,108,LM,99.8,False,6,78,Generator,Waiting,0,,,,False,False,False
+1114,cb15639b-807e-455a-9648-4376570387ab,Buy,2023-04-02 02:41:50.219755,101,LM,99.95,False,6,91,Generator,Waiting,0,,,,False,False,False
+1115,58b138bb-f820-49b0-ac1f-62b790682f07,Buy,2023-04-02 02:41:50.727785,88,MR,-1.0,False,0,88,Generator,Waiting,0,,,,False,False,False
+1116,64d7523a-269e-434e-8e59-99206aac0701,Buy,2023-04-02 02:41:51.234336,98,LM,100.05,False,7,76,Generator,Waiting,0,,,,False,False,False
+1117,9be45328-4fe6-4c1b-b6ad-d3d74dcaea2e,Sell,2023-04-02 02:41:51.740874,103,LM,100.05,False,9,37,Generator,Waiting,0,,,,False,False,False
+1118,a6dadc88-c001-41b3-b8b3-f3d23f69a6ea,Buy,2023-04-02 02:41:52.250721,99,LM,99.95,False,2,31,Generator,Waiting,0,,,,False,False,False
+1119,3a774fd1-adea-48f2-8b60-dcf6574a50d5,Buy,2023-04-02 02:41:52.760532,104,LM,100.25,False,2,52,Generator,Accepted,104,100.25 100.25 100.25 ,25 27 52 ,bd698814-4f9f-4f36-a6fb-6b7edb0bd142,False,False,False
+1120,05b22ec2-b035-4a52-a016-63d6963e1f49,Sell,2023-04-02 02:41:53.265319,96,LM,100.0,True,96,96,Generator,Waiting,0,,,,False,False,False
+1121,62900946-6d27-4ea4-8db9-545308db2e6c,Sell,2023-04-02 02:41:53.770852,102,MR,-1.0,False,0,102,Generator,Waiting,0,,,,False,False,False
+1122,4cfdbc53-da5a-49a3-a9d1-f220069ba5f9,Sell,2023-04-02 02:41:54.280229,97,LM,99.9,False,7,63,Generator,Waiting,0,,,,False,False,False
+1123,040388e1-3553-4239-b382-5e69c2d0421e,Sell,2023-04-02 02:41:54.790080,106,LM,99.75,True,106,106,Generator,Waiting,0,,,,False,False,False
+1124,963d2f63-4325-41c1-a80f-9a5d0ed831b4,Buy,2023-04-02 02:41:55.299803,97,LM,99.95,True,97,97,Generator,Waiting,0,,,,False,False,False
+1125,9bf95b34-f54f-4888-a3c6-760205db11d7,Buy,2023-04-02 02:41:55.808759,98,LM,100.25,False,2,55,Generator,Waiting,21,100.25 ,21 ,,False,False,False
+1126,56189aa5-4455-4133-86ce-8e0f12de6c9d,Buy,2023-04-02 02:41:56.317185,101,LM,100.0,False,9,38,Generator,Waiting,0,,,,False,False,False
+1127,31caee46-dd2d-4972-a131-342cadbe748e,Buy,2023-04-02 02:41:56.826918,102,LM,99.9,True,102,102,Generator,Waiting,0,,,,False,False,False
+1128,4bc41349-7a6f-49d5-a783-12dda3011217,Sell,2023-04-02 02:41:57.334247,97,LM,100.05,False,0,86,Generator,Waiting,0,,,,False,False,False
+1129,d149b6d8-4422-40a5-a3ea-771b189ddba4,Buy,2023-04-02 02:41:57.843917,107,LM,100.15,False,6,73,Generator,Waiting,0,,,,False,False,False
+1130,056cd7f7-a634-4463-ae47-a3351ac4d852,Sell,2023-04-02 02:41:58.349909,100,LM,100.1,False,3,80,Generator,Waiting,0,,,,False,False,False
+1131,ab6b9551-6c6a-4754-b5ac-2a99c17cec7c,Buy,2023-04-02 02:41:58.859563,97,LM,99.9,True,97,97,Generator,Waiting,0,,,,False,False,False
+1132,8e8f543a-7653-43cc-92aa-59fb0d9c387b,Buy,2023-04-02 02:41:59.367584,109,LM,100.1,False,9,36,Generator,Waiting,0,,,,False,False,False
+1133,8a037b5d-d18d-4c8a-82d7-c8d3b45e8ead,Sell,2023-04-02 02:41:59.876978,97,LM,100.0,False,3,75,Generator,Waiting,0,,,,False,False,False
+1134,33d8fa2e-e807-4fb8-a0d4-f4ddcba51e6d,Buy,2023-04-02 02:42:00.382570,99,LM,99.8,True,99,99,Generator,Waiting,0,,,,False,False,False
+1135,0657c504-7059-4c98-a653-9a720f7a5145,Sell,2023-04-02 02:42:00.890445,100,LM,99.75,False,5,59,Generator,Waiting,0,,,,False,False,False
+1136,30c49a4b-cad2-4835-b025-76b045024c02,Sell,2023-04-02 02:42:01.398052,89,LM,99.85,False,7,30,Generator,Waiting,0,,,,False,False,False
+1137,3f55faa6-30a3-4d8c-8034-dc095d290b13,Buy,2023-04-02 02:42:01.903874,95,LM,99.65,False,8,33,Generator,Waiting,0,,,,False,False,False
+1138,5a2a58de-c828-46db-885a-622a29e3346d,Buy,2023-04-02 02:42:02.411253,98,LM,99.9,False,2,72,Generator,Waiting,0,,,,False,False,False
+1139,06b6230e-6f77-490e-b2cf-c57d7e2d2287,Sell,2023-04-02 02:42:02.920575,101,LM,100.1,False,8,63,Generator,Waiting,0,,,,False,False,False
+1140,c239f69d-6eda-4501-a4e1-285e87d7830a,Sell,2023-04-02 02:42:03.427790,87,LM,99.9,False,6,46,Generator,Waiting,0,,,,False,False,False
+1141,6c28cfc4-2622-46fc-b6bf-7f8057e1b62f,Sell,2023-04-02 02:42:03.936918,101,LM,100.05,True,101,101,Generator,Waiting,0,,,,False,False,False
+1142,319a1350-214a-4fc4-acb5-ae9070029745,Sell,2023-04-02 02:42:04.444982,99,MR,-1.0,False,0,99,Generator,Waiting,0,,,,False,False,False
+1143,3bde0ff4-4cd5-4407-bd94-986cfb0765bd,Buy,2023-04-02 02:42:04.953826,96,MR,-1.0,False,0,96,Generator,Waiting,0,,,,False,False,False
+1144,fd39f9e3-2e6b-4325-88cf-8095cfcba954,Sell,2023-04-02 02:42:05.461661,105,LM,99.9,False,0,63,Generator,Waiting,0,,,,False,False,False
+1145,84f32962-c9e8-40a3-b42a-536ca9930b0b,Buy,2023-04-02 02:42:05.970100,106,LM,99.85,False,0,71,Generator,Waiting,0,,,,False,False,False
+1146,f9d28e01-a72b-48dc-987d-adab1f45c148,Buy,2023-04-02 02:42:06.478949,106,MR,-1.0,False,0,106,Generator,Waiting,0,,,,False,False,False
