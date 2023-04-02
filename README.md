@@ -4,8 +4,8 @@
 - Used websockets to stream market data live on the portal
 - Run like a standard Django app
 - requirement.txt\
-\
-`asgiref==3.6.0
+
+```asgiref==3.6.0
 attrs==22.2.0
 autobahn==23.1.2
 Automat==22.10.0
@@ -34,7 +34,9 @@ Twisted==22.10.0
 txaio==23.1.1
 typing_extensions==4.5.0
 zope.interface==6.0
-`
+```
+## Landing Page
+![](./images/Landing_Page.png)
 ## Order Page
 ![](./images/Order_page.png)
 
