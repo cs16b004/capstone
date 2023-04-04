@@ -1,4 +1,4 @@
-# Stock Exchange Siumulator
+# Stock Exchange Simulator
 - A stock exchange simulator written in python leveraging Django and Flask.
 - A random order generator to simulate live market environment
 - Used websockets to stream market data live on the portal
